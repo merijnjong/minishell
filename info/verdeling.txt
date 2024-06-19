@@ -1,12 +1,28 @@
 #TODO:
+							
+Meeting point:
+__________________________________________________________
 
-	Parsing:
+Basic structure:
+
+input 
+    '-> tokenization
+			       '-> parsing/error handling
+			  				                '-> put into nodes (cmd_list)
+											                            '-> execution
+
+
+Devlin:
+
+Parsing:
 		- Lexer: takes the input chars and puts the words into tokens
 		- Parser: processes the tokens
 		- Absolute and relative paths
 		- Also with no path so just "ls"
 
-	Execution:
+Merijn:
+
+Execution:
 		- Execute parsed information
 		- Working history, able to navigate with arrow keys
 			- Use readline to get what is on the terminal command line and save it. malloced (char **) -> 
@@ -24,12 +40,13 @@
 								- unset
 								- cd
 								- pwd
-							
-Meeting point:
 
-__________________________________________________________
+don't use split!!!
 
-Merijn:
+int main (argc argv envp)
 
 
-Devlin:
+
+< infile wc -l | ls -l > outfile
+
+
