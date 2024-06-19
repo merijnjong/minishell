@@ -9,6 +9,8 @@
 	Execution:
 		- Execute parsed information
 		- Working history, able to navigate with arrow keys
+			- Use readline to get what is on the terminal command line and save it. malloced (char **) -> 
+				example: if arrow up: put *history[i--] on command line.
 		- Implement	pipes						( | )
 					redirections				( <, >, >> )
 					here-doc					( << )
@@ -23,6 +25,7 @@
 								- cd
 								- pwd
 							
+Meeting point:
 
 __________________________________________________________
 

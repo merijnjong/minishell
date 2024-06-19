@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:09:24 by mjong             #+#    #+#             */
-/*   Updated: 2024/05/01 13:39:46 by mjong            ###   ########.fr       */
+/*   Updated: 2024/06/19 15:07:15 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ int		ft_prints(char *s);
 int		ft_printu(unsigned int n);
 int		ft_printx_lo(long n);
 int		ft_printx_up(long n);
-
 
 #endif

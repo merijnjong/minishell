@@ -4,7 +4,7 @@ LIBFT 	:= ./libft
 
 INCS	:= -I./incs -I$(LIBFT)
 LIBS	:= $(LIBFT)/libft.a
-SRCS	:= $(wildcard srcs/*.c)
+SRCS	:= $(shell find ./srcs -name "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
 all: libft $(NAME)

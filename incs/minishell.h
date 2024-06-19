@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:00 by mjong             #+#    #+#             */
-/*   Updated: 2024/06/19 14:11:22 by mjong            ###   ########.fr       */
+/*   Updated: 2024/06/19 15:26:14 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,5 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-
-
 
 #endif
