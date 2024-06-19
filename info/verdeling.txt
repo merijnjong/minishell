@@ -1,0 +1,32 @@
+#TODO:
+
+	Parsing:
+		- Lexer: takes the input chars and puts the words into tokens
+		- Parser: processes the tokens
+		- Absolute and relative paths
+		- Also with no path so just "ls"
+
+	Execution:
+		- Execute parsed information
+		- Working history, able to navigate with arrow keys
+		- Implement	pipes						( | )
+					redirections				( <, >, >> )
+					here-doc					( << )
+					double and single quotes	( "", '' )
+					environment variable		( $ )
+					signals 					( ctrl + c, ctrl + \, ctrl + d )
+					built-ins:	- echo -n
+								- exit
+								- env
+								- export
+								- unset
+								- cd
+								- pwd
+							
+
+__________________________________________________________
+
+Merijn:
+
+
+Devlin:
