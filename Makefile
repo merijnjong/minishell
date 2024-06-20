@@ -3,7 +3,7 @@ CFLAGS	:= -g -Wextra -Wall -Werror
 LIBFT 	:= ./libft
 
 INCS	:= -I./incs -I$(LIBFT)
-LIBS	:= $(LIBFT)/libft.a
+LIBS	:= $(LIBFT)/libft.a -lreadline -lhistory
 SRCS	:= $(shell find ./srcs -name "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
