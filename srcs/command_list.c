@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   comman_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:41:17 by mjong             #+#    #+#             */
-/*   Updated: 2024/06/20 18:26:11 by mjong            ###   ########.fr       */
+/*   Updated: 2024/06/20 19:08:34 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+	In dit bestand staan functies die een command list maken,
+	Nodes toevoegen aan een command list,
+	Commands toevoegen aan een node.
+	Ook staan er functies in die de list recursief freed.
+*/
 
 void	add_node(t_node **head, char *input, char *output, char *executable)
 {
@@ -21,8 +28,13 @@ void	add_node(t_node **head, char *input, char *output, char *executable)
 	if (!new_node)
 		return ;
 	new_node->prev = NULL;
-	new_node->cmd = add_command(input, output, executable);
 	new_node->next = NULL;
+	new_node->cmd = add_command(input, output, executable);
+	if (!new_node->cmd)
+	{
+		free(new_node);
+		return;
+	}
 	current_node = NULL;
 	if (!*head)
 		*head = new_node;
@@ -61,53 +73,41 @@ t_cmd	*add_command(char *input, char *output, char *executable)
 	return (command);
 }
 
-// create_list merijn
-t_cmdlist	*create_list(void *data)
+t_cmdlist	*create_list(void)
 {
 	t_cmdlist	*list;
 
 	list = malloc(sizeof(t_cmdlist));
 	if (!list)
 		return (free(list), NULL);
+	list->head = NULL;
 	return (list);
 }
 
-// create_list devlin
-t_cmdlist	create_list(t_cmdlist **list)
-{
-	t_node	*a;
 
-	*list = (t_node *)malloc(sizeof(t_node));
-	a = *list;
+void free_command(t_cmd *cmd)
+{
+	if (!cmd)
+		return ;
+	free(cmd->input);
+	free(cmd->output);
+	free(cmd->executable);
+	free(cmd);
+}
+
+void free_cmdlist_recursive(t_node *node)
+{
+	if (!node)
+		return ;
+	free_cmdlist_recursive(node->next);
+	free_command(node->cmd);
+	free(node);
+}
+
+void free_cmdlist(t_cmdlist *list)
+{
 	if (!list)
 		return ;
-	cmd->top = NULL;
-	a->size = 0;
-	return ;
-}
-// ff naar kijken nog
-
-void	free_list(t_cmdlist **list)
-{
-	t_cmdlist	*tempstack;
-	t_node		*tempnode;
-
-	tempstack = *list;
-	if (tempstack->head == NULL)
-	{
-		free(tempstack);
-		tempstack = NULL;
-		return ;
-	}
-	tempnode = tempstack->head;
-	while (tempnode->next != NULL)
-	{
-		tempnode = tempnode->next;
-		free(tempnode->prev);
-	}
-	free(tempnode);
-	tempnode = NULL;
-	free(*list);
-	list = NULL;
-	return ;
+	free_cmdlist_recursive(list->head);
+	free(list);
 }

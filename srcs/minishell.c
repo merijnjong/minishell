@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/06/20 17:40:17 by mjong            ###   ########.fr       */
+/*   Updated: 2024/06/20 19:36:49 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,22 @@
 void	ft_input(void)
 {
 	char	*input;
+	int		status;
 
 	while (1)
 	{
 		input = readline("minishell> ");
-		ft_parser(input);
+		status = ft_parser(input);
+		if (status == 1)
+		{
+			free(input);
+			break;
+		}
 		if (input != NULL)
 			add_history(input);
 		free(input);
-		// add clear_history function somewhere
 	}
+	rl_clear_history();
 }
 
 int	main(int argc, char *envp[])
