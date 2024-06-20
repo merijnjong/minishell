@@ -6,15 +6,14 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/06/20 15:43:33 by mjong            ###   ########.fr       */
+/*   Updated: 2024/06/20 17:40:13 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parser(char *cmd)
+void	ft_parser(char *prompt)
 {
-	if (cmd[0] == '\0')
-		ft_printf("ERROR: Enter a command\n");
-	return (0);
+	if (prompt[0] == '\0')
+		ft_printf("\033[31mERROR: Enter a command\e[0m\n");
 }

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:00 by mjong             #+#    #+#             */
-/*   Updated: 2024/06/20 16:41:11 by mjong            ###   ########.fr       */
+/*   Updated: 2024/06/20 18:21:43 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <linux/limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -29,13 +30,26 @@
 # include <termios.h>
 # include <unistd.h>
 
+typedef struct s_cmdlist
+{
+	struct s_node	*head;
+} t_cmdlist;
+
 typedef struct s_node
 {
-	struct s_node	*next;
 	struct s_node	*prev;
-	char			*cmd;
+	struct t_cmd	*cmd;
+	struct s_node	*next;
 } t_node;
 
-int	parser(char *cmd);
+typedef struct s_cmd
+{
+	char	*input;
+	char	*output;
+	char	*executable;
+} t_cmd;
+
+// parsing.c //
+void	ft_parser(char *input);
 
 #endif
