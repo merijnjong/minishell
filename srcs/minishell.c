@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/06/20 19:36:49 by dkros            ###   ########.fr       */
+/*   Updated: 2024/07/04 14:47:38 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_input(void)
+void	ft_input(char *envp[])
 {
 	char	*input;
 	int		status;
@@ -20,7 +20,7 @@ void	ft_input(void)
 	while (1)
 	{
 		input = readline("minishell> ");
-		status = ft_parser(input);
+		status = ft_parser(input, envp);
 		if (status == 1)
 		{
 			free(input);
@@ -35,9 +35,8 @@ void	ft_input(void)
 
 int	main(int argc, char *envp[])
 {
-	envp = NULL;
 	if (argc > 1)
-		ft_input();
+		ft_input(envp);
 	else
 		ft_printf("\033[31mError: Incorrect notation.\nStart program by typing: ./minishell start\e[0m\n");
 	return (0);

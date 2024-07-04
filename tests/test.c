@@ -198,3 +198,60 @@ int	main(void)
 	print_tokenlist(tokenlist);
 	return (0);
 }
+
+// int	ft_isalnum(int c)
+// {
+// 	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+// 	{
+// 		return (1);
+// 	}
+// 	return (0);
+// }int	ft_check_num_operators(char *str)
+// {
+// 	int		i;
+// 	int		count;
+// 	char	*operators;
+// 	char	*delimiters;	i = 0;
+// 	count = 0;
+// 	delimiters = " \t\n";
+// 	operators = "><|";
+// 	while (str[i])
+// 	{
+// 		if ((str[i] && str[i - 1] && str[i + 1])
+// 			&& strchr(operators, str[i]) && strchr(delimiters, str[i - 1])
+// 				&& strchr(delimiters,(str[i + 1])))
+// 			count ++;
+// 		i++;
+// 	}
+// 	return (count);
+// }int	get_token_count(char *input)
+// {
+// 	int		i;
+// 	int		count;
+// 	char	*delimiters;
+// 	char	*operators;	count = 1;
+// 	delimiters = " \t\n";
+// 	operators = "><|";
+// 	while (strchr(delimiters, input[i]) && input[i])
+// 		i++;
+// 	while (input[i] != '\0')
+// 	{
+// 		if (strchr(delimiters, input[i]))
+// 		{
+// 			while (strchr(delimiters, input[i]) && input[i])
+// 				i++;
+// 			if (input[i] && input[i + 1])
+// 				count++;
+// 		}
+// 		if (strchr(operators, input[i]))
+// 			count++;
+// 		i++;
+// 	}
+// 	count -= ft_check_num_operators(input);
+// 	return (count);
+// }int main(int argc, char *argv[])
+// {
+// 	if (argc != 2)
+// 		return (printf("Please give one argument"), 1);
+// 	return (printf("Number of tokens: %d\n\n", get_token_count(argv[1])), 0);
+// }

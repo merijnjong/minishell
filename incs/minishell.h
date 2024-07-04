@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/06/27 14:52:00 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/04 17:03:38 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define WORD 10
 # define HEREDOC 11
-# define SPACE 12
+// # define SPACE 12
 # define PIPE 13
 # define APPEND 14
 # define INPUT 15
@@ -70,14 +70,15 @@ typedef struct s_tokenlist
 	struct s_node	*head;
 } t_tokenlist;
 
-
-
 // minishell.c
-void		ft_input(void);
+void		ft_input(char *envp[]);
+
 // parsing.c
-int			ft_parser(char *input);
+int			ft_parser(char *input, char *envp[]);
+
 // tokenization.c
-t_tokenlist		*ft_tokenize(char *str);
+t_tokenlist	*ft_tokenize(char *str);
+
 // command_list.c
 t_cmdlist	*create_list(void);
 t_cmd		*add_command(char *input, char *output, char *executable);
@@ -85,5 +86,17 @@ void		free_cmdlist(t_cmdlist *list);
 void		free_cmdlist_recursive(t_node *node);
 void		free_command(t_cmd *cmd);
 void		add_node(t_node **head, char *input, char *output, char *executable);
+
+// execution.c
+void		ft_execute(char *input, char *envp[]);
+
+// /srcs/builtins
+int			builtincheck(char *input);
+int			cd(const char *cd_cmd);
+int			echo(char *msg);
+int			env(char *msg);
+int			export(char *msg);
+int			pwd(char *msg);
+int			unset(char *msg);
 
 #endif
