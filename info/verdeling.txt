@@ -43,10 +43,4 @@ Execution:
 
 don't use split!!!
 
-int main (argc argv envp)
-
-
-
 < infile wc -l | ls -l > outfile
-
-
