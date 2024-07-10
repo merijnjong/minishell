@@ -6,14 +6,38 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:39 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/04 16:35:12 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/10 17:17:31 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int pwd(char *msg)
+int	ft_isprint2(char c)
 {
-	printf("COMMAND: %s\n", msg);
+	if (c >= 33 && c <= 126)
+	{
+		return (1);
+	}
 	return (0);
 }
+
+int pwd(char *command)
+{
+	char	cwd[PATH_MAX];
+	int		i;
+
+	i = 0;
+	while (ft_isprint2(command[i]) == 1)
+		i++;
+	if (i == 0)
+	{
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
+			ft_printf("%s\n", cwd);
+		else
+			perror("getcwd");
+	}
+	else
+		return (ft_printf("pwd: too many arguments\n"));
+	return (0);
+}
+	

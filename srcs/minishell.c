@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/04 14:47:38 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/10 17:04:35 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	ft_input(char *envp[])
 	{
 		input = readline("minishell> ");
 		status = ft_parser(input, envp);
+		if (ft_strncmp(input, "$?", 3) == 0)
+			ft_printf("%d\n", status);
 		if (status == 1)
 		{
 			free(input);
-			break;
+			break ;
 		}
 		if (input != NULL)
 			add_history(input);

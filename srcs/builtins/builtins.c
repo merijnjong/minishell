@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/04 17:01:43 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/10 17:18:26 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtincheck(char *input)
 	else if (ft_strncmp(input, "echo", 4) == 0 && (input[4] == ' ' || input[4] == '\0'))
 		return (echo(input + 5));
 	else if (ft_strncmp(input, "env", 3) == 0 && (input[3] == ' ' || input[3] == '\0'))
-		return (env(input + 4));
+		return (env());
 	else if (ft_strncmp(input, "export", 6) == 0 && (input[6] == ' ' || input[6] == '\0'))
 		return (export(input + 7));
 	else if (ft_strncmp(input, "pwd", 3) == 0 && (input[3] == ' ' || input[3] == '\0'))
