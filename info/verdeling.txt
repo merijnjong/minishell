@@ -20,7 +20,7 @@ Parsing:
 		- Absolute and relative paths
 		- Also with no path so just "ls"
 
-Merijn:
+Merra:
 
 Execution:
 		- Execute parsed information
