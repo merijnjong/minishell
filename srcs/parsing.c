@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/10 17:27:54 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/24 19:14:36 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,30 @@
 
 int	ft_parser(char *input, char *envp[])
 {
-	if (input[0] == '\0')
+	pid_t	pid;
+	int		status;
+	envp = NULL;
+
+	pid = fork();
+	if (pid == -1)
+		ft_error("fork");
+	else if (pid == 0)
 	{
-		ft_printf("\033[31mERROR: Enter a command\e[0m\n");
-		return (0);
+		if (input[0] == '\0')
+			return (0);
+		else if (ft_strncmp(input, "ls", 3) == 0)
+			ft_execute("/usr/bin/ls", envp);
+		else
+			builtincheck(input);
 	}
-	else if (ft_strncmp(input, "exit", 5) == 0)
-	{
-		ft_printf("exit\n");
-		return (1);
-	}
-	else if (ft_strncmp(input, "ls", 3) == 0)
-		ft_execute("/usr/bin/ls", envp);
 	else
-		return (builtincheck(input));
+	{
+		if (waitpid(pid, &status, 0) == -1)
+			ft_error("waitpid");
+		if (WIFEXITED(status))
+			return (WEXITSTATUS(status));
+		else
+			return (-1);
+	}
 	return (0);
 }

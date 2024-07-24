@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/07/10 16:44:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/24 19:06:44 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,8 @@ int			env(void);
 int			export(char *msg);
 int			pwd(char *command);
 int			unset(char *msg);
+
+// utils.c
+void		ft_error(const char *msg);
 
 #endif

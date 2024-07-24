@@ -41,6 +41,6 @@ Execution:
 								- cd
 								- pwd
 
-don't use split!!!
+don't use ft_split!!!
 
 < infile wc -l | ls -l > outfile

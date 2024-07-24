@@ -6,17 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/04 16:09:35 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/24 19:17:13 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_error(const char *msg)
-{
-	perror(msg);
-	exit(EXIT_FAILURE);
-}
 
 void	ft_free_dbl(char **ptr)
 {
@@ -49,7 +43,6 @@ char	*ft_find_path(char *envp[], char *cmd)
 	int		i;
 
 	i = 0;
-	print_envp(envp);
 	if (access(cmd, X_OK) == 0)
 		return (cmd);
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
