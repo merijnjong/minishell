@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 15:05:26 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 17:19:12 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	ft_free_dbl(char **ptr)
 	free(ptr);
 }
 
-void	print_envp(char *envp[])
+void	print_dbl_ptr(char **ptr)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i] != NULL)
+	while (ptr[i] != NULL)
 	{
-		printf("%s\n", envp[i]);
+		printf("%s\n", ptr[i]);
 		i++;
 	}
 }
@@ -57,7 +57,10 @@ char	*ft_find_path(char *envp[], char *cmd)
 		path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(path, X_OK) == 0)
+		{
+			ft_free_dbl(paths);
 			return (path);
+		}
 		free(path);
 		i++;
 	}
@@ -65,17 +68,24 @@ char	*ft_find_path(char *envp[], char *cmd)
 	return (0);
 }
 
+// envp isn't passed on correctly
+
 void	ft_execute(char *input, char *envp[])
 {
 	char	*path;
-	char	*argv[3];
+	char	**argv;
 
-	argv[0] = input;
-	argv[1] = NULL;
-	argv[2] = NULL;
 	if (!input)
 		ft_error("input");
+	argv = ft_split(input, ' ');
+	print_dbl_ptr(argv);
+	if (argv == NULL || argv[0] == NULL)
+	{
+		ft_free_dbl(argv);
+		ft_error("split");
+	}
 	path = ft_find_path(envp, input);
+	printf("path: %s\n", path);
 	if (path == NULL)
 	{
 		free(input);
