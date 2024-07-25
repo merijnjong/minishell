@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:39 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/10 17:17:31 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:04:15 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_isprint2(char c)
 	return (0);
 }
 
-int pwd(char *command)
+int	pwd(char *command)
 {
 	char	cwd[PATH_MAX];
 	int		i;
@@ -40,4 +40,3 @@ int pwd(char *command)
 		return (ft_printf("pwd: too many arguments\n"));
 	return (0);
 }
-	

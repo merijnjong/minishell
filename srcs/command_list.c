@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:41:17 by mjong             #+#    #+#             */
-/*   Updated: 2024/06/27 14:43:42 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:04:43 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	add_node(t_node **head, char *input, char *output, char *executable)
 	if (!new_node->cmd)
 	{
 		free(new_node);
-		return;
+		return ;
 	}
 	current_node = NULL;
 	if (!*head)
@@ -84,7 +84,7 @@ t_cmdlist	*create_list(void)
 	return (list);
 }
 
-void free_command(t_cmd *cmd)
+void	free_command(t_cmd *cmd)
 {
 	if (!cmd)
 		return ;
@@ -94,7 +94,7 @@ void free_command(t_cmd *cmd)
 	free(cmd);
 }
 
-void free_cmdlist_recursive(t_node *node)
+void	free_cmdlist_recursive(t_node *node)
 {
 	if (!node)
 		return ;

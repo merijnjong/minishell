@@ -6,22 +6,23 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:28 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/10 16:22:05 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:03:56 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char **environ;
+extern char	**environ;
 
-int env(void)
+int	env(void)
 {
-    char **env = environ;
+	char	**env;
 
-    while (*env)
+	env = environ;
+	while (*env)
 	{
-        ft_printf("%s\n", *env);
-        env++;
-    }
-    return (0);
+		ft_printf("%s\n", *env);
+		env++;
+	}
+	return (0);
 }

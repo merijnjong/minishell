@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/24 18:28:33 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:06:15 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_input(char *envp[])
 		status = ft_parser(input, envp);
 		if (ft_strncmp(input, "$?", 3) == 0)
 			ft_printf("%d\n", status);
-		// only works if its the first command
+		// only works if its the first command made
 		if (ft_strncmp(input, "exit", 5) == 0)
 		{
 			free(input);
@@ -41,6 +41,7 @@ int	main(int argc, char *envp[])
 	if (argc == 1)
 		ft_input(envp);
 	else
-		ft_printf("\033[31mError: Incorrect notation.\nStart program by typing: ./minishell\e[0m\n");
+		ft_printf("\033[31mError: Incorrect notation.\n\
+		Start program by typing: ./minishell\e[0m\n");
 	return (0);
 }

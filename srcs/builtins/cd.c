@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 14:06:30 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:03:09 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	cd_path(const char *cd_cmd, int i, int j)
 {
 	char	*path;
-	
+
 	path = ft_strndup(cd_cmd + i, j - i);
 	if (chdir(path) == -1)
 	{
@@ -27,7 +27,7 @@ int	cd_path(const char *cd_cmd, int i, int j)
 	return (0);
 }
 
-int	cd_home()
+int	cd_home(void)
 {
 	const char	*home;
 
@@ -48,7 +48,7 @@ int	cd_home()
 	return (0);
 }
 
-int cd(const char *cd_cmd)
+int	cd(const char *cd_cmd)
 {
 	int	result;
 	int	i;
@@ -59,7 +59,7 @@ int cd(const char *cd_cmd)
 		i++;
 	j = ft_strlen(cd_cmd);
 	while (j > i && cd_cmd[j - 1] == ' ')
-        j--;
+		j--;
 	if (i == j || (j - i == 1 && cd_cmd[i] == '~'))
 		result = cd_home();
 	else

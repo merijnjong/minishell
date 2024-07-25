@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/24 19:14:36 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:06:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ft_parser(char *input, char *envp[])
 {
 	pid_t	pid;
 	int		status;
-	envp = NULL;
 
+	envp = NULL;
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");

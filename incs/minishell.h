@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/07/24 19:06:44 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:07:23 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,31 @@ typedef struct s_cmd
 	char	*input;
 	char	*output;
 	char	*executable;
-} t_cmd;
+}	t_cmd;
 
 typedef struct s_node
 {
 	struct s_node	*prev;
-	t_cmd	*cmd;
+	t_cmd			*cmd;
 	struct s_node	*next;
-} t_node;
+}	t_node;
 
 typedef struct s_cmdlist
 {
 	struct s_node	*head;
-} t_cmdlist;
+}	t_cmdlist;
 
 typedef struct s_token_node
 {
 	struct s_token_node	*prev;
 	int					token;
-	struct s_token_node *next;
-} t_token_node;
+	struct s_token_node	*next;
+}	t_token_node;
 
 typedef struct s_tokenlist
 {
 	struct s_node	*head;
-} t_tokenlist;
+}	t_tokenlist;
 
 // minishell.c
 void		ft_input(char *envp[]);

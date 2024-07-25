@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/24 19:17:13 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:05:26 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ void	ft_free_dbl(char **ptr)
 	free(ptr);
 }
 
-void print_envp(char *envp[])
+void	print_envp(char *envp[])
 {
-    int i = 0;
-    while (envp[i] != NULL)
-    {
-        printf("%s\n", envp[i]);
-        i++;
-    }
+	int	i;
+
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
 }
 
 char	*ft_find_path(char *envp[], char *cmd)

@@ -4,54 +4,53 @@
 #include <limits.h>
 #include <stdlib.h>
 
-
-# define WORD 10
-# define HEREDOC 11
-# define SPACE 12
-# define PIPE 13
-# define APPEND 14
-# define INPUT 15
-# define TRUNC 16
-# define END 17
-# define NEWLINE 18
-# define GREAT 19
-# define AMPERSAND 20
-# define LESS 21
-# define GREATGREAT 22
-# define QUOTE 23
-# define DOUBLEQUOTE 24
-# define ENVAR 25
+#define WORD 10
+#define HEREDOC 11
+#define SPACE 12
+#define PIPE 13
+#define APPEND 14
+#define INPUT 15
+#define TRUNC 16
+#define END 17
+#define NEWLINE 18
+#define GREAT 19
+#define AMPERSAND 20
+#define LESS 21
+#define GREATGREAT 22
+#define QUOTE 23
+#define DOUBLEQUOTE 24
+#define ENVAR 25
 
 typedef struct s_cmd
 {
 	char	*input;
 	char	*output;
 	char	*executable;
-} t_cmd;
+}	t_cmd;
 
 typedef struct s_node
 {
 	struct s_node	*prev;
-	t_cmd	*cmd;
+	t_cmd			*cmd;
 	struct s_node	*next;
-} t_node;
+}	t_node;
 
 typedef struct s_cmdlist
 {
 	struct s_node	*head;
-} t_cmdlist;
+}	t_cmdlist;
 
 typedef struct s_token_node
 {
 	struct s_token_node	*prev;
 	int					token;
-	struct s_token_node *next;
-} t_token_node;
+	struct s_token_node	*next;
+}	t_token_node;
 
 typedef struct s_tokenlist
 {
 	struct s_toke_node	*head;
-} t_tokenlist;
+}	t_tokenlist;
 
 t_tokenlist		*ft_tokenize(char *str);
 void			add_token(t_tokenlist *tokenlist, int data);
@@ -60,7 +59,7 @@ int				ft_isword(char *str);
 char			*ft_strchr(const char *s, int c);
 int				ft_isalpha(int c);
 
-int ft_get_token(char *str, int i)
+int	ft_get_token(char *str, int i)
 {
 	if (str[i] == '|' && str[i + 1] && str[i + 1] == ' ')
 		return (PIPE);
@@ -89,7 +88,7 @@ t_tokenlist	*ft_tokenize(char *str)
 	bool		word;
 	char		*delimiters;
 	char		*tokenchars;
-	t_tokenlist *tokenlist;
+	t_tokenlist	*tokenlist;
 
 	i = 0;
 	tokenlist = (t_tokenlist *)malloc(sizeof(t_token_node));
