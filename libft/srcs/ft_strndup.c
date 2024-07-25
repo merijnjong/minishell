@@ -1,13 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax.c                                           :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 13:50:04 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 14:25:41 by mjong            ###   ########.fr       */
+/*   Created: 2024/07/25 14:08:10 by mjong             #+#    #+#             */
+/*   Updated: 2024/07/25 14:10:58 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+
+char	*ft_strndup(const char *s, size_t n)
+{
+	size_t	i;
+	size_t	totlen;
+	char	*str;
+
+	i = 0;
+	totlen = ft_strlen(s);
+	str = (char *)malloc(totlen + 1);
+	if (!str)
+		return (NULL);
+	while (s[i] != '\0' && i < n)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

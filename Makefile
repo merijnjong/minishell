@@ -2,7 +2,7 @@ NAME	:= minishell
 CFLAGS	:= -g -Wextra -Wall -Werror
 LIBFT 	:= ./libft
 
-INCS	:= -I./incs -I$(LIBFT)
+INCS	:= -I./incs -I$(LIBFT)/incs
 LIBS	:= $(LIBFT)/libft.a -lreadline -lhistory
 SRCS	:= $(shell find ./srcs -name "*.c")
 OBJS	:= ${SRCS:.c=.o}
