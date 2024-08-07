@@ -6,35 +6,34 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 18:14:17 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 15:23:54 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parser(char *input, char *envp[])
+int	ft_parser(char *argv, char *envp[])
 {
 	pid_t	pid;
 	int		status;
 
+	if (ft_strncmp(argv, "exit", 5) == 0)
+	{
+		free(argv);
+		ft_printf("exit\n");
+		exit(EXIT_SUCCESS);
+	}
+	if (builtincheck(argv) != 127)
+		return (0);
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");
 	else if (pid == 0)
 	{
-		if (ft_strncmp(input, "exit", 5) == 0)
-		{
-			free(input);
-			exit(EXIT_SUCCESS);
-		}
-		else if (input[0] == '\0')
+		if (argv == NULL)
 			return (0);
-		else if (ft_strncmp(input, "ls", 3) == 0)
-			ft_execute("/usr/bin/ls", envp);
 		else
-			return (builtincheck(input));
-		// else
-		// 	ft_execute(input, envp);
+			ft_execute(argv, envp);
 	}
 	else
 	{

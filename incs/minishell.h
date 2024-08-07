@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/07/25 18:09:30 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 15:04:50 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,34 @@ typedef struct s_cmd
 	char	*filename;
 	char	**args;
 	char	**envp;
-} t_cmd;
+}	t_cmd;
 
 typedef struct s_node
 {
-	int 			type;
-	t_cmd 			*cmd;
+	int				type;
+	t_cmd			*cmd;
 	struct s_node	*next;
-} t_node;
+}	t_node;
 
 typedef struct s_cmdlist
 {
 	struct s_node	*head;
-} t_cmdlist;
+}	t_cmdlist;
 
 typedef struct s_token_node
 {
 	struct s_token_node	*prev;
 	int					token;
-	struct s_token_node *next;
-} t_token_node;
+	struct s_token_node	*next;
+}	t_token_node;
 
 typedef struct s_tokenlist
 {
 	struct s_node	*head;
-} t_tokenlist;
+}	t_tokenlist;
 
 // minishell.c
-void		ft_input(char *envp[]);
+void		ft_input(char *argv[], char *envp[]);
 
 // parsing.c
 int			ft_parser(char *input, char *envp[]);
@@ -88,7 +88,7 @@ void		free_command(t_cmd *cmd);
 void		add_node(t_node **head, char *input, int begin, int end);
 
 // execution.c
-void		ft_execute(char *input, char *envp[]);
+void		ft_execute(char *argv, char *envp[]);
 
 // /srcs/builtins
 int			builtincheck(char *input);

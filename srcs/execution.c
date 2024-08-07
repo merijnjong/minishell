@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 17:19:12 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 15:16:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ char	*ft_find_path(char *envp[], char *cmd)
 		path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(path, X_OK) == 0)
-		{
-			ft_free_dbl(paths);
 			return (path);
-		}
 		free(path);
 		i++;
 	}
@@ -68,30 +65,26 @@ char	*ft_find_path(char *envp[], char *cmd)
 	return (0);
 }
 
-// envp isn't passed on correctly
-
-void	ft_execute(char *input, char *envp[])
+void	ft_execute(char *argv, char *envp[])
 {
+	char	**cmd;
 	char	*path;
-	char	**argv;
 
-	if (!input)
-		ft_error("input");
-	argv = ft_split(input, ' ');
-	print_dbl_ptr(argv);
-	if (argv == NULL || argv[0] == NULL)
+	cmd = ft_split(argv, ' ');
+	if (!cmd)
+		ft_error("cmd");
+	if (cmd == NULL || cmd[0] == NULL)
 	{
-		ft_free_dbl(argv);
+		ft_free_dbl(cmd);
 		ft_error("split");
 	}
-	path = ft_find_path(envp, input);
-	printf("path: %s\n", path);
+	path = ft_find_path(envp, cmd[0]);
 	if (path == NULL)
 	{
-		free(input);
+		ft_free_dbl(cmd);
 		perror("Incorrect argument");
 		exit(127);
 	}
-	if (execve(path, argv, envp) < 0)
+	if (execve(path, cmd, envp) < 0)
 		ft_error("execve");
 }
