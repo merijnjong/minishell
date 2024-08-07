@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/31 16:49:11 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 16:06:51 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	echo(char *input)
+int	echo(char *input, t_status status)
 {
 	char	percent;
 
@@ -29,6 +29,8 @@ int	echo(char *input)
 			ft_printf("%c\n", percent);
 		}
 	}
+	else if (ft_strncmp(input, "$?", 2) == 0)
+		ft_printf("%d\n", status.last);
 	else
 		ft_printf("%s\n", input);
 	return (0);

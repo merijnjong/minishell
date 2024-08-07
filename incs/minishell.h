@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/08/07 15:04:50 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 16:25:31 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ typedef struct s_cmd
 	char	**envp;
 }	t_cmd;
 
+typedef struct s_status
+{
+	int	last;
+}	t_status;
+
 typedef struct s_node
 {
 	int				type;
@@ -74,7 +79,7 @@ typedef struct s_tokenlist
 void		ft_input(char *argv[], char *envp[]);
 
 // parsing.c
-int			ft_parser(char *input, char *envp[]);
+int			ft_parser(char *argv, char *envp[], t_status status);
 
 // tokenization.c
 t_tokenlist	*ft_tokenize(char *str);
@@ -91,9 +96,9 @@ void		add_node(t_node **head, char *input, int begin, int end);
 void		ft_execute(char *argv, char *envp[]);
 
 // /srcs/builtins
-int			builtincheck(char *input);
+int			builtin_check(char *input, t_status status);
 int			cd(const char *cd_cmd);
-int			echo(char *msg);
+int			echo(char *msg, t_status status);
 int			env(void);
 int			export(char *msg);
 int			pwd(char *command);

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/07 15:16:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 18:14:08 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ char	*ft_find_path(char *envp[], char *cmd)
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	paths = ft_split(envp[i] + 5, ':');
+	if (paths == NULL)
+	{
+		ft_free_dbl(paths);
+		ft_error("paths");
+	}
 	i = 0;
 	while (paths[i] != NULL)
 	{
@@ -71,13 +76,8 @@ void	ft_execute(char *argv, char *envp[])
 	char	*path;
 
 	cmd = ft_split(argv, ' ');
-	if (!cmd)
+	if (cmd == NULL)
 		ft_error("cmd");
-	if (cmd == NULL || cmd[0] == NULL)
-	{
-		ft_free_dbl(cmd);
-		ft_error("split");
-	}
 	path = ft_find_path(envp, cmd[0]);
 	if (path == NULL)
 	{

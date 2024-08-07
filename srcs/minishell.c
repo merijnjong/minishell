@@ -6,20 +6,26 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/07 14:57:43 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 17:58:10 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	init(t_status *status)
+{
+	status->last = 0;
+}
+
 void	ft_input(char *argv[], char *envp[])
 {
-	int		status;
+	t_status	status;
 
+	init(&status);
 	while (1)
 	{
 		argv[0] = readline("minishell> ");
-		status = ft_parser(argv[0], envp);
+		status.last = ft_parser(argv[0], envp, status);
 		if (argv != NULL)
 			add_history(argv[0]);
 		free(argv[0]);

@@ -6,16 +6,15 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/07 15:23:54 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 17:59:38 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parser(char *argv, char *envp[])
+int	ft_parser(char *argv, char *envp[], t_status status)
 {
 	pid_t	pid;
-	int		status;
 
 	if (ft_strncmp(argv, "exit", 5) == 0)
 	{
@@ -23,8 +22,9 @@ int	ft_parser(char *argv, char *envp[])
 		ft_printf("exit\n");
 		exit(EXIT_SUCCESS);
 	}
-	if (builtincheck(argv) != 127)
-		return (0);
+	status.last = builtin_check(argv, status);
+	if (status.last != 127)
+		return (status.last);
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");
@@ -37,10 +37,10 @@ int	ft_parser(char *argv, char *envp[])
 	}
 	else
 	{
-		if (waitpid(pid, &status, 0) == -1)
+		if (waitpid(pid, &status.last, 0) == -1)
 			ft_error("waitpid");
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));
+		if (WIFEXITED(status.last))
+			return (WEXITSTATUS(status.last));
 		else
 			return (-1);
 	}
