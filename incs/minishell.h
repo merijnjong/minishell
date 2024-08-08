@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/08/07 16:25:31 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/08 15:44:38 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,8 @@ int			unset(char *msg);
 
 // utils.c
 void		ft_error(const char *msg);
+void		ft_exit(char *argv);
+void		ft_free_dbl(char **ptr);
+void		print_dbl_ptr(char **ptr);
 
 #endif

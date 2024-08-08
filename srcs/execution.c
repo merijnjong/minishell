@@ -6,36 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/07 18:14:08 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/08 15:44:01 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_free_dbl(char **ptr)
-{
-	int	i;
-
-	i = 0;
-	while (ptr[i] != NULL)
-	{
-		free(ptr[i]);
-		i++;
-	}
-	free(ptr);
-}
-
-void	print_dbl_ptr(char **ptr)
-{
-	int	i;
-
-	i = 0;
-	while (ptr[i] != NULL)
-	{
-		printf("%s\n", ptr[i]);
-		i++;
-	}
-}
 
 char	*ft_find_path(char *envp[], char *cmd)
 {

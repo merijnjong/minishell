@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/07 17:58:10 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/08 16:01:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,18 @@ void	ft_input(char *argv[], char *envp[])
 	while (1)
 	{
 		argv[0] = readline("minishell> ");
-		status.last = ft_parser(argv[0], envp, status);
-		if (argv != NULL)
+		if (argv[0] == NULL)
+		{
+			ft_printf("exit\n");
+			break ;
+		}
+		if (argv[0][0] != '\0')
+		{
+			status.last = ft_parser(argv[0], envp, status);
 			add_history(argv[0]);
+		}
+		else
+			status.last = 130;
 		free(argv[0]);
 	}
 	rl_clear_history();

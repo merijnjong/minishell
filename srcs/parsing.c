@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/07 17:59:38 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/08 15:41:22 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@ int	ft_parser(char *argv, char *envp[], t_status status)
 	pid_t	pid;
 
 	if (ft_strncmp(argv, "exit", 5) == 0)
-	{
-		free(argv);
-		ft_printf("exit\n");
-		exit(EXIT_SUCCESS);
-	}
+		ft_exit(argv);
 	status.last = builtin_check(argv, status);
 	if (status.last != 127)
 		return (status.last);
@@ -29,12 +25,7 @@ int	ft_parser(char *argv, char *envp[], t_status status)
 	if (pid == -1)
 		ft_error("fork");
 	else if (pid == 0)
-	{
-		if (argv == NULL)
-			return (0);
-		else
-			ft_execute(argv, envp);
-	}
+		ft_execute(argv, envp);
 	else
 	{
 		if (waitpid(pid, &status.last, 0) == -1)
