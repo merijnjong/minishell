@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 15:02:36 by mjong            ###   ########.fr       */
+/*   Updated: 2024/08/07 16:25:07 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtincheck(char *input)
+int	builtin_check(char *input, t_status status)
 {
 	while (*input == ' ')
 		input++;
@@ -21,7 +21,7 @@ int	builtincheck(char *input)
 		return (cd(input + 3));
 	else if (ft_strncmp(input, "echo", 4) == 0
 		&& (input[4] == ' ' || input[4] == '\0'))
-		return (echo(input + 5));
+		return (echo(input + 5, status));
 	else if (ft_strncmp(input, "env", 3) == 0
 		&& (input[3] == ' ' || input[3] == '\0'))
 		return (env());

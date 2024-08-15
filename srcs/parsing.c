@@ -6,42 +6,32 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/31 14:57:15 by dkros            ###   ########.fr       */
+/*   Updated: 2024/08/15 16:12:25 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parser(char *input, char *envp[])
+int	ft_parser(char *argv, char *envp[], t_status status)
 {
 	pid_t	pid;
-	int		status;
 
+	if (ft_strncmp(argv, "exit", 5) == 0)
+		ft_exit(argv);
+	status.last = builtin_check(argv, status);
+	if (status.last != 127)
+		return (status.last);
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");
 	else if (pid == 0)
-	{
-		if (ft_strncmp(input, "exit", 5) == 0)
-		{
-			free(input);
-			exit(EXIT_SUCCESS);
-		}
-		else if (input[0] == '\0')
-			return (0);
-		else if (ft_strncmp(input, "ls", 3) == 0)
-			ft_execute("/usr/bin/ls", envp);
-		else
-			return (builtincheck(input));
-		// else
-		// 	ft_execute(input, envp);
-	}
+		ft_execute(argv, envp);
 	else
 	{
-		if (waitpid(pid, &status, 0) == -1)
+		if (waitpid(pid, &status.last, 0) == -1)
 			ft_error("waitpid");
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));
+		if (WIFEXITED(status.last))
+			return (WEXITSTATUS(status.last));
 		else
 			return (-1);
 	}
