@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 18:14:17 by mjong            ###   ########.fr       */
+/*   Updated: 2024/07/31 14:57:15 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	ft_parser(char *input, char *envp[])
 	}
 	return (0);
 }
+
+
+
 
 // typedef struct s_args
 // {
