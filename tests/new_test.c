@@ -4,6 +4,15 @@
 
 // TE LUI OM .H TE INCLUDEN
 
+# define WORD 10
+# define HEREDOC 11 // <<
+// # define SPACE 12
+# define PIPE 13 // |
+# define REDIRECT 14 // >>
+# define APPEND 15 // <
+# define INPUT 16 // >
+# define END 17
+
 extern char **environ;
 
 typedef struct s_cmd
@@ -232,113 +241,6 @@ char	**get_next_arg(char *str_ptr)
 	return (arg_array);
 }
 
-int	add_redirect_or_pipe(char *str_ptr)
-{
-	if (*str_ptr && *(str_ptr + 1))
-	{
-		if (*str_ptr == *(str_ptr + 1))
-			return (printf("\ndouble: %c%c\n", *str_ptr, *(str_ptr + 1)), 2); //-> returnt int (2)
-		else
-			return (printf("\nsingle: %c\n", *str_ptr), 1); //-> returnt int (1)
-	}
-	return (0);
-}
-
-int	print_array(char **arg_array) // -> print arg **
-{
-	int i;
-
-	i = 0;
-	if (arg_array == NULL)
-		return (0);
-	while (arg_array[i] != NULL)
-	{
-		printf("%s\n", arg_array[i]);
-		i++;
-	}
-	return (i);
-}
-
-// t_cmd    *add_command(char **args, int type)
-// {
-//  t_cmd   *command;
-
-//  command = (t_cmd *)malloc(sizeof(t_cmd ));
-//  if (!command)
-//      return (NULL);
-//  command->filename = ft_strjoin("/usr/bin/", args[0]);
-//  if (!command->filename)
-//      return (free(command), NULL);
-//  command->args = args;
-//  if (!command->args)
-//  {
-//      free(command->filename);
-//      return (free(command), NULL);
-//  }
-//  command->envp = environ;
-//  if (!command->envp)
-//  {
-//      free(command->filename);
-//      ft_free(command->args);
-//      return (free(command), NULL);
-//  }
-//  return (command);
-// }
-
-// void    add_node(t_node **head, char **args, int type)
-// {
-//     t_node  *new_node;
-//     t_node  *current_node;
-
-//     new_node = (t_node *)malloc(sizeof(t_node));
-//     if (!new_node)
-//         return ;
-//     new_node->next = NULL;
-//     new_node->cmd = add_command(args, type);
-//     if (!new_node->cmd)
-//     {
-//         free(new_node);
-//         return ;
-//     }
-//     current_node = NULL;
-//     if (!*head)
-//         *head = new_node;
-//     else
-//     {
-//         current_node = *head;
-//         while (current_node->next != NULL)
-//             current_node = current_node->next;
-//         current_node->next = new_node;
-//     }
-// }
-
-
-// t_cmdlist   *create_list(void)
-// {
-//     t_cmdlist   *list;
-
-//     list = malloc(sizeof(t_cmdlist));
-//     if (!list)
-//         return (NULL);
-//     list->head = NULL;
-//     return (list);
-// }
-
-void	free_array(char **array)
-{
-	int i;
-
-	i = 0;
-	if (array && array[i])
-	{
-		while (array[i] != NULL)
-			free(array[i++]);
-		free(array);
-	}
-	return ;
-}
-
-
 char	**array_dup(char **array)
 {
 	int		i;
@@ -367,40 +269,118 @@ char	**array_dup(char **array)
 	return (duplicate_array);
 }
 
-t_cmd *get_command(char **arg_array, t_cmd *a)
+t_cmd *get_redirect_or_pipe(char c, int is_double) // DON'T FORGET TO ADD MALLOC PROTECTION!!
 {
-	a->filename = ft_strdup(arg_array[0]);
-	if (!a->filename)
+	t_cmd	*command;
+
+	command = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!command)
+		return (NULL);
+	if (c == '|')
+		command->filename = ft_strdup("pipe");
+	else if (c == '>')
 	{
-		printf("you were right");
-		return (free(a), NULL);
+		if (is_double == 1)
+			command->filename = ft_strdup("redirect");
+		else
+			command->filename = ft_strdup("input");
 	}
-	a->args = array_dup(arg_array);
-	if (a->args)
-		return (NULL);
-	a->envp = array_dup(environ);
-	if (a->envp)
-		return (NULL);
-	return (a);
+	else if (c == '<')
+	{
+		if (is_double == 1)
+			command->filename = ft_strdup("heredoc");
+		else
+			command->filename = ft_strdup("append");
+	}
+	command->args = NULL;
+	command->envp = array_dup(environ);
+	return (command);
 }
 
-void print_command(t_cmd *a)
+t_cmd *add_redirect_or_pipe(char *str_ptr, int *i)
 {
-	int	i;
+	if (*str_ptr && *(str_ptr + 1))
+	{
+		if (*str_ptr == *(str_ptr + 1) && *str_ptr == '<' || *str_ptr == '>')
+		{
+			*i += 2;
+			return (get_redirect_or_pipe(*str_ptr, 1));
+		}
+		else if (*str_ptr != *(str_ptr + 1))
+		{
+			*i += 1;
+			return (get_redirect_or_pipe(*str_ptr, 0));
+		}
+		else
+			return (NULL);
+	}
+	return (NULL);
+}
+
+
+int	print_array(char **arg_array) // -> print arg **
+{
+	int i;
 
 	i = 0;
-	if (a && a->filename)
-		printf("filename: %s\n\n", a->filename);
-	else
-		return ;
-	while (a->args[i])
+	if (arg_array == NULL)
+		return (0);
+	while (arg_array[i] != NULL)
 	{
-		printf("arg %i: %s\n", (i + 1), a->args[i]);
+		printf("%s\n", arg_array[i]);
 		i++;
 	}
-	printf("\n");
-	printf("\n");
-	return ;
+	return (i);
+}
+
+t_cmd	*cmd_dup(t_cmd *command)
+{
+	t_cmd *duplicate;
+
+	duplicate = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!duplicate)
+		return (NULL);
+	duplicate->filename = ft_strdup(command->filename);
+	if (duplicate->filename)
+		return (free(duplicate), NULL);
+	duplicate->args = array_dup(command->args);
+	if (!duplicate->args)
+	{
+		free(duplicate->filename);
+		return (free(duplicate), NULL);
+	}
+	duplicate->envp = array_dup(command->envp);
+	if (!duplicate->envp)
+	{
+		free(duplicate->filename);
+		free_array(duplicate->args);
+		return (free(duplicate), NULL);
+	}
+	return (duplicate);
+}
+
+void    add_node(t_node **head, t_cmd *command)
+{
+    t_node  *new_node;
+    t_node  *current_node;
+
+    new_node = (t_node *)malloc(sizeof(t_node));
+    if (!new_node)
+        return ;
+    new_node->next = NULL;
+	new_node->cmd = cmd_dup(command);
+	if (!new_node->cmd)
+		return (free(new_node), NULL);
+	current_node = NULL;
+	if (!*head)
+        *head = new_node;
+    else
+    {
+        current_node = *head;
+        while (current_node->next != NULL)
+            current_node = current_node->next;
+        current_node->next = new_node;
+    }
 }
 
 void free_command(t_cmd **a)
@@ -420,32 +400,119 @@ void free_command(t_cmd **a)
 	return ;
 }
 
+void free_cmdlist_recursive(t_node *node)
+{
+    if (!node)
+        return ;
+    free_cmdlist_recursive(node->next);
+    free_command(&node->cmd);
+    free(node);
+}
+
+void free_cmdlist(t_cmdlist *list)
+{
+    if (!list)
+        return ;
+    free_cmdlist_recursive(list->head);
+    free(list);
+}
+
+t_cmdlist   *create_list(void)
+{
+    t_cmdlist   *list;
+
+    list = malloc(sizeof(t_cmdlist));
+    if (!list)
+        return (NULL);
+    list->head = NULL;
+    return (list);
+}
+
+void	free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	if (array && array[i])
+	{
+		while (array[i] != NULL)
+			free(array[i++]);
+		free(array);
+	}
+	return ;
+}
+
+
+t_cmd *get_command(char **arg_array, t_cmd *a)
+{
+	a->filename = ft_strdup(arg_array[0]);
+	if (!a->filename)
+	{
+		return (free(a), NULL);
+	}
+	a->args = array_dup(arg_array);
+	if (!a->args)
+		return (NULL);
+	a->envp = array_dup(environ);
+	if (!a->envp)
+		return (NULL);
+	return (a);
+}
+
+void print_command(t_cmd *a)
+{
+	int	i;
+
+	i = 0;
+	if (a && a->filename)
+		printf("filename: %s\n\n", a->filename);
+	else
+		return ;
+	if (!a->args)
+	{
+		printf("\n");
+		return;
+	}
+	while (a->args[i])
+	{
+		printf("arg %i: %s\n", (i + 1), a->args[i]);
+		i++;
+	}
+	printf("\n");
+	printf("\n");
+	return ;
+}
+
+
 int	main(int argc, char *argv[])
 {
 	int			i;
 	t_cmd		*a;
-	char		*test_string;
+	t_cmdlist	*list;
 	char		*split_chars;
 	char		**arg_array;
 
 	i = 0;
-	test_string = "this is a   test || to see <<if it   works   ";
 	split_chars = "|<>";
-	// printf("start");
-	while (test_string[i])
+	if (argc != 2)
+		return (1);
+	list = create_list();
+	while (argv[1][i])
 	{
-		arg_array = get_next_arg(test_string + i);
-		while (test_string[i] && !ft_strchr(split_chars, test_string[i]))
+		arg_array = get_next_arg(argv[1] + i);
+		while (argv[1][i] && !ft_strchr(split_chars, argv[1][i]))
 			i++;
 		a = (t_cmd *)malloc(sizeof(t_cmd));
 		get_command(arg_array, a);
+		add_node(&list, a);
 		print_command(a);
 		free_command(&a);
 		free_array(arg_array);
-			i += add_redirect_or_pipe((test_string + i));
-		if (test_string[i] && ft_strchr(split_chars, test_string[i]))
-			return (printf("Invalid redirect or pipe combination: %c (char %i)", test_string[i], i), 1);
+		a = add_redirect_or_pipe((argv[1] + i), &i);
+		print_command(a);
+		free_command(&a);
+		if (argv[1][i] && ft_strchr(split_chars, argv[1][i]))
+			return (printf("Invalid redirect or pipe combination: %c (char %i)", argv[1][i], i), 1);
 	}
-	// printf("is het gelukt? head->filename: %s arg 1 & 2: %s & %s", list->head->cmd->filename, list->head->cmd->args[0], list->head->cmd->args[1]);
 	return (0);
 }
