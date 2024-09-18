@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/08/08 15:44:38 by mjong            ###   ########.fr       */
+/*   Updated: 2024/09/18 15:54:35 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ typedef struct s_tokenlist
 	struct s_node	*head;
 }	t_tokenlist;
 
-// minishell.c
-void		ft_input(char *argv[], char *envp[]);
-
-// parsing.c
-int			ft_parser(char *argv, char *envp[], t_status status);
-
-// tokenization.c
-t_tokenlist	*ft_tokenize(char *str);
+// /srcs/builtins
+int			builtin_check(char *input, t_status status);
+int			cd(const char *cd_cmd);
+int			echo(char *msg, t_status status);
+int			env(void);
+int			export(char *msg);
+int			pwd(char *command);
+int			unset(char *msg);
 
 // command_list.c
 t_cmdlist	*create_list(void);
@@ -95,14 +95,14 @@ void		add_node(t_node **head, char *input, int begin, int end);
 // execution.c
 void		ft_execute(char *argv, char *envp[]);
 
-// /srcs/builtins
-int			builtin_check(char *input, t_status status);
-int			cd(const char *cd_cmd);
-int			echo(char *msg, t_status status);
-int			env(void);
-int			export(char *msg);
-int			pwd(char *command);
-int			unset(char *msg);
+// minishell.c
+void		ft_input(char *argv[], char *envp[]);
+
+// parsing.c
+int			ft_parser(char *argv, char *envp[], t_status status);
+
+// tokenization.c
+t_tokenlist	*ft_tokenize(char *str);
 
 // utils.c
 void		ft_error(const char *msg);
