@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/08 15:41:22 by mjong            ###   ########.fr       */
+/*   Updated: 2024/09/18 13:58:06 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_parser(char *argv, char *envp[], t_status status)
 {
 	pid_t	pid;
 
+	if (ft_strncmp(argv, "\t", 1) == 0)
+		printf("activated\n");
 	if (ft_strncmp(argv, "exit", 5) == 0)
 		ft_exit(argv);
 	status.last = builtin_check(argv, status);

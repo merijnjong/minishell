@@ -44,3 +44,7 @@ Execution:
 don't use ft_split!!!
 
 < infile wc -l | ls -l > outfile
+
+"touch test > txt" behaves differently
+
+"echo hello > test1 > test2 > test3" will add 3 files but only put "hello" into test3 in bash
