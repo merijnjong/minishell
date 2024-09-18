@@ -24,27 +24,20 @@ Merra:
 
 Execution:
 		- Execute parsed information
-		- Working history, able to navigate with arrow keys
-			- Use readline to get what is on the terminal command line and save it. malloced (char **) -> 
-				example: if arrow up: put *history[i--] on command line.
 		- Implement	pipes						( | )
 					redirections				( <, >, >> )
 					here-doc					( << )
 					double and single quotes	( "", '' )
 					environment variable		( $ )
-					signals 					( ctrl + c, ctrl + \, ctrl + d )
+					signals 					( ctrl + c, ctrl + \ )
 					built-ins:	- echo -n
-								- exit
-								- env
 								- export
 								- unset
-								- cd
-								- pwd
 
 don't use ft_split!!!
 
 < infile wc -l | ls -l > outfile
 
-"touch test > txt" behaves differently
+"touch test > txt" behaves differently in our minishell
 
 "echo hello > test1 > test2 > test3" will add 3 files but only put "hello" into test3 in bash

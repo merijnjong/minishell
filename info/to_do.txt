@@ -1,7 +1,0 @@
-builtins
-	- echo
-	- export
-	- unset
-signals
-	- ctrl + c
-	- ctrl + \
