@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/09/18 15:44:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/09/19 16:48:17 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,20 @@ int	ft_parser(char *argv, char *envp[], t_status status)
 {
 	pid_t	pid;
 
-	if (ft_strncmp(argv, "\t", 1) == 0)
-		printf("activated\n");
 	if (ft_strncmp(argv, "exit", 5) == 0)
 		ft_exit(argv);
 	status.last = builtin_check(argv, status);
 	if (status.last != 127)
 		return (status.last);
+
+	// ///// for entering ( some="thing" ) in terminal ///// 
+	// int i = 0;
+	// while (!(argv[i] == 61 && argv[i + 1] == 34))
+	// 	i++;
+	// if (argv[i] == 61 && argv[i + 1] == 34)
+	// 	return (export(argv));
+	// /////////////////////////////////////////////////////
+
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");
@@ -39,9 +46,6 @@ int	ft_parser(char *argv, char *envp[], t_status status)
 	}
 	return (0);
 }
-
-
-
 
 // typedef struct s_args
 // {
