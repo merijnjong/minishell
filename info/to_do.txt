@@ -33,6 +33,9 @@ Execution:
 								- export
 								- unset
 
+echo $VAR_NAME functionality
+write own setenv function
+
 don't use ft_split!!!
 
 < infile wc -l | ls -l > outfile
