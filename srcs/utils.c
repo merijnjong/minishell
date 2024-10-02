@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/08 15:43:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/02 17:12:11 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_dbl_ptr(char **ptr)
 	i = 0;
 	while (ptr[i] != NULL)
 	{
-		printf("%s\n", ptr[i]);
+		ft_printf("%s\n", ptr[i]);
 		i++;
 	}
 }

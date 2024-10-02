@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/09/19 16:41:07 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:47:46 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_find_path_2(char **paths, char *cmd)
 	return (NULL);
 }
 
-char	*ft_find_path(char *envp[], char *cmd)
+char	*ft_find_path(char **envp, char *cmd)
 {
 	char	**paths;
 	char	*path;
@@ -54,7 +54,7 @@ char	*ft_find_path(char *envp[], char *cmd)
 	return (path);
 }
 
-void	ft_execute(char *argv, char *envp[])
+void	ft_execute(char *argv, char **envp)
 {
 	char	**cmd;
 	char	*path;

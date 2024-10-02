@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/09/18 15:54:35 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/02 17:25:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			builtin_check(char *input, t_status status);
 int			cd(const char *cd_cmd);
 int			echo(char *msg, t_status status);
 int			env(void);
-int			export(char *msg);
+int			export(char *cmd);
 int			pwd(char *command);
 int			unset(char *msg);
 

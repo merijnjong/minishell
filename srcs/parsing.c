@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/09/19 16:48:17 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:48:31 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parser(char *argv, char *envp[], t_status status)
+int	ft_parser(char *argv, char **envp, t_status status)
 {
 	pid_t	pid;
 

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/09/18 16:08:08 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/02 14:48:20 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init(t_status *status)
 	status->last = 0;
 }
 
-void	ft_input(char *argv[], char *envp[])
+void	ft_input(char **argv, char **envp)
 {
 	t_status	status;
 
@@ -42,7 +42,7 @@ void	ft_input(char *argv[], char *envp[])
 	rl_clear_history();
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char **argv, char **envp)
 {
 	if (argc == 1)
 		ft_input(argv, envp);
