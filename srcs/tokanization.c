@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/31 14:48:58 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:34:54 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@
 // 	command->args = ft_split(*(str + i), ' ');
 // 	if (!command->args)
 // 		return (free(command->filename), NULL);
-// 	command->envp = __environ;
+// 	command->envp = __envliston;
 // 	if (!command->envp)
 // 	{
 // 		free(command->filename);

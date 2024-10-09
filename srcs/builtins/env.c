@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:28 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 15:03:56 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/09 15:30:04 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	env(void)
 	char	**env;
 
 	env = environ;
-	while (*env)
+	while (*env != NULL)
 	{
 		ft_printf("%s\n", *env);
 		env++;

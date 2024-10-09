@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/02 18:05:14 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/03 16:49:51 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 int	echo(char *input, t_status status)
 {
+	char	*env;
 	while (*input == ' ')
 		input++;
 	if (ft_strncmp(input, "-n", 2) == 0)
 		ft_printf("%s", input + 3);
 	else if (ft_strncmp(input, "$?", 2) == 0)
 		ft_printf("%d\n", status.last);
-	// else if (ft_strncmp(input, "$", 1) == 0)
-	// 	getenv();
+	else if (ft_strncmp(input, "$", 1) == 0)
+	{
+		input++;
+		env = getenv(input);
+		if (!env)
+			ft_printf("\n");
+		else
+			ft_printf("%s\n", env);
+	}
 	else
 		ft_printf("%s\n", input);
 	return (0);

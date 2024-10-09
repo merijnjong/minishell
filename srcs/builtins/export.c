@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/02 17:45:44 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/09 16:12:37 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,24 @@ char	*get_var_name(char *cmd, int *i)
 	return (var_name);
 }
 
-int	export(char *cmd)
+void	ft_setenv(char *var_name, char *var_value, t_envlist envlist)
+{
+    printf("env: %s\n", envlist.env);
+	var_name = NULL;
+	var_value = NULL;
+}
+
+int	export(char *cmd, t_envlist envlist)
 {
 	int		i;
+	char	*env_struct;
 	char	*var_name;
 	char	*var_value;
 
 	i = 0;
+	env_struct = NULL;
+	if (cmd[i + 1] == '\0')
+		printf("%s\n", env_struct);
 	var_name = get_var_name(cmd, &i);
 	if (!var_name)
 		return (1);
@@ -77,6 +88,7 @@ int	export(char *cmd)
 		free(var_name);
 		return (1);
 	}
+	ft_setenv(var_name, var_value, envlist);
 	setenv(var_name, var_value, 1); // need to make custom function
 	free(var_name);
 	free(var_value);

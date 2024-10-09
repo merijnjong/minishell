@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:45:45 by mjong             #+#    #+#             */
-/*   Updated: 2024/09/18 15:45:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:34:54 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define INPUT 16 // >
 # define END 17
 
-extern char **environ;
+extern char **envliston;
 
 typedef struct s_cmd
 {
@@ -306,7 +306,7 @@ t_cmd *get_redirect_or_pipe(char c, int is_double) // DON'T FORGET TO ADD MALLOC
 			command->filename = ft_strdup("append");
 	}
 	command->args = NULL;
-	command->envp = array_dup(environ);
+	command->envp = array_dup(envliston);
 	return (command);
 }
 
@@ -466,7 +466,7 @@ t_cmd *get_command(char **arg_array, t_cmd *a)
 	a->args = array_dup(arg_array);
 	if (!a->args)
 		return (NULL);
-	a->envp = array_dup(environ);
+	a->envp = array_dup(envliston);
 	if (!a->envp)
 		return (NULL);
 	return (a);

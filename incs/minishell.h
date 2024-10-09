@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/10/02 17:25:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/09 15:42:25 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ typedef struct s_status
 	int	last;
 }	t_status;
 
+typedef struct s_envlist
+{
+	char				*env;
+	struct s_envlist	*next;
+}	t_envlist;
+
 typedef struct s_node
 {
 	int				type;
@@ -76,11 +82,11 @@ typedef struct s_tokenlist
 }	t_tokenlist;
 
 // /srcs/builtins
-int			builtin_check(char *input, t_status status);
+int			builtin_check(char *input, t_status status, t_envlist envlist);
 int			cd(const char *cd_cmd);
 int			echo(char *msg, t_status status);
 int			env(void);
-int			export(char *cmd);
+int			export(char *cmd, t_envlist envlist);
 int			pwd(char *command);
 int			unset(char *msg);
 
@@ -99,7 +105,7 @@ void		ft_execute(char *argv, char *envp[]);
 void		ft_input(char *argv[], char *envp[]);
 
 // parsing.c
-int			ft_parser(char *argv, char *envp[], t_status status);
+int			ft_parser(char *argv, char **envp, t_status status, t_envlist envlist);
 
 // tokenization.c
 t_tokenlist	*ft_tokenize(char *str);

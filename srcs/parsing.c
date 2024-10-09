@@ -6,19 +6,19 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/02 14:48:31 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:34:54 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_parser(char *argv, char **envp, t_status status)
+int	ft_parser(char *argv, char **envp, t_status status, t_envlist envlist)
 {
 	pid_t	pid;
 
 	if (ft_strncmp(argv, "exit", 5) == 0)
 		ft_exit(argv);
-	status.last = builtin_check(argv, status);
+	status.last = builtin_check(argv, status, envlist);
 	if (status.last != 127)
 		return (status.last);
 

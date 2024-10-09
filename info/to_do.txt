@@ -27,7 +27,7 @@ Execution:
 					redirections				( <, >, >> )
 					here-doc					( << )
 					double and single quotes	( "", '' )
-					environment variable		( $ )
+					envlistonment variable		( $ )
 					signals 					( ctrl + c, ctrl + \ )
 					built-ins:	- echo -n
 								- export

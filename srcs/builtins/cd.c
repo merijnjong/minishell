@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/08/07 18:10:00 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/09 13:34:54 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	cd_home(void)
 	}
 	else
 	{
-		ft_printf("cd: HOME environment variable not set\n");
+		ft_printf("cd: HOME envlistonment variable not set\n");
 		return (1);
 	}
 	return (0);
