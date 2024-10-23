@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/09 16:12:37 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/23 17:56:03 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,32 @@ char	*get_var_name(char *cmd, int *i)
 	return (var_name);
 }
 
-void	ft_setenv(char *var_name, char *var_value, t_envlist envlist)
+void	ft_setenv(char *var_name, char *var_value, t_envlist *envlist)
 {
-    printf("env: %s\n", envlist.env);
-	var_name = NULL;
-	var_value = NULL;
+    t_envlist	*current;
+	char		*env_name;
+	int			i;
+
+	current = envlist;
+    while (current != NULL)
+    {
+        i = 0;
+        env_name = get_var_name(current->env, &i);
+		// wrong comparison;
+        if (env_name != NULL && strcmp(env_name, var_name) == 0)
+        {
+            free(current->env);
+            current->env = (char *)malloc(ft_strlen(var_name) + ft_strlen(var_value) + 2);
+            sprintf(current->env, "%s=%s", var_name, var_value);
+            free(env_name);
+            return ;
+        }
+        free(env_name);
+        current = current->next;
+    }
 }
 
-int	export(char *cmd, t_envlist envlist)
+int	export(char *cmd, t_envlist *envlist)
 {
 	int		i;
 	char	*env_struct;
@@ -78,7 +96,7 @@ int	export(char *cmd, t_envlist envlist)
 	i = 0;
 	env_struct = NULL;
 	if (cmd[i + 1] == '\0')
-		printf("%s\n", env_struct);
+		ft_printf("%s\n", env_struct);
 	var_name = get_var_name(cmd, &i);
 	if (!var_name)
 		return (1);
@@ -89,7 +107,7 @@ int	export(char *cmd, t_envlist envlist)
 		return (1);
 	}
 	ft_setenv(var_name, var_value, envlist);
-	setenv(var_name, var_value, 1); // need to make custom function
+	// setenv(var_name, var_value, 1); // need to make custom function
 	free(var_name);
 	free(var_value);
 	return (0);

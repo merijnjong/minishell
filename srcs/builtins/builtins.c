@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/09 13:35:19 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/23 14:58:30 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_check(char *input, t_status status, t_envlist envlist)
+int	builtin_check(char *input, t_status status, t_envlist *envlist)
 {
 	while (*input == ' ')
 		input++;

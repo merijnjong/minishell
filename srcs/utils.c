@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/02 17:12:11 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/23 14:11:52 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,17 @@ void	print_dbl_ptr(char **ptr)
 		ft_printf("%s\n", ptr[i]);
 		i++;
 	}
+}
+
+void	print_envlist(t_envlist *envlist)
+{
+    t_envlist *current;
+
+	current = envlist;
+    while (current != NULL)
+    {
+        if (current->env != NULL)
+            ft_printf("%s\n", current->env);
+        current = current->next;
+    }
 }
