@@ -6,84 +6,64 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/23 17:56:03 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/24 17:04:23 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_var_value(char *cmd, int i)
+void	add_env_node(t_envlist *last, char *var_name, char *var_value)
 {
-	int		j;
-	char	*var_value;
-
-	j = 0;
-	var_value = NULL;
-	if (cmd[i] == ' ')
-	{
-		var_value = (char *)malloc(1);
-        if (!var_value)
-            return NULL;
-        var_value[0] = '\0';
-        return (var_value);
-	}
-	while (cmd[i + j] != '\0')
-		j++;
-	var_value = (char *)malloc(sizeof(char) * (j + 1));
-	if (!var_value)
-		return (NULL);
-	strncpy(var_value, cmd + i, j);
-	var_value[j] = '\0';
-	return (var_value);
+	t_envlist	*new_node;
+	char		*new_env;
+	char		*temp;
+	
+	new_node = (t_envlist *)malloc(sizeof(t_envlist));
+	if (!new_node)
+		return ;
+	temp = ft_strjoin(var_name, "=");
+	new_env = ft_strjoin(temp, var_value);
+	free(temp);
+	new_node->env = new_env;
+	new_node->next = NULL;
+	if (last != NULL)
+		last->next = new_node;
 }
 
-char	*get_var_name(char *cmd, int *i)
+void	replace_env_node(t_envlist *current, char *var_name, char *var_value, char *env_name)
 {
-	int		j;
-	char	*var_name;
-
-	j = 0;
-	while (cmd[*i] == ' ')
-		(*i)++;
-	while (cmd[*i + j] != '=' && cmd[*i + j] != '\0')
-		j++;
-	if (cmd[j - 1] == ' ')
-	{
-		ft_printf("zsh: %s not found\n", cmd);
-		return (NULL);
-	}
-	var_name = (char *)malloc(sizeof(char) * (j + 1));
-	if (!var_name)
-		return (NULL);
-	ft_strncpy(var_name, cmd + *i, j);
-	var_name[j] = '\0';
-	*i += j + 1;
-	return (var_name);
+	char	*temp;
+	
+	free(current->env);
+	temp = ft_strjoin(var_name, "=");
+	current->env = ft_strjoin(temp, var_value);
+	free(temp);
+    free(env_name);
 }
 
 void	ft_setenv(char *var_name, char *var_value, t_envlist *envlist)
 {
     t_envlist	*current;
+	t_envlist	*last;
 	char		*env_name;
 	int			i;
 
 	current = envlist;
+	last = NULL;
     while (current != NULL)
     {
         i = 0;
         env_name = get_var_name(current->env, &i);
-		// wrong comparison;
         if (env_name != NULL && strcmp(env_name, var_name) == 0)
-        {
-            free(current->env);
-            current->env = (char *)malloc(ft_strlen(var_name) + ft_strlen(var_value) + 2);
-            sprintf(current->env, "%s=%s", var_name, var_value);
-            free(env_name);
-            return ;
-        }
-        free(env_name);
+		{	
+			replace_env_node(current, var_name, var_value, env_name);
+			return ;
+		}
+		free(env_name);
+		last = current;
         current = current->next;
     }
+	add_env_node(last, var_name, var_value);
 }
 
 int	export(char *cmd, t_envlist *envlist)
@@ -96,7 +76,7 @@ int	export(char *cmd, t_envlist *envlist)
 	i = 0;
 	env_struct = NULL;
 	if (cmd[i + 1] == '\0')
-		ft_printf("%s\n", env_struct);
+		print_sorted_envlist(envlist);
 	var_name = get_var_name(cmd, &i);
 	if (!var_name)
 		return (1);
@@ -107,7 +87,6 @@ int	export(char *cmd, t_envlist *envlist)
 		return (1);
 	}
 	ft_setenv(var_name, var_value, envlist);
-	// setenv(var_name, var_value, 1); // need to make custom function
 	free(var_name);
 	free(var_value);
 	return (0);

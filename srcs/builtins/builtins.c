@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/23 14:58:30 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/24 16:11:36 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_check(char *input, t_status status, t_envlist *envlist)
 		return (echo(input + 5, status));
 	else if (ft_strncmp(input, "env", 3) == 0
 		&& (input[3] == ' ' || input[3] == '\0'))
-		return (env());
+		return (env(envlist));
 	else if (ft_strncmp(input, "export", 6) == 0
 		&& (input[6] == ' ' || input[6] == '\0'))
 		return (export(input + 7, envlist));

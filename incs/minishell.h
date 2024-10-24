@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/10/23 16:05:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/24 16:59:39 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,11 @@ typedef struct s_tokenlist
 int			builtin_check(char *input, t_status status, t_envlist *envlist);
 int			cd(const char *cd_cmd);
 int			echo(char *msg, t_status status);
-int			env(void);
+int			env(t_envlist *envlist);
 int			export(char *cmd, t_envlist *envlist);
+void		print_sorted_envlist(t_envlist *envlist);
+char		*get_var_name(char *cmd, int *i);
+char		*get_var_value(char *cmd, int i);
 int			pwd(char *command);
 int			unset(char *msg);
 
