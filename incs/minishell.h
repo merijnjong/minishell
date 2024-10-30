@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/10/24 16:59:39 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:10:59 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,19 @@ typedef struct s_tokenlist
 }	t_tokenlist;
 
 // /srcs/builtins
-int			builtin_check(char *input, t_status status, t_envlist *envlist);
+int			builtin_check(t_status status, t_envlist *envlist, char *input);
 int			cd(const char *cd_cmd);
-int			echo(char *msg, t_status status);
+int			echo(t_status status, t_envlist *envlist, char *input);
 int			env(t_envlist *envlist);
-int			export(char *cmd, t_envlist *envlist);
+int			export(t_envlist *envlist, char *cmd);
+int			pwd(char *command);
+int			unset(t_envlist *envlist, char *var_name);
+
+// /srcs/builtins/exp_uns_utils.c
 void		print_sorted_envlist(t_envlist *envlist);
 char		*get_var_name(char *cmd, int *i);
 char		*get_var_value(char *cmd, int i);
-int			pwd(char *command);
-int			unset(char *msg);
+int			envlist_count(t_envlist *envlist);
 
 // command_list.c
 t_cmdlist	*create_list(void);
@@ -108,7 +111,7 @@ void		ft_execute(char *argv, char **envp);
 void		ft_input(char **argv, char **envp);
 
 // parsing.c
-int			ft_parser(char *argv, char **envp, t_status status, t_envlist *envlist);
+int			ft_parser(t_status status, t_envlist *envlist, char *argv, char **envp);
 
 // tokenization.c
 t_tokenlist	*ft_tokenize(char *str);

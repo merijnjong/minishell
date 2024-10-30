@@ -6,50 +6,50 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/23 16:04:04 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:14:15 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	start_envlist(char **envp, int i, t_envlist *current)
+void	start_envlist(t_envlist *current, char **envp, int i)
 {
 	t_envlist	*new_node;
 
 	while (envp[i])
-    {
-        new_node = malloc(sizeof(t_envlist));
-        if (new_node == NULL)
-            return;
-        new_node->env = ft_strdup(envp[i]);
-        if (new_node->env == NULL)
-        {
-            free(new_node);
-            return;
-        }
-        new_node->next = NULL;
-        current->next = new_node;
-        current = new_node;
-        i++;
-    }
+	{
+		new_node = malloc(sizeof(t_envlist));
+		if (new_node == NULL)
+			return ;
+		new_node->env = ft_strdup(envp[i]);
+		if (new_node->env == NULL)
+		{
+			free(new_node);
+			return ;
+		}
+		new_node->next = NULL;
+		current->next = new_node;
+		current = new_node;
+		i++;
+	}
 }
 
 void	init(t_status *status, t_envlist *envlist, char **envp)
 {
-    t_envlist	*current;
-    int			i;
+	t_envlist	*current;
+	int			i;
 
-    status->last = 0;
+	status->last = 0;
 	current = envlist;
 	i = 0;
-    if (!envp || !envp[0])
-        return;
-    current->env = ft_strdup(envp[i]);
-    if (current->env == NULL)
-        return;
-    current->next = NULL;
-    i++;
-    start_envlist(envp, i, current);
+	if (!envp || !envp[0])
+		return ;
+	current->env = ft_strdup(envp[i]);
+	if (current->env == NULL)
+		return ;
+	current->next = NULL;
+	i++;
+	start_envlist(current, envp, i);
 }
 
 void	ft_input(char **argv, char **envp)
@@ -69,7 +69,7 @@ void	ft_input(char **argv, char **envp)
 		}
 		if (argv[0][0] != '\0')
 		{
-			status.last = ft_parser(argv[0], envp, status, &envlist);
+			status.last = ft_parser(status, &envlist, argv[0], envp);
 			add_history(argv[0]);
 		}
 		else

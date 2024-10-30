@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/24 17:04:23 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:45:02 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	add_env_node(t_envlist *last, char *var_name, char *var_value)
 	t_envlist	*new_node;
 	char		*new_env;
 	char		*temp;
-	
+
 	new_node = (t_envlist *)malloc(sizeof(t_envlist));
 	if (!new_node)
 		return ;
@@ -33,40 +33,40 @@ void	add_env_node(t_envlist *last, char *var_name, char *var_value)
 void	replace_env_node(t_envlist *current, char *var_name, char *var_value, char *env_name)
 {
 	char	*temp;
-	
+
 	free(current->env);
 	temp = ft_strjoin(var_name, "=");
 	current->env = ft_strjoin(temp, var_value);
 	free(temp);
-    free(env_name);
+	free(env_name);
 }
 
 void	ft_setenv(char *var_name, char *var_value, t_envlist *envlist)
 {
-    t_envlist	*current;
+	t_envlist	*current;
 	t_envlist	*last;
 	char		*env_name;
 	int			i;
 
 	current = envlist;
 	last = NULL;
-    while (current != NULL)
-    {
-        i = 0;
-        env_name = get_var_name(current->env, &i);
-        if (env_name != NULL && strcmp(env_name, var_name) == 0)
-		{	
+	while (current != NULL)
+	{
+		i = 0;
+		env_name = get_var_name(current->env, &i);
+		if (env_name != NULL && strcmp(env_name, var_name) == 0)
+		{
 			replace_env_node(current, var_name, var_value, env_name);
 			return ;
 		}
 		free(env_name);
 		last = current;
-        current = current->next;
-    }
+		current = current->next;
+	}
 	add_env_node(last, var_name, var_value);
 }
 
-int	export(char *cmd, t_envlist *envlist)
+int	export(t_envlist *envlist, char *cmd)
 {
 	int		i;
 	char	*env_struct;
@@ -81,8 +81,10 @@ int	export(char *cmd, t_envlist *envlist)
 	if (!var_name)
 		return (1);
 	var_value = get_var_value(cmd, i);
+	ft_printf("var_value: %s\n", var_value);
 	if (!var_value)
 	{
+		ft_printf("work?\n");
 		free(var_name);
 		return (1);
 	}
