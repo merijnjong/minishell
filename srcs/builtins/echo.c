@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:06:07 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:19:08 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	echo_env(t_envlist *envlist, char *input)
 	{
 		i = 0;
 		env_name = get_var_name(current->env, &i);
-		if (env_name && strcmp(env_name, input) == 0)
+		if (strcmp(env_name, input) == 0 && env_name != NULL)
 		{
 			env = current->env + i;
 			free(env_name);
@@ -35,7 +35,7 @@ void	echo_env(t_envlist *envlist, char *input)
 		free(env_name);
 		current = current->next;
 	}
-	if (!env)
+	if (env == NULL)
 		ft_printf("\n");
 	else
 		ft_printf("%s\n", env);

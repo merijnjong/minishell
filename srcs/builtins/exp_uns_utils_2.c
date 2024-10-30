@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:11:49 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:12:09 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:17:31 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	envlist_count(t_envlist *envlist)
 	int	count;
 
 	count = 0;
-	while (envlist)
+	while (envlist != NULL)
 	{
 		count++;
 		envlist = envlist->next;

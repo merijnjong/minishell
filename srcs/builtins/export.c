@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 16:45:02 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:17:16 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	add_env_node(t_envlist *last, char *var_name, char *var_value)
 	char		*temp;
 
 	new_node = (t_envlist *)malloc(sizeof(t_envlist));
-	if (!new_node)
+	if (new_node == NULL)
 		return ;
 	temp = ft_strjoin(var_name, "=");
 	new_env = ft_strjoin(temp, var_value);
@@ -78,13 +78,13 @@ int	export(t_envlist *envlist, char *cmd)
 	if (cmd[i + 1] == '\0')
 		print_sorted_envlist(envlist);
 	var_name = get_var_name(cmd, &i);
-	if (!var_name)
+	if (var_name == NULL)
 		return (1);
 	var_value = get_var_value(cmd, i);
 	ft_printf("var_value: %s\n", var_value);
-	if (!var_value)
+	if (var_value == NULL)
 	{
-		ft_printf("work?\n");
+		ft_printf("work?\n"); // doesn't work
 		free(var_name);
 		return (1);
 	}

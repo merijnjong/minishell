@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:41 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:07:05 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:15:59 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	remove_current_node(t_envlist *envlist, t_envlist *current, t_envlist *prev)
 {
-	if (prev)
+	if (prev != NULL)
 		prev->next = current->next;
 	else
 		envlist = current->next;
@@ -32,7 +32,7 @@ int	unset(t_envlist *envlist, char *var_name)
 
 	current = envlist;
 	prev = NULL;
-	while (current)
+	while (current != NULL)
 	{
 		i = 0;
 		current_var_name = get_var_name(current->env, &i);

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:53:10 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:11:55 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:21:48 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	**envlist_to_array(t_envlist *envlist, int *size)
 	int			i;
 
 	count = envlist_count(envlist);
+	i = 0;
 	array = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!array)
+	if (array == NULL)
 		return (NULL);
 	current = envlist;
 	while (i < count)
@@ -48,7 +49,7 @@ void	print_sorted_envlist(t_envlist *envlist)
 
 	i = 0;
 	env_array = envlist_to_array(envlist, &size);
-	if (!env_array)
+	if (env_array == NULL)
 		return ;
 	qsort(env_array, size, sizeof(char *), compare_strings);
 	while (i < size)
@@ -78,7 +79,7 @@ char	*get_var_value(char *cmd, int i)
 	while (cmd[i + j] != '\0')
 		j++;
 	var_value = (char *)malloc(sizeof(char) * (j + 1));
-	if (!var_value)
+	if (var_value == NULL)
 		return (NULL);
 	strncpy(var_value, cmd + i, j);
 	var_value[j] = '\0';
@@ -101,7 +102,7 @@ char	*get_var_name(char *cmd, int *i)
 		return (NULL);
 	}
 	var_name = (char *)malloc(sizeof(char) * (j + 1));
-	if (!var_name)
+	if (var_name == NULL)
 		return (NULL);
 	ft_strncpy(var_name, cmd + *i, j);
 	var_name[j] = '\0';

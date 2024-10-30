@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:14:15 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/30 17:20:24 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	init(t_status *status, t_envlist *envlist, char **envp)
 	status->last = 0;
 	current = envlist;
 	i = 0;
-	if (!envp || !envp[0])
+	if (envp == NULL || envp[0] == NULL)
 		return ;
 	current->env = ft_strdup(envp[i]);
 	if (current->env == NULL)
