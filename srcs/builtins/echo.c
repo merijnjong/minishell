@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:19:08 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:18:59 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	echo_env(t_envlist *envlist, char *input)
 {
+	t_envlist	*current;
 	char		*env;
 	char		*env_name;
-	t_envlist	*current;
 	int			i;
 
 	input++;
@@ -55,26 +55,3 @@ int	echo(t_status status, t_envlist *envlist, char *input)
 		ft_printf("%s\n", input);
 	return (0);
 }
-
-// int	echo(char *input, t_status status)
-// {
-// 	int	print_newline;
-
-// 	print_newline = 1;
-// 	while (*input == ' ')
-// 		input++;
-// 	if (strncmp(input, "-n", 2) == 0 && (input[2] == ' ' || input[2] == '\0'))
-// 	{
-// 		print_newline = 0;
-// 		input += 2;
-// 		while (*input == ' ')
-// 			input++;
-// 	}
-// 	if (strncmp(input, "$?", 2) == 0 && (input[2] == ' ' || input[2] == '\0'))
-//         printf("%d", status.last);
-//     else
-//         printf("%s", input);
-//     if (print_newline)
-//         printf("\n");
-//     return (0);
-// }

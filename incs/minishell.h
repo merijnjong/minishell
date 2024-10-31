@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/10/30 17:10:59 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:17:33 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,10 @@ int			export(t_envlist *envlist, char *cmd);
 int			pwd(char *command);
 int			unset(t_envlist *envlist, char *var_name);
 
-// /srcs/builtins/exp_uns_utils.c
-void		print_sorted_envlist(t_envlist *envlist);
+// /srcs/builtins/buitins_utils.c
 char		*get_var_name(char *cmd, int *i);
 char		*get_var_value(char *cmd, int i);
-int			envlist_count(t_envlist *envlist);
+int			print_sorted_envlist(t_envlist *envlist);
 
 // command_list.c
 t_cmdlist	*create_list(void);

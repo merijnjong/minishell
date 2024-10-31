@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 16:38:04 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:29:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ int	ft_parser(t_status status, t_envlist *envlist, char *argv, char **envp)
 	status.last = builtin_check(status, envlist, argv);
 	if (status.last != 127)
 		return (status.last);
-
-	// ///// for entering ( some="thing" ) in terminal ///// 
-	// int i = 0;
-	// while (!(argv[i] == 61 && argv[i + 1] == 34))
-	// 	i++;
-	// if (argv[i] == 61 && argv[i + 1] == 34)
-	// 	return (export(argv));
-	// /////////////////////////////////////////////////////
-
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");

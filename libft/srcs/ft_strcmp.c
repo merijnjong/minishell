@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exp_uns_utils_2.c                                  :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 17:11:49 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:17:31 by mjong            ###   ########.fr       */
+/*   Created: 2024/10/31 14:19:31 by mjong             #+#    #+#             */
+/*   Updated: 2024/10/31 14:21:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	envlist_count(t_envlist *envlist)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	count;
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
 
-	count = 0;
-	while (envlist != NULL)
+	str1 = (unsigned char *) s1;
+	str2 = (unsigned char *) s2;
+	i = 0;
+	while (str1[i] || str2[i])
 	{
-		count++;
-		envlist = envlist->next;
+		if (str1[i] != str2[i])
+		{
+			return (str1[i] - str2[i]);
+		}
+		i++;
 	}
-	return (count);
+	return (0);
 }

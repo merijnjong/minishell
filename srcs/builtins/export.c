@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:17:16 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:24:45 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	replace_env_node(t_envlist *current, char *var_name, char *var_value, char 
 	free(env_name);
 }
 
-void	ft_setenv(char *var_name, char *var_value, t_envlist *envlist)
+void	ft_setenv(t_envlist *envlist, char *var_name, char *var_value)
 {
 	t_envlist	*current;
 	t_envlist	*last;
@@ -54,7 +54,7 @@ void	ft_setenv(char *var_name, char *var_value, t_envlist *envlist)
 	{
 		i = 0;
 		env_name = get_var_name(current->env, &i);
-		if (env_name != NULL && strcmp(env_name, var_name) == 0)
+		if (env_name != NULL && ft_strcmp(env_name, var_name) == 0)
 		{
 			replace_env_node(current, var_name, var_value, env_name);
 			return ;
@@ -66,6 +66,28 @@ void	ft_setenv(char *var_name, char *var_value, t_envlist *envlist)
 	add_env_node(last, var_name, var_value);
 }
 
+int check_var_name(char *var_name)
+{
+	int i;
+
+	i = 0;
+	if (!(ft_isalpha(var_name[0]) || var_name[0] == '_'))
+	{
+		ft_printf("minishell: export: '%s': not a valid identifier\n", var_name);
+		return (1);
+	}
+	while (var_name[i])
+	{
+		if (!(ft_isalnum(var_name[i]) || var_name[i] == '_'))
+		{
+			ft_printf("minishell: export: '%s': not a valid identifier\n", var_name);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	export(t_envlist *envlist, char *cmd)
 {
 	int		i;
@@ -75,20 +97,20 @@ int	export(t_envlist *envlist, char *cmd)
 
 	i = 0;
 	env_struct = NULL;
-	if (cmd[i + 1] == '\0')
-		print_sorted_envlist(envlist);
+	while (cmd[i] == ' ')
+		i++;
+	if (cmd[i] == '\0')
+		return (print_sorted_envlist(envlist));
 	var_name = get_var_name(cmd, &i);
-	if (var_name == NULL)
+	if (var_name == NULL || check_var_name(var_name) == 1)
 		return (1);
 	var_value = get_var_value(cmd, i);
-	ft_printf("var_value: %s\n", var_value);
 	if (var_value == NULL)
 	{
-		ft_printf("work?\n"); // doesn't work
 		free(var_name);
 		return (1);
 	}
-	ft_setenv(var_name, var_value, envlist);
+	ft_setenv(envlist, var_name, var_value);
 	free(var_name);
 	free(var_value);
 	return (0);

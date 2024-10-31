@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:41 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:15:59 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:25:42 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	unset(t_envlist *envlist, char *var_name)
 	{
 		i = 0;
 		current_var_name = get_var_name(current->env, &i);
-		if (current_var_name && strcmp(current_var_name, var_name) == 0)
+		if (current_var_name && ft_strcmp(current_var_name, var_name) == 0)
 		{
 			free(current_var_name);
 			return (remove_current_node(envlist, current, prev));
