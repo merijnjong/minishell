@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 17:20:24 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/31 16:13:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,21 @@ void	init(t_status *status, t_envlist *envlist, char **envp)
 	start_envlist(current, envp, i);
 }
 
+// void	sigint_handler(int sig)
+// {
+// 	(void)sig;
+// 	write(1, "\nminishell> ", 12);
+// 	rl_replace_line("", 0);
+// 	rl_on_new_line();
+// }
+
 void	ft_input(char **argv, char **envp)
 {
 	t_status	status;
 	t_envlist	envlist;
 
 	init(&status, &envlist, envp);
-	// print_envlist(&envlist);
+	// signal(SIGINT, sigint_handler);
 	while (1)
 	{
 		argv[0] = readline("minishell> ");

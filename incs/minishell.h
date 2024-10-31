@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/10/31 14:17:33 by mjong            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:45:59 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int			unset(t_envlist *envlist, char *var_name);
 char		*get_var_name(char *cmd, int *i);
 char		*get_var_value(char *cmd, int i);
 int			print_sorted_envlist(t_envlist *envlist);
+void		print_envlist(t_envlist *envlist);
 
 // command_list.c
 t_cmdlist	*create_list(void);
@@ -120,6 +121,5 @@ void		ft_error(const char *msg);
 void		ft_exit(char *argv);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
-void		print_envlist(t_envlist *envlist);
 
 #endif

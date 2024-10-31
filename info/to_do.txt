@@ -27,14 +27,7 @@ Execution:
 					redirections				( <, >, >> )
 					here-doc					( << )
 					double and single quotes	( "", '' )
-					envlistonment variable		( $ )
 					signals 					( ctrl + c, ctrl + \ )
-					built-ins:	- echo -n
-								- export
-								- unset
-
-echo $VAR_NAME functionality
-write own setenv function
 
 don't use ft_split!!!
 
