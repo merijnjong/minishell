@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/02 14:47:46 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/06 17:39:48 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,22 @@ char	*ft_find_path(char **envp, char *cmd)
 
 void	ft_execute(char *argv, char **envp)
 {
-	char	**cmd;
-	char	*path;
+    char	**cmd;
+    char	*path;
 
 	cmd = ft_split(argv, ' ');
-	if (cmd == NULL)
-		ft_error("cmd");
-	path = ft_find_path(envp, cmd[0]);
-	if (path == NULL)
-	{
-		ft_free_dbl(cmd);
-		ft_printf("%s: command not found\n", argv);
-		exit(127);
-	}
-	if (execve(path, cmd, envp) < 0)
-		ft_error("execve");
+    if (handle_redirects(cmd) != 0)
+    {
+        ft_free_dbl(cmd);
+        exit(1);
+    }
+    path = ft_find_path(envp, cmd[0]);
+    if (path == NULL)
+    {
+        ft_free_dbl(cmd);
+        ft_printf("%s: command not found\n", cmd[0]);
+        exit(127);
+    }
+    if (execve(path, cmd, envp) < 0)
+        ft_error("execve");
 }

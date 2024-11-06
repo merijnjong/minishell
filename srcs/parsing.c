@@ -1,42 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 16:10:16 by mjong            ###   ########.fr       */
+/*   Created: 2024/11/06 18:22:14 by mjong             #+#    #+#             */
+/*   Updated: 2024/11/06 18:22:44 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "minishell.h"
-
-int	ft_parser(t_status status, t_envlist *envlist, char *argv, char **envp)
-{
-	pid_t	pid;
-
-	if (ft_strncmp(argv, "exit", 5) == 0)
-		ft_exit(argv);
-	status.last = builtin_check(status, envlist, argv);
-	if (status.last != 127)
-		return (status.last);
-	pid = fork();
-	if (pid == -1)
-		ft_error("fork");
-	else if (pid == 0)
-		ft_execute(argv, envp);
-	else
-	{
-		if (waitpid(pid, &status.last, 0) == -1)
-			ft_error("waitpid");
-		if (WIFEXITED(status.last))
-			return (WEXITSTATUS(status.last));
-		else
-			return (-1);
-	}
-	return (0);
-}
 
 // typedef struct s_args
 // {
@@ -96,41 +68,4 @@ int	ft_parser(t_status status, t_envlist *envlist, char *argv, char **envp)
 // 		if (add_to_cmd(input, ndx, cmd) == -1)
 // 			return (-1);
 // 	return (0);
-// }
-
-// int	ft_parser(char *input, char *envp[])
-// {
-// 	int exit_status;
-
-// 	if (input[0] == '\0')
-// 	{
-// 		ft_printf("\033[31mERROR: Enter a command\e[0m\n");
-// 		return (0);
-// 	}
-// 	t_cmd	cmd = {NULL, 0, NULL};
-// 	if (parse_cmd(&cmd, input, envp) == -1)
-// 	{
-// 		ft_printf("Parse error\n");
-// 		free_cmd(&cmd);
-// 		return (1);
-// 	}
-// 	// if (replace_env_vars_and_quotes(&cmd, envp) == -1)
-// 	// {
-// 	// 	ft_printf("Replacing error\n");
-// 	// 	free_cmd(&cmd);
-// 	// 	return (1);
-// 	// }
-// 	exit_status = execute_cmd(&cmd, envp);
-// 	free_cmd(&cmd);
-// 	return (exit_status);
-// 	// else if (ft_strncmp(input, "exit", 5) == 0)
-// 	// {
-// 	// 	ft_printf("exit\n");
-// 	// 	return (1);
-// 	// }
-// 	// else if (ft_strncmp(input, "ls", 3) == 0)
-// 	// 	ft_execute("/usr/bin/ls", envp);
-// 	// else
-// 	// 	return (builtincheck(input));
-// 	// return (0);
 // }

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/10/31 15:45:59 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/06 18:24:27 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ char		*get_var_value(char *cmd, int i);
 int			print_sorted_envlist(t_envlist *envlist);
 void		print_envlist(t_envlist *envlist);
 
+// /srs/execution
+void		ft_execute(char *argv, char **envp);
+int			ft_call_pipe(t_status status, char *argv, char **envp);
+int			handle_redirects(char **cmd);
+
 // command_list.c
 t_cmdlist	*create_list(void);
 t_cmd		*add_command(char *input, char *output, char *executable);
@@ -104,14 +109,11 @@ void		free_cmdlist_recursive(t_node *node);
 void		free_command(t_cmd *cmd);
 void		add_node(t_node **head, char *input, int begin, int end);
 
-// execution.c
-void		ft_execute(char *argv, char **envp);
-
 // minishell.c
 void		ft_input(char **argv, char **envp);
 
-// parsing.c
-int			ft_parser(t_status status, t_envlist *envlist, char *argv, char **envp);
+// processes.c
+int process(t_status status, t_envlist *envlist, char *argv, char **envp);
 
 // tokenization.c
 t_tokenlist	*ft_tokenize(char *str);

@@ -23,9 +23,8 @@ Merra:
 
 Execution:
 		- Execute parsed information
-		- Implement	pipes						( | )
-					redirections				( <, >, >> )
-					here-doc					( << )
+		- Make a clear distinction between parent process and child processes
+		- Implement	here-doc					( << )
 					double and single quotes	( "", '' )
 					signals 					( ctrl + c, ctrl + \ )
 

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 16:13:34 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/06 18:24:06 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_input(char **argv, char **envp)
 		}
 		if (argv[0][0] != '\0')
 		{
-			status.last = ft_parser(status, &envlist, argv[0], envp);
+			status.last = process(status, &envlist, argv[0], envp);
 			add_history(argv[0]);
 		}
 		else
