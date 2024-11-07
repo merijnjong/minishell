@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-int	remove_current_node(t_envlist *envlist, t_envlist *current, t_envlist *prev)
+int	remove_current_node(t_envlist **envlist, t_envlist *current, t_envlist *prev)
 {
 	if (prev != NULL)
 		prev->next = current->next;
 	else
-		envlist = current->next;
+		*envlist = current->next;
 	free(current->env);
 	free(current);
 	return (0);
@@ -39,7 +39,7 @@ int	unset(t_envlist *envlist, char *var_name)
 		if (current_var_name && ft_strcmp(current_var_name, var_name) == 0)
 		{
 			free(current_var_name);
-			return (remove_current_node(envlist, current, prev));
+			return (remove_current_node(&envlist, current, prev));
 		}
 		free(current_var_name);
 		prev = current;

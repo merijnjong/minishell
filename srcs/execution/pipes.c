@@ -26,14 +26,14 @@ int	ft_array_len(char **cmds)
 	return (i);
 }
 
-pid_t	ft_execute_command(char *cmd, char *envp[], int input_fd, int output_fd)
+void	ft_execute_command(char *cmd, char *envp[], int input_fd, int output_fd)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == -1)
 		ft_error("fork");
-	if (pid == 0)
+	else if (pid == 0)
 	{
 		if (input_fd != STDIN_FILENO)
 		{
@@ -48,7 +48,6 @@ pid_t	ft_execute_command(char *cmd, char *envp[], int input_fd, int output_fd)
 		ft_execute(cmd, envp);
 		exit(EXIT_FAILURE);
 	}
-	return (pid);
 }
 
 int ft_execute_pipe(char *argv[], char *envp[], int cmd_count)
@@ -56,7 +55,6 @@ int ft_execute_pipe(char *argv[], char *envp[], int cmd_count)
 	int		input_fd;
 	int		fd[2];
 	int		i;
-	pid_t	pid;
 
 	input_fd = STDIN_FILENO;
 	i = -1;
@@ -69,14 +67,15 @@ int ft_execute_pipe(char *argv[], char *envp[], int cmd_count)
 		}
 		else
 			fd[1] = STDOUT_FILENO;
-		pid = ft_execute_command(argv[i], envp, input_fd, fd[1]);
+		ft_execute_command(argv[i], envp, input_fd, fd[1]);
 		if (i < cmd_count - 1)
 			close(fd[1]);
 		if (input_fd != STDIN_FILENO)
 			close(input_fd);
 		input_fd = fd[0];
 	}
-    waitpid(pid, NULL, 0);
+	while (wait(NULL) != -1)
+		;
     return (0);
 }
 
