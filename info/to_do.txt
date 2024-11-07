@@ -35,3 +35,5 @@ don't use ft_split!!!
 "touch test > txt" behaves differently in our minishell than in bash
 
 "echo hello > test1 > test2 > test3" will add 3 files but only put "hello" into test3 in bash
+
+hello world
