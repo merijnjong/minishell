@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/06 18:23:13 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/13 15:04:14 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int process(t_status status, t_envlist *envlist, char *argv, char **envp)
 // {
 // 	if (strchr(argv, '|'))
 // 		return (ft_call_pipe(status, argv, envp));
-// 	if (ft_strncmp(argv, "exit", 5) == 0)
-// 		ft_exit(argv);
 // 	status.last = builtin_check(status, envlist, argv);
 // 	if (status.last != 127)
 // 		return (status.last);
@@ -59,6 +57,8 @@ int process(t_status status, t_envlist *envlist, char *argv, char **envp)
 // 	pid_t	pid;
 // 	int		fd[2];
 	
+// 	if (ft_strncmp(argv, "exit", 5) == 0)
+// 		ft_exit(argv);
 // 	if (pipe(fd) == -1)
 // 		ft_error("pipe");
 // 	pid = fork();
@@ -68,8 +68,8 @@ int process(t_status status, t_envlist *envlist, char *argv, char **envp)
 // 		child_process(status, envlist, argv, envp);
 // 	close(fd[0]);
 // 	waitpid(pid, &status.last, 0);
-// 	while (wait(NULL) != -1)
-// 		;
+// 	// while (wait(NULL) != -1)
+// 	// 	;
 // 	if (WIFEXITED(status.last))
 // 		return (WEXITSTATUS(status.last));
 // 	return (0);
