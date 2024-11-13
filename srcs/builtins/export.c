@@ -91,12 +91,10 @@ int check_var_name(char *var_name)
 int	export(t_envlist *envlist, char *cmd)
 {
 	int		i;
-	char	*env_struct;
 	char	*var_name;
 	char	*var_value;
 
 	i = 0;
-	env_struct = NULL;
 	while (cmd[i] == ' ')
 		i++;
 	if (cmd[i] == '\0')

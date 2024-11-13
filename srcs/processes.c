@@ -37,8 +37,6 @@ int process(t_status status, t_envlist *envlist, char *argv, char **envp)
 			ft_error("waitpid");
 		if (WIFEXITED(status.last))
 			return (WEXITSTATUS(status.last));
-		else
-			return (-1);
 	}
 	return (0);
 }
