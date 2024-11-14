@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:56:10 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 12:47:56 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:10:27 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	print_commands(t_cmdlist *list)
 	current = list->head;
 	while (current != NULL)
 	{
-        printf("Command: %s\n", current->cmd->filename);
-        if (current->cmd->args)
+        printf("Command: %s\n", current->cmd->command);
+        if (current->cmd->arguments)
 		{
-			arg = current->cmd->args;
+			arg = current->cmd->arguments;
             printf("Arguments: ");
             while (*arg != NULL)
 			{
@@ -36,22 +36,22 @@ void	print_commands(t_cmdlist *list)
     }
 }
 
-void	free_command(t_cmd *cmd)
+void	free_command(t_minishell *cmd)
 {
 	char	**arg;
 	char	**env;
 
-	arg = cmd->args;
+	arg = cmd->arguments;
 	env = cmd->envp;
-	if (cmd->filename) free(cmd->filename);
-    if (cmd->args)
+	if (cmd->command) free(cmd->command);
+    if (cmd->arguments)
 	{
         while (*arg != NULL)
 		{
             free(*arg);
 			arg++;
         }
-        free(cmd->args);
+        free(cmd->arguments);
     }
     if (cmd->envp)
 	{

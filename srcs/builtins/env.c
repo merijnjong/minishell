@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:28 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/24 16:10:48 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:05:21 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(t_envlist *envlist)
+int	env(t_minishell *envlist)
 {
 	print_envlist(envlist);
 	return (0);

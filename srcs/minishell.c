@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   re_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 13:49:12 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:03:48 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	start_envlist(t_envlist *current, char **envp, int i)
+void	start_envlist(t_minishell *envlist, char **envp, int i)
 {
-	t_envlist	*new_node;
+	t_minishell	*new_node;
 
 	while (envp[i])
 	{
-		new_node = malloc(sizeof(t_envlist));
+		new_node = malloc(sizeof(t_minishell));
 		if (new_node == NULL)
 			return ;
 		new_node->env = ft_strdup(envp[i]);
@@ -27,27 +27,27 @@ void	start_envlist(t_envlist *current, char **envp, int i)
 			free(new_node);
 			return ;
 		}
-		new_node->next = NULL;
-		current->next = new_node;
-		current = new_node;
+		new_node->next_env = NULL;
+		envlist->next_env = new_node;
+		envlist = new_node;
 		i++;
 	}
 }
 
-void	init(t_status *status, t_envlist *envlist, char **envp)
+void	init(t_minishell *minishell, char **envp)
 {
-	t_envlist	*current;
+	t_minishell	*current;
 	int			i;
 
-	status->last = 0;
-	current = envlist;
+	minishell->status = 0;
+	current = minishell;
 	i = 0;
 	if (envp == NULL || envp[0] == NULL)
 		return ;
 	current->env = ft_strdup(envp[i]);
 	if (current->env == NULL)
 		return ;
-	current->next = NULL;
+	current->next_env = NULL;
 	i++;
 	start_envlist(current, envp, i);
 }
@@ -62,10 +62,9 @@ void	init(t_status *status, t_envlist *envlist, char **envp)
 
 void	ft_input(char **argv, char **envp)
 {
-	t_status	status;
-	t_envlist	envlist;
+	t_minishell	minishell;
 
-	init(&status, &envlist, envp);
+	init(&minishell, envp);
 	// signal(SIGINT, sigint_handler);
 	while (1)
 	{
@@ -78,12 +77,12 @@ void	ft_input(char **argv, char **envp)
 		if (argv[0][0] != '\0')
 		{
 			ft_parsing(argv);
-			status.last = process(status, &envlist, argv[0], envp);
+			minishell.status = process(&minishell, argv[0], envp);
 			// status.last = parent_process(status, &envlist, argv[0], envp);
 			add_history(argv[0]);
 		}
 		else
-			status.last = 130;
+			minishell.status = 130;
 		free(argv[0]);
 	}
 	rl_clear_history();

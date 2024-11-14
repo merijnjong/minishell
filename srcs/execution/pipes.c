@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
+/*   re_pipes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/06 16:21:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:33:29 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int ft_execute_pipe(char *argv[], char *envp[], int cmd_count)
     return (0);
 }
 
-int	ft_call_pipe(t_status status, char *argv, char **envp)
+int	ft_call_pipe(t_minishell *minishell, char *argv, char **envp)
 {
 	char	**cmds;
 
@@ -89,9 +89,9 @@ int	ft_call_pipe(t_status status, char *argv, char **envp)
 		ft_error("Memory allocation error");
 		return (1);
 	}
-	status.last = ft_execute_pipe(cmds, envp, ft_array_len(cmds));
+	minishell->status = ft_execute_pipe(cmds, envp, ft_array_len(cmds));
 	ft_free_dbl(cmds);
-	return (status.last);
+	return (minishell->status);
 }
 
 // pid_t	ft_execute_command(char *cmd, char *envp[], int input_fd, int output_fd)

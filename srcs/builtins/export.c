@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   re_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 15:34:01 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:02:10 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_env_node(t_envlist *last, char *var_name, char *var_value)
+void	add_env_node(t_minishell *last, char *var_name, char *var_value)
 {
-	t_envlist	*new_node;
+	t_minishell	*new_node;
 	char		*new_env;
 	char		*temp;
 
-	new_node = (t_envlist *)malloc(sizeof(t_envlist));
+	new_node = (t_minishell *)malloc(sizeof(t_minishell));
 	if (new_node == NULL)
 		return ;
 	temp = ft_strjoin(var_name, "=");
 	new_env = ft_strjoin(temp, var_value);
 	free(temp);
 	new_node->env = new_env;
-	new_node->next = NULL;
+	new_node->next_env = NULL;
 	if (last != NULL)
-		last->next = new_node;
+		last->next_env = new_node;
 }
 
-void	replace_env_node(t_envlist *current, char *var_name, char *var_value, char *env_name)
+void	replace_env_node(t_minishell *current, char *var_name, char *var_value, char *env_name)
 {
 	char	*temp;
 
@@ -41,10 +41,10 @@ void	replace_env_node(t_envlist *current, char *var_name, char *var_value, char 
 	free(env_name);
 }
 
-void	ft_setenv(t_envlist *envlist, char *var_name, char *var_value)
+void	ft_setenv(t_minishell *envlist, char *var_name, char *var_value)
 {
-	t_envlist	*current;
-	t_envlist	*last;
+	t_minishell	*current;
+	t_minishell	*last;
 	char		*env_name;
 	int			i;
 
@@ -61,7 +61,7 @@ void	ft_setenv(t_envlist *envlist, char *var_name, char *var_value)
 		}
 		free(env_name);
 		last = current;
-		current = current->next;
+		current = current->next_env;
 	}
 	add_env_node(last, var_name, var_value);
 }
@@ -88,7 +88,7 @@ int check_var_name(char *var_name)
 	return (0);
 }
 
-int	export(t_envlist *envlist, char *cmd)
+int	export(t_minishell *envlist, char *cmd)
 {
 	int		i;
 	char	*var_name;

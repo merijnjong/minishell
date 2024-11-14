@@ -6,15 +6,15 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 13:42:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 18:16:08 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_value(t_envlist *envlist, char *key)
+char	*get_env_value(t_minishell *envlist, char *key)
 {
-	t_envlist	*current;
+	t_minishell	*current;
 	size_t		key_len;
 
 	current = envlist;
@@ -23,7 +23,7 @@ char	*get_env_value(t_envlist *envlist, char *key)
 	{
 		if (ft_strncmp(current->env, key, key_len) == 0 && current->env[key_len] == '=')
 			return (current->env + key_len + 1);
-		current = current->next;
+		current = current->next_env;
 	}
 	return (NULL);
 }
@@ -43,11 +43,12 @@ int	cd_path(char *cd_cmd, int i, int j)
 	return (0);
 }
 
-int	cd_home(t_envlist *envlist)
+int	cd_home(t_minishell *envlist)
 {
 	char	*home;
 
 	home = get_env_value(envlist, "HOME");
+	ft_printf("path: %s\n", home);
 	if (home != NULL)
 	{
 		if (chdir(home) == -1)
@@ -64,7 +65,7 @@ int	cd_home(t_envlist *envlist)
 	return (0);
 }
 
-int	cd(t_envlist *envlist, char *cd_cmd)
+int	cd(t_minishell *envlist, char *cd_cmd)
 {
 	int	result;
 	int	i;

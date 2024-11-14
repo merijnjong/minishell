@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   re_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:41 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 14:25:42 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:01:40 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	remove_current_node(t_envlist **envlist, t_envlist *current, t_envlist *prev)
+int	remove_current_node(t_minishell **envlist, t_minishell *current, t_minishell *prev)
 {
 	if (prev != NULL)
-		prev->next = current->next;
+		prev->next_env = current->next_env;
 	else
-		*envlist = current->next;
+		*envlist = current->next_env;
 	free(current->env);
 	free(current);
 	return (0);
 }
 
-int	unset(t_envlist *envlist, char *var_name)
+int	unset(t_minishell *envlist, char *var_name)
 {
-	t_envlist	*current;
-	t_envlist	*prev;
+	t_minishell	*current;
+	t_minishell	*prev;
 	char		*current_var_name;
 	int			i;
 
@@ -43,7 +43,7 @@ int	unset(t_envlist *envlist, char *var_name)
 		}
 		free(current_var_name);
 		prev = current;
-		current = current->next;
+		current = current->next_env;
 	}
 	return (0);
 }

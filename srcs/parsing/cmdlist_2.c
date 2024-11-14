@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:00:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/13 17:50:29 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:15:32 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*create_node(t_cmd *cmd)
+t_node	*create_node(t_minishell *cmd)
 {
 	t_node	*new_node;
 
@@ -24,7 +24,7 @@ t_node	*create_node(t_cmd *cmd)
     return (new_node);
 }
 
-void	add_command(t_cmdlist *list, t_cmd *cmd)
+void	add_command(t_cmdlist *list, t_minishell *cmd)
 {
 	t_node	*new_node;
 	t_node	*temp;
@@ -71,25 +71,25 @@ char	**array_dup(char **array)
 	return (duplicate_array);
 }
 
-t_cmd	*get_command(char **arg_array)
+t_minishell	*get_command(char **arg_array)
 {
-	t_cmd	*a;
+	t_minishell	*a;
 
-	a = malloc(sizeof(t_cmd));
-	a->filename = ft_strdup(arg_array[0]);
-	if (!a->filename)
+	a = malloc(sizeof(t_minishell));
+	a->command = ft_strdup(arg_array[0]);
+	if (!a->command)
 		return (free(a), NULL);
-	a->args = array_dup(arg_array);
-	if (!a->args)
+	a->arguments = array_dup(arg_array);
+	if (!a->arguments)
 	{
-		free(a->filename);
+		free(a->command);
 		return (free(a), NULL);
 	}
 	a->envp = array_dup(environ);
 	if (!a->envp)
 	{
-		free(a->filename);
-		free_array(a->args);
+		free(a->arguments);
+		free_array(a->arguments);
 		return (free(a), NULL);
 	}
 	return (a);

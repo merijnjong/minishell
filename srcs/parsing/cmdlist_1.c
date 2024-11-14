@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:53:43 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 12:48:42 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:14:50 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	init_cmdlist(t_cmdlist *list)
 t_cmdlist	put_in_cmdlist(char **command_array)
 {
 	t_cmdlist	command_list;
-	t_cmd		*command;
+	t_minishell	*command;
 	char		**temp;
 	int			i;
 

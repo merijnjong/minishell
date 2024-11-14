@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_utils_2.c                                 :+:      :+:    :+:   */
+/*   re_builtins_utils_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:11:49 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 15:24:29 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:03:27 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	compare_strings(const char *a, const char *b)
 	return (ft_strcmp(a, b));
 }
 
-int	envlist_count(t_envlist *envlist)
+int	envlist_count(t_minishell *envlist)
 {
 	int	count;
 
@@ -25,14 +25,14 @@ int	envlist_count(t_envlist *envlist)
 	while (envlist != NULL)
 	{
 		count++;
-		envlist = envlist->next;
+		envlist = envlist->next_env;
 	}
 	return (count);
 }
 
-char	**envlist_to_array(t_envlist *envlist, int *size)
+char	**envlist_to_array(t_minishell *envlist, int *size)
 {
-	t_envlist	*current;
+	t_minishell	*current;
 	char		**array;
 	int			count;
 	int			i;
@@ -46,7 +46,7 @@ char	**envlist_to_array(t_envlist *envlist, int *size)
 	while (i < count)
 	{
 		array[i] = ft_strdup(current->env);
-		current = current->next;
+		current = current->next_env;
 		i++;
 	}
 	array[count] = NULL;
@@ -54,7 +54,7 @@ char	**envlist_to_array(t_envlist *envlist, int *size)
 	return (array);
 }
 
-int	print_sorted_envlist(t_envlist *envlist)
+int	print_sorted_envlist(t_minishell *envlist)
 {
 	char	**env_array;
 	char	*equals_sign;
@@ -83,15 +83,15 @@ int	print_sorted_envlist(t_envlist *envlist)
 	return (0);
 }
 
-void	print_envlist(t_envlist *envlist)
+void	print_envlist(t_minishell *envlist)
 {
-	t_envlist	*current;
+	t_minishell	*current;
 
 	current = envlist;
 	while (current != NULL)
 	{
 		if (current->env != NULL)
 			ft_printf("%s\n", current->env);
-		current = current->next;
+		current = current->next_env;
 	}
 }

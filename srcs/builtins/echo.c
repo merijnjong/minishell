@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   re_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 14:18:59 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:02:20 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_env(t_envlist *envlist, char *input)
+void	echo_env(t_minishell *envlist, char *input)
 {
-	t_envlist	*current;
+	t_minishell	*current;
 	char		*env;
 	char		*env_name;
 	int			i;
@@ -33,7 +33,7 @@ void	echo_env(t_envlist *envlist, char *input)
 			break ;
 		}
 		free(env_name);
-		current = current->next;
+		current = current->next_env;
 	}
 	if (env == NULL)
 		ft_printf("\n");
@@ -41,16 +41,16 @@ void	echo_env(t_envlist *envlist, char *input)
 		ft_printf("%s\n", env);
 }
 
-int	echo(t_status status, t_envlist *envlist, char *input)
+int	echo(t_minishell *minishell, char *input)
 {
 	while (*input == ' ')
 		input++;
 	if (ft_strncmp(input, "-n", 2) == 0)
 		ft_printf("%s", input + 3);
 	else if (ft_strncmp(input, "$?", 2) == 0)
-		ft_printf("%d\n", status.last);
+		ft_printf("%d\n", minishell->status);
 	else if (ft_strncmp(input, "$", 1) == 0)
-		echo_env(envlist, input);
+		echo_env(minishell, input);
 	else
 		ft_printf("%s\n", input);
 	return (0);
