@@ -6,19 +6,19 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/30 16:37:13 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 14:44:51 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	builtin_check(t_status status, t_envlist *envlist, char *input)
-{
+{	
 	while (*input == ' ')
 		input++;
-	if (ft_strncmp(input, "cd", 2) == 0
+	if (ft_strncmp(cmd->filename, "cd", 2) == 0
 		&& (input[2] == ' ' || input[2] == '\0'))
-		return (cd(input + 3));
+		return (cd(envlist, input + 3));
 	else if (ft_strncmp(input, "echo", 4) == 0
 		&& (input[4] == ' ' || input[4] == '\0'))
 		return (echo(status, envlist, input + 5));

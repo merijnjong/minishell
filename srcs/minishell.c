@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/13 15:04:18 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 13:49:12 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_input(char **argv, char **envp)
 		}
 		if (argv[0][0] != '\0')
 		{
+			ft_parsing(argv);
 			status.last = process(status, &envlist, argv[0], envp);
 			// status.last = parent_process(status, &envlist, argv[0], envp);
 			add_history(argv[0]);
@@ -91,7 +92,9 @@ void	ft_input(char **argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	if (argc == 1)
+	{
 		ft_input(argv, envp);
+	}
 	else
 		ft_printf("\033[31mError: Incorrect notation.\n\
 		Start program by typing: ./minishell\e[0m\n");

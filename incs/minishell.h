@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/11/13 15:04:38 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/14 14:45:36 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,25 @@
 # define TRUNC 16
 # define END 17
 
+extern char **environ;
+
 typedef struct s_cmd
 {
-	char	*filename;
-	char	**args;
+	char	*filename;	// Command:
+	char	**args;		// Arguments:
 	char	**envp;
-}	t_cmd;
+} t_cmd;
+
+typedef struct s_node
+{
+	t_cmd 			*cmd;
+	struct s_node	*next;
+} t_node;
+
+typedef struct s_cmdlist
+{
+	struct s_node	*head;
+} t_cmdlist;
 
 typedef struct s_status
 {
@@ -57,33 +70,9 @@ typedef struct s_envlist
 	struct s_envlist	*next;
 }	t_envlist;
 
-typedef struct s_node
-{
-	int				type;
-	t_cmd			*cmd;
-	struct s_node	*next;
-}	t_node;
-
-typedef struct s_cmdlist
-{
-	struct s_node	*head;
-}	t_cmdlist;
-
-typedef struct s_token_node
-{
-	struct s_token_node	*prev;
-	int					token;
-	struct s_token_node	*next;
-}	t_token_node;
-
-typedef struct s_tokenlist
-{
-	struct s_node	*head;
-}	t_tokenlist;
-
 // /srcs/builtins
 int			builtin_check(t_status status, t_envlist *envlist, char *input);
-int			cd(const char *cd_cmd);
+int			cd(t_envlist *envlist, char *cd_cmd);
 int			echo(t_status status, t_envlist *envlist, char *input);
 int			env(t_envlist *envlist);
 int			export(t_envlist *envlist, char *cmd);
@@ -100,24 +89,29 @@ void		print_envlist(t_envlist *envlist);
 void		ft_execute(char *argv, char **envp);
 int			ft_call_pipe(t_status status, char *argv, char **envp);
 int			handle_redirects(char **cmd);
+int			process(t_status status, t_envlist *envlist, char *argv, char **envp);
+// int parent_process(t_status status, t_envlist *envlist, char *argv, char **envp);
 
-// command_list.c
-t_cmdlist	*create_list(void);
-t_cmd		*add_command(char *input, char *output, char *executable);
-void		free_cmdlist(t_cmdlist *list);
-void		free_cmdlist_recursive(t_node *node);
-void		free_command(t_cmd *cmd);
-void		add_node(t_node **head, char *input, int begin, int end);
+// /parsing/cmdlist.c
+t_cmd		*get_command(char **arg_array);
+void		add_command(t_cmdlist *list, t_cmd *cmd);
+t_cmdlist	put_in_cmdlist(char **command_array);
+
+// /parsing/get_command.c
+char		**get_command_array(char *str);
+
+// /parsing/parsing_utils.c
+int			count_between_quotes(char *str, int i);
+void		free_array(char **array);
+void		print_commands(t_cmdlist *list);
+void		free_commands(t_cmdlist *list);
+
+// /parsing/parsing.c
+void		ft_parsing(char **argv);
 
 // minishell.c
 void		ft_input(char **argv, char **envp);
 
-// processes.c
-int process(t_status status, t_envlist *envlist, char *argv, char **envp);
-// int parent_process(t_status status, t_envlist *envlist, char *argv, char **envp);
-
-// tokenization.c
-t_tokenlist	*ft_tokenize(char *str);
 
 // utils.c
 void		ft_error(const char *msg);
