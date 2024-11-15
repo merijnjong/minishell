@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/11/14 18:15:47 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/15 14:33:36 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_cmdlist
 } t_cmdlist;
 
 // /srcs/builtins
-int			builtin_check(t_minishell *minishell, char *input);
-int			cd(t_minishell *envlist, char *cd_cmd);
+int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist, char *input);
+int			cd(t_minishell *envlist, t_cmdlist *cmdlist, char *cd_cmd);
 int			echo(t_minishell *minishell, char *input);
 int			env(t_minishell *minishell);
 int			export(t_minishell *minishell, char *cmd);
@@ -73,7 +73,7 @@ void		print_envlist(t_minishell *minishell);
 void		ft_execute(char *argv, char **envp);
 int			ft_call_pipe(t_minishell *minishell, char *argv, char **envp);
 int			handle_redirects(char **cmd);
-int			process(t_minishell *minishell, char *argv, char **envp);
+int			process(t_minishell *minishell, t_cmdlist *cmdlist, char *argv, char **envp);
 // int parent_process(t_minishell status, t_minishell *minishell, char *argv, char **envp);
 
 // /parsing/cmdlist.c
@@ -91,7 +91,7 @@ void		print_commands(t_cmdlist *list);
 void		free_commands(t_cmdlist *list);
 
 // /parsing/parsing.c
-void		ft_parsing(char **argv);
+t_cmdlist	ft_parsing(char *argv);
 
 // minishell.c
 void		ft_input(char **argv, char **envp);

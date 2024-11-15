@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   re_builtins.c                                      :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 16:36:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/15 14:32:44 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_check(t_minishell *minishell, char *input)
+int	builtin_check(t_minishell *minishell, t_cmdlist *cmdlist, char *input)
 {	
+	t_node *current;
+	
+	current = cmdlist->head;
+
+	printf("current: %s\n", current->cmd->command);
 	while (*input == ' ')
 		input++;
 	if (ft_strncmp(input, "cd", 2) == 0
 		&& (input[2] == ' ' || input[2] == '\0'))
-		return (cd(minishell, input + 3));
+		return (cd(minishell, cmdlist, input + 3));
 	else if (ft_strncmp(input, "echo", 4) == 0
 		&& (input[4] == ' ' || input[4] == '\0'))
 		return (echo(minishell, input + 5));

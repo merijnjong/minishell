@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 18:16:08 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/15 14:34:21 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	cd_home(t_minishell *envlist)
 	char	*home;
 
 	home = get_env_value(envlist, "HOME");
-	ft_printf("path: %s\n", home);
 	if (home != NULL)
 	{
 		if (chdir(home) == -1)
@@ -65,12 +64,13 @@ int	cd_home(t_minishell *envlist)
 	return (0);
 }
 
-int	cd(t_minishell *envlist, char *cd_cmd)
+int	cd(t_minishell *envlist, t_cmdlist *cmdlist, char *cd_cmd)
 {
 	int	result;
 	int	i;
 	int	j;
 
+	cmdlist = NULL;
 	i = 0;
 	while (cd_cmd[i] == ' ')
 		i++;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   re_minishell.c                                     :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 17:03:48 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/15 14:01:08 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	init(t_minishell *minishell, char **envp)
 void	ft_input(char **argv, char **envp)
 {
 	t_minishell	minishell;
+	t_cmdlist	cmdlist;
 
 	init(&minishell, envp);
 	// signal(SIGINT, sigint_handler);
@@ -76,9 +77,9 @@ void	ft_input(char **argv, char **envp)
 		}
 		if (argv[0][0] != '\0')
 		{
-			ft_parsing(argv);
-			minishell.status = process(&minishell, argv[0], envp);
-			// status.last = parent_process(status, &envlist, argv[0], envp);
+			cmdlist = ft_parsing(argv[0]);
+			minishell.status = process(&minishell, &cmdlist, argv[0], envp);
+			// minishell.status = parent_process(status, &envlist, argv[0], envp);
 			add_history(argv[0]);
 		}
 		else
