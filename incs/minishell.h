@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/11/15 14:33:36 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/21 15:12:13 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_minishell
 	char				*env;
 	struct s_minishell	*next_env;
 	int					status;
+	int					fd;
 
 	char				*command;
 	char				**arguments;
@@ -92,6 +93,10 @@ void		free_commands(t_cmdlist *list);
 
 // /parsing/parsing.c
 t_cmdlist	ft_parsing(char *argv);
+
+// /parsing/new_dev.c
+char		*convert_string(char *str);
+char		check_for_errors(char *str);
 
 // minishell.c
 void		ft_input(char **argv, char **envp);

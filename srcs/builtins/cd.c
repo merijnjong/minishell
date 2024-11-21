@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/15 14:34:21 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/21 14:51:47 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,15 @@ int	cd_home(t_minishell *envlist)
 int	cd(t_minishell *envlist, t_cmdlist *cmdlist, char *cd_cmd)
 {
 	int	result;
+	// t_node	*current;
 	int	i;
 	int	j;
 
+
 	cmdlist = NULL;
+	// current = cmdlist->head;
+
+	// ft_printf("current: %s\n", current->cmd->command);
 	i = 0;
 	while (cd_cmd[i] == ' ')
 		i++;

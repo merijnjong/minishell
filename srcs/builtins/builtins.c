@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/15 14:32:44 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/21 14:57:41 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	builtin_check(t_minishell *minishell, t_cmdlist *cmdlist, char *input)
 	
 	current = cmdlist->head;
 
-	printf("current: %s\n", current->cmd->command);
+	print_dbl_ptr(current->cmd->arguments);
+	// printf("current: %s\n", current->cmd->command);
 	while (*input == ' ')
 		input++;
 	if (ft_strncmp(input, "cd", 2) == 0
