@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/11/21 15:12:13 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:54:02 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_minishell
 	char				*env;
 	struct s_minishell	*next_env;
 	int					status;
-	int					fd;
 
 	char				*command;
 	char				**arguments;
@@ -56,11 +55,11 @@ typedef struct s_cmdlist
 } t_cmdlist;
 
 // /srcs/builtins
-int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist, char *input);
-int			cd(t_minishell *envlist, t_cmdlist *cmdlist, char *cd_cmd);
-int			echo(t_minishell *minishell, char *input);
+int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
+int			cd(t_minishell *envlist, char *command);
+int			echo(t_minishell *minishell, char *command);
 int			env(t_minishell *minishell);
-int			export(t_minishell *minishell, char *cmd);
+int			export(t_minishell *envlist, char *command);
 int			pwd(char *command);
 int			unset(t_minishell *minishell, char *var_name);
 

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/15 15:20:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/21 18:18:01 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int process(t_minishell *minishell, t_cmdlist *cmdlist, char *argv, char **envp)
 		return (ft_call_pipe(minishell, argv, envp));
 	if (ft_strncmp(argv, "exit", 5) == 0)
 		ft_exit(argv);
-	minishell->status = builtin_check(minishell, cmdlist, argv);
+	minishell->status = builtin_check(minishell, cmdlist);
 	if (minishell->status != 127)
 		return (minishell->status);
 	pid = fork();

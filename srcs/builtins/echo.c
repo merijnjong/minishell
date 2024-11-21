@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   re_echo.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 17:02:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:23:14 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_env(t_minishell *envlist, char *input)
+void	echo_env(t_minishell *envlist, char *command)
 {
 	t_minishell	*current;
 	char		*env;
 	char		*env_name;
 	int			i;
 
-	input++;
+	command++;
 	env = NULL;
 	current = envlist;
 	while (current != NULL)
 	{
 		i = 0;
 		env_name = get_var_name(current->env, &i);
-		if (strcmp(env_name, input) == 0 && env_name != NULL)
+		if (ft_strcmp(env_name, command) == 0 && env_name != NULL)
 		{
 			env = current->env + i;
 			free(env_name);
@@ -41,17 +41,15 @@ void	echo_env(t_minishell *envlist, char *input)
 		ft_printf("%s\n", env);
 }
 
-int	echo(t_minishell *minishell, char *input)
+int	echo(t_minishell *minishell, char *command)
 {
-	while (*input == ' ')
-		input++;
-	if (ft_strncmp(input, "-n", 2) == 0)
-		ft_printf("%s", input + 3);
-	else if (ft_strncmp(input, "$?", 2) == 0)
+	if (ft_strcmp(command, "-n") == 0)
+		ft_printf("%s", command + 3);
+	else if (ft_strcmp(command, "$?") == 0)
 		ft_printf("%d\n", minishell->status);
-	else if (ft_strncmp(input, "$", 1) == 0)
-		echo_env(minishell, input);
+	else if (ft_strncmp(command, "$", 1) == 0)
+		echo_env(minishell, command);
 	else
-		ft_printf("%s\n", input);
+		ft_printf("%s\n", command);
 	return (0);
 }

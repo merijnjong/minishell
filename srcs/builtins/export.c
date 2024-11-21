@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   re_export.c                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 17:02:10 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:26:04 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,19 @@ int check_var_name(char *var_name)
 	return (0);
 }
 
-int	export(t_minishell *envlist, char *cmd)
+int	export(t_minishell *envlist, char *command)
 {
 	int		i;
 	char	*var_name;
 	char	*var_value;
 
 	i = 0;
-	while (cmd[i] == ' ')
-		i++;
-	if (cmd[i] == '\0')
+	if (*command == '\0')
 		return (print_sorted_envlist(envlist));
-	var_name = get_var_name(cmd, &i);
+	var_name = get_var_name(command, &i);
 	if (var_name == NULL || check_var_name(var_name) == 1)
 		return (1);
-	var_value = get_var_value(cmd, i);
+	var_value = get_var_value(command, i);
 	if (var_value == NULL)
 	{
 		free(var_name);
