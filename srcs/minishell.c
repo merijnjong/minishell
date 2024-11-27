@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/21 15:56:46 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/27 21:56:43 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@ void	init(t_minishell *minishell, char **envp)
 	start_envlist(current, envp, i);
 }
 
-// void	sigint_handler(int sig)
+// void setup_signals(void)
 // {
-// 	(void)sig;
-// 	write(1, "\nminishell> ", 12);
-// 	rl_replace_line("", 0);
-// 	rl_on_new_line();
+//     struct sigaction sa;
+    
+//     sa.sa_handler = SIG_IGN;
+//     sigemptyset(&sa.sa_mask);
+//     sa.sa_flags = 0;
+    
+//     sigaction(SIGQUIT, &sa, NULL);
+//     signal(SIGINT, sigint_handler);
 // }
 
 void	ft_input(char **argv, char **envp)
@@ -95,6 +99,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	if (argc == 1)
 	{
+		// setup_signals();
 		ft_input(argv, envp);
 	}
 	else
