@@ -75,3 +75,47 @@ void	ft_execute(char *argv, char **envp)
 	if (execve(path, cmd, envp) < 0)
 		ft_error("execve");
 }
+
+// void ft_execute(char *argv, char **envp)
+// {
+//     char **cmd;
+//     char *path;
+
+//     // Split the command string into arguments
+//     cmd = ft_split(argv, ' ');
+//     if (!cmd || !cmd[0]) // Handle empty command case
+//     {
+//         ft_free_dbl(cmd);
+//         ft_printf("minishell: empty command\n");
+//         exit(127);
+//     }
+
+//     // Handle redirections (assuming this modifies cmd if necessary)
+//     if (handle_redirects(cmd) != 0)
+//     {
+//         ft_free_dbl(cmd);
+//         exit(1); // Exit with failure status for redirection error
+//     }
+
+//     // Find the executable path
+//     path = ft_find_path(envp, cmd[0]);
+//     if (!path) // If command not found in PATH
+//     {
+//         ft_free_dbl(cmd);
+//         ft_printf("minishell: %s: command not found\n", cmd[0]);
+//         exit(127); // Command not found exit code
+//     }
+
+//     // Attempt to execute the command
+//     if (execve(path, cmd, envp) < 0) // If execve fails
+//     {
+//         ft_free_dbl(cmd);
+//         free(path);
+//         ft_error("execve"); // Provide a descriptive error
+//         exit(126); // Execution failure exit code
+//     }
+
+//     // Cleanup (this point is unlikely to be reached because execve replaces the process)
+//     ft_free_dbl(cmd);
+//     free(path);
+// }

@@ -80,8 +80,8 @@ void	ft_input(char **argv, char **envp)
 			cmdlist = ft_parsing(argv[0]);
 			if (cmdlist.head == NULL)
 				minishell.status = 1;
+			// minishell.status = process(&minishell, &cmdlist, envp);
 			minishell.status = process(&minishell, &cmdlist, argv[0], envp);
-			// minishell.status = parent_process(status, &envlist, argv[0], envp);
 			add_history(argv[0]);
 		}
 		else

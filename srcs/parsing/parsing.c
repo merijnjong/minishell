@@ -12,12 +12,15 @@
 
 #include "minishell.h"
 
+/* char **arguments in structs needs to be appended and turned into char *arguments 
+before being returned to execution */
+
 t_cmdlist	ft_parsing(char *argv)
 {
 	t_cmdlist	command_list;
 	char		**command_array;
 	char		*converted_string;
-	
+
 	if (check_for_errors(argv) != 0)
         return (command_list.head = NULL, command_list);
     converted_string = convert_string(argv);
