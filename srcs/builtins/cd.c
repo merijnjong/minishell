@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/27 21:54:07 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/28 15:47:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*get_env_value(t_minishell *envlist, char *key)
 int cd_path(char *command)
 {
     char *path;
-    int ret;
 
     path = ft_strdup(command);
     if (!path)
