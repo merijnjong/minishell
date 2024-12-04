@@ -57,6 +57,7 @@ int	handle_redirects(char **cmd)
 	int	i;
 
 	i = 0;
+	result = 0;
 	while (cmd[i])
 	{
 		if (ft_strcmp(cmd[i], ">") == 0)
@@ -65,6 +66,8 @@ int	handle_redirects(char **cmd)
 			result = right_shift(cmd, i);
 		else if (ft_strcmp(cmd[i], "<") == 0)
 			result = lesser_than(cmd, i);
+		if (result != 0) 
+			return (result);
 		i++;
 	}
 	return (result);

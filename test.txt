@@ -1,0 +1,7 @@
+Makefile
+incs
+info
+libft
+minishell
+srcs
+test.txt

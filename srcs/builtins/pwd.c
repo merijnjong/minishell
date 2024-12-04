@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:39 by mjong             #+#    #+#             */
-/*   Updated: 2024/07/25 15:04:15 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/28 16:04:02 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ int	ft_isprint2(char c)
 int	pwd(char *command)
 {
 	char	cwd[PATH_MAX];
-	int		i;
 
-	i = 0;
-	while (ft_isprint2(command[i]) == 1)
-		i++;
-	if (i == 0)
+	if (command == NULL)
 	{
 		if (getcwd(cwd, sizeof(cwd)) != NULL)
 			ft_printf("%s\n", cwd);

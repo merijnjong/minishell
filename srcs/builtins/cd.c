@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/21 18:19:36 by mjong            ###   ########.fr       */
+/*   Updated: 2024/11/28 15:47:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,21 @@ char	*get_env_value(t_minishell *envlist, char *key)
 	return (NULL);
 }
 
-int	cd_path(char *command)
+int cd_path(char *command)
 {
-	char	*path;
+    char *path;
 
-	path = ft_strdup(command);
-	if (chdir(path) == -1)
-	{
-		ft_printf("cd: not a directory: %s\n", path);
-		free(path);
-		return (1);
-	}
-	free(path);
-	return (0);
+    path = ft_strdup(command);
+    if (!path)
+        return (1);
+    if (chdir(path) == -1)
+    {
+        ft_printf("cd: not a directory: %s\n", path);
+        free(path);
+        return (1);
+    }
+    free(path);
+    return (0);
 }
 
 int	cd_home(t_minishell *envlist)

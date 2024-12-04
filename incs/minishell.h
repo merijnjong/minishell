@@ -55,6 +55,7 @@ typedef struct s_cmdlist
 } t_cmdlist;
 
 // /srcs/builtins
+// int			builtin_check(t_minishell *minishell, char **command);
 int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
 int			cd(t_minishell *envlist, char *command);
 int			echo(t_minishell *minishell, char *command);
@@ -73,7 +74,8 @@ void		print_envlist(t_minishell *minishell);
 void		ft_execute(char *argv, char **envp);
 int			ft_call_pipe(t_minishell *minishell, char *argv, char **envp);
 int			handle_redirects(char **cmd);
-int			process(t_minishell *minishell, t_cmdlist *cmdlist, char *argv, char **envp);
+// int			process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp);
+int			process(t_minishell *minishell, t_cmdlist *cmdlist, char *argv, char **env);
 // int parent_process(t_minishell status, t_minishell *minishell, char *argv, char **envp);
 
 // /parsing/cmdlist.c
