@@ -3,76 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:56:10 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 18:10:27 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/04 18:21:17 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_commands(t_cmdlist *list)
+void print_command(t_cmd *cmd)
 {
-	t_node	*current;
-	char	**arg;
-
-	current = list->head;
-	while (current != NULL)
-	{
-        printf("Command: %s\n", current->cmd->command);
-        if (current->cmd->arguments)
-		{
-			arg = current->cmd->arguments;
-            printf("Arguments: ");
-            while (*arg != NULL)
-			{
-				printf("(%s) ", *arg);
-				arg++;
-			}
-            printf("\n\n");
-        }
-        current = current->next;
+    if (!cmd)
+        return;
+    printf("Command: %s\n", cmd->filename);
+    int i = 0;
+    if (cmd->args)
+    {
+        printf("Arguments: ");
+        while (cmd->args[i])
+            printf("(%s) ", cmd->args[i++]);
+        printf("\n");
     }
+    if (cmd->redirect)
+    {
+        printf("Redirection: ");
+        if (cmd->redirect->type == REDIR_IN)
+            printf("< %s\n", cmd->redirect->filename);
+        else if (cmd->redirect->type == REDIR_OUT)
+            printf("> %s\n", cmd->redirect->filename);
+        else if (cmd->redirect->type == REDIR_APPEND)
+            printf(">> %s\n", cmd->redirect->filename);
+        else if (cmd->redirect->type == REDIR_HEREDOC)
+            printf("<< %s\n", cmd->redirect->filename);
+        else
+            printf("none\n");
+    }
+    printf("\n");
 }
 
-void	free_command(t_minishell *cmd)
+void free_command(t_cmd *cmd)
 {
-	char	**arg;
-	char	**env;
-
-	arg = cmd->arguments;
-	env = cmd->envp;
-	if (cmd->command) free(cmd->command);
-    if (cmd->arguments)
-	{
-        while (*arg != NULL)
-		{
-            free(*arg);
-			arg++;
-        }
-        free(cmd->arguments);
-    }
-    if (cmd->envp)
-	{
-        while (*env != NULL)
-		{
-            free(*env);
-			env++;
-        }
-        free(cmd->envp);
+    if (!cmd)
+        return;
+    if (cmd->filename)
+        free(cmd->filename);
+    if (cmd->args)
+        free_array(cmd->args);
+    if (cmd->redirect)
+    {
+        if (cmd->redirect->filename)
+            free(cmd->redirect->filename);
+        free(cmd->redirect);
     }
     free(cmd);
 }
 
-void	free_commands(t_cmdlist *list)
+void free_commands(t_cmdlist *list)
 {
-    t_node	*current;
-    t_node	*next;
-
-	current = list->head;
+    t_node *current = list->head;
+    t_node *next;
     while (current != NULL)
-	{
+    {
         next = current->next;
         free_command(current->cmd);
         free(current);
@@ -80,6 +72,7 @@ void	free_commands(t_cmdlist *list)
     }
     list->head = NULL;
 }
+
 
 void	free_array(char **array)
 {

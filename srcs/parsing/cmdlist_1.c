@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdlist_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:53:43 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 17:14:50 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/04 18:21:46 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,31 +90,31 @@ char	**ft_split_skip_quotes(char *s, char c)
 	return (array);
 }
 
-void	init_cmdlist(t_cmdlist *list)
+void init_cmdlist(t_cmdlist *list)
 {
     list->head = NULL;
 }
 
-t_cmdlist	put_in_cmdlist(char **command_array)
+t_cmdlist put_in_cmdlist(char **command_array)
 {
-	t_cmdlist	command_list;
-	t_minishell	*command;
-	char		**temp;
-	int			i;
+    int i;
+    char **temp;
+    t_cmd *command;
+    t_cmdlist command_list;
 
-	init_cmdlist(&command_list);
-	i = 0;
-	while (command_array[i])
-	{
-		temp = ft_split_skip_quotes(command_array[i], ' ');
-		if (!temp)
-			free_array(command_array);
-		command = get_command(temp);
-		if (!command)
-			free_array(command_array);
-		add_command(&command_list, command);
-		free_array(temp);
-		i++;
-	}
-	return (command_list);
+    i = 0;
+    init_cmdlist(&command_list);
+    while (command_array[i])
+    {
+        temp = ft_split_skip_quotes(command_array[i], ' ');
+        if (!temp)
+            free_array(command_array);
+        command = get_command(temp);
+        if (!command)
+            free_array(command_array);
+        add_command(&command_list, command);
+        free_array(temp);
+        i++;
+    }
+    return (command_list);
 }

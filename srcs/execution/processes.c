@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/21 18:18:01 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/04 18:12:56 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,56 @@ before being returned to execution */
 // 	return (minishell->status);
 // }
 
-int process(t_minishell *minishell, t_cmdlist *cmdlist, char *argv, char **envp)
+int process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp)
 {
+	t_node	*current;
 	pid_t	pid;
+	int		pipe_fd[2], input_fd = STDIN_FILENO;
 
-	if (strchr(argv, '|'))
-		return (ft_call_pipe(minishell, argv, envp));
-	minishell->status = builtin_check(minishell, cmdlist);
-	if (minishell->status != 127)
-		return (minishell->status);
-	pid = fork();
-	if (pid == -1)
-		ft_error("fork");
-	else if (pid == 0)
-	{
-		ft_execute(argv, envp);
-		exit(EXIT_FAILURE);
+	current = cmdlist->head;
+	while (current) {
+		if (current->next) {
+			if (pipe(pipe_fd) == -1) {
+				perror("pipe");
+				return (1);
+			}
+		}
+		minishell->status = builtin_check(minishell, cmdlist);
+		if (minishell->status != 127) {
+			return minishell->status; 
+		}
+		pid = fork();
+		if (pid == -1) {
+			ft_error("fork");
+		} else if (pid == 0) {
+			if (input_fd != STDIN_FILENO) {
+				dup2(input_fd, STDIN_FILENO);
+				close(input_fd);
+			}
+			if (current->next) {
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[0]);
+				close(pipe_fd[1]);
+			}
+			ft_execute(current->cmd, envp);
+			exit(EXIT_FAILURE);
+		} else {
+			if (current->next) {
+				close(pipe_fd[1]);
+			}
+			if (input_fd != STDIN_FILENO) {
+				close(input_fd);
+			}
+			input_fd = pipe_fd[0];
+			if (waitpid(pid, &minishell->status, 0) == -1) {
+				ft_error("waitpid");
+			}
+			if (WIFEXITED(minishell->status)) {
+				minishell->status = WEXITSTATUS(minishell->status);
+			}
+		}
+		current = current->next;
 	}
-	else
-	{
-		if (waitpid(pid, &minishell->status, 0) == -1)
-			ft_error("waitpid");
-		if (WIFEXITED(minishell->status))
-			return (WEXITSTATUS(minishell->status));
-	}
-	return (0);
+	return minishell->status;
 }
+

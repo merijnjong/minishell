@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   cmdlist_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:00:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/21 16:09:25 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/04 18:20:38 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*create_node(t_minishell *cmd)
+t_node *create_node(t_cmd *cmd)
 {
-	t_node	*new_node;
+    t_node *new_node;
 
-	new_node = (t_node *)malloc(sizeof(t_node));
-	if (!new_node)
-		return NULL;
+    new_node = (t_node *)malloc(sizeof(t_node));
+    if (!new_node)
+        return NULL;
     new_node->cmd = cmd;
     new_node->next = NULL;
     return (new_node);
 }
 
-void	add_command(t_cmdlist *list, t_minishell *cmd)
+void add_command(t_cmdlist *list, t_cmd *cmd)
 {
-	t_node	*new_node;
-	t_node	*temp;
-
-	new_node = create_node(cmd);
-	if (!new_node)
-		return;
+    t_node *new_node;
+    t_node *temp;
+    
+    new_node = create_node(cmd);
+    if (!new_node)
+        return;
     if (!list->head)
         list->head = new_node;
     else
-	{
+    {
         temp = list->head;
         while (temp->next)
             temp = temp->next;
@@ -71,26 +71,28 @@ char	**array_dup(char **array)
 	return (duplicate_array);
 }
 
-t_minishell	*get_command(char **arg_array)
+t_cmd *get_command(char **arg_array)
 {
-	t_minishell	*a;
+    t_cmd *cmd;
+    char **new_args;
 
-	a = malloc(sizeof(t_minishell));
-	a->command = ft_strdup(arg_array[0]);
-	if (!a->command)
-		return (free(a), NULL);
-	a->arguments = array_dup(arg_array);
-	if (!a->arguments)
-	{
-		free(a->command);
-		return (free(a), NULL);
-	}
-	a->envp = array_dup(environ);
-	if (!a->envp)
-	{
-		free(a->arguments);
-		free_array(a->arguments);
-		return (free(a), NULL);
-	}
-	return (a);
+    if (!init_cmd_struct(&cmd))
+        return (NULL);
+    new_args = remove_redirections(arg_array, cmd->redirect);
+    if (!new_args)
+    {
+        free(cmd->redirect);
+        free(cmd);
+        return (NULL);
+    }
+    cmd->filename = ft_strdup(new_args[0]);
+    if (!cmd->filename)
+    {
+        free_array(new_args);
+        free(cmd->redirect);
+        free(cmd);
+        return (NULL);
+    }
+    cmd->args = new_args;
+    return (cmd);
 }

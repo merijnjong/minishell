@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/wait.h>
 #include <ctype.h>
 
 # define NO_REDIR 0
@@ -869,6 +872,85 @@ char	*replace_vars(const char *str)
 }
 
 
+void execute_command(t_cmd *cmd, char **envp, int input_fd, int output_fd) {
+    // Handle redirections
+    if (cmd->redirect && cmd->redirect->type != NO_REDIR) {
+        int fd;
+        if (cmd->redirect->type == REDIR_IN) {
+            fd = open(cmd->redirect->filename, O_RDONLY);
+        } else if (cmd->redirect->type == REDIR_OUT) {
+            fd = open(cmd->redirect->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        } else if (cmd->redirect->type == REDIR_APPEND) {
+            fd = open(cmd->redirect->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        }
+        if (fd < 0) {
+            perror("minishell");
+            exit(1);
+        }
+        dup2(fd, (cmd->redirect->type == REDIR_IN) ? STDIN_FILENO : STDOUT_FILENO);
+        close(fd);
+    }
+
+    // Handle input/output redirection from pipes
+    if (input_fd != STDIN_FILENO) {
+        dup2(input_fd, STDIN_FILENO);
+        close(input_fd);
+    }
+    if (output_fd != STDOUT_FILENO) {
+        dup2(output_fd, STDOUT_FILENO);
+        close(output_fd);
+    }
+
+    // Execute command
+    if (execve(cmd->filename, cmd->args, envp) == -1) {
+        perror(cmd->filename);
+        exit(127);
+    }
+}
+
+void execute_commands(t_cmdlist *cmdlist, char **envp) {
+    t_node *current = cmdlist->head;
+    int pipe_fd[2], input_fd = STDIN_FILENO;
+
+    while (current) {
+        if (current->next) {
+            pipe(pipe_fd); // Create a pipe for the next command
+        }
+
+        pid_t pid = fork();
+        if (pid == 0) { // Child process
+            if (current->next) {
+                close(pipe_fd[0]); // Close unused read end
+                execute_command(current->cmd, envp, input_fd, pipe_fd[1]);
+            } else {
+                execute_command(current->cmd, envp, input_fd, STDOUT_FILENO);
+            }
+        } else if (pid > 0) { // Parent process
+            waitpid(pid, NULL, 0); // Wait for child process
+            close(pipe_fd[1]); // Close unused write end
+            if (input_fd != STDIN_FILENO) {
+                close(input_fd); // Close previous input_fd
+            }
+            input_fd = pipe_fd[0]; // Update input_fd for next command
+        } else {
+            perror("fork");
+            exit(1);
+        }
+        current = current->next; // Move to next command
+    }
+}
+
+void process_builtin_or_execute(t_cmdlist *cmdlist, char **envp) {
+    t_node *current = cmdlist->head;
+
+    while (current) {
+        // Check for builtins here (use a function like `builtin_check`)
+        // If not a builtin, execute normally
+        execute_commands(cmdlist, envp); // Call the execute_commands function
+        current = current->next;
+    }
+}
+
 
 int main(int argc, char **argv)
 {
@@ -891,7 +973,7 @@ int main(int argc, char **argv)
 	if (!command_array)
 		return (1);
 	command_list = put_in_cmdlist(command_array);
-	print_commands(&command_list);
+	process_builtin_or_execute(&command_list, environ);
 	free_commands(&command_list);
 	free_array(command_array);
 	return (0);

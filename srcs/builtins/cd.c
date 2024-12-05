@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/28 15:47:34 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/04 18:07:47 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,52 +28,49 @@ char	*get_env_value(t_minishell *envlist, char *key)
 	return (NULL);
 }
 
-int cd_path(char *command)
+int cd_path(char *path)
 {
-    char *path;
-
-    path = ft_strdup(command);
     if (!path)
         return (1);
     if (chdir(path) == -1)
     {
         ft_printf("cd: not a directory: %s\n", path);
-        free(path);
         return (1);
     }
-    free(path);
     return (0);
 }
 
-int	cd_home(t_minishell *envlist)
+int cd_home(t_minishell *envlist)
 {
-	char	*home;
+    char *home;
 
-	home = get_env_value(envlist, "HOME");
-	if (home != NULL)
-	{
-		if (chdir(home) == -1)
-		{
-			ft_printf("cd: failed to change to home directory\n");
-			return (1);
-		}
-	}
-	else
-	{
-		ft_printf("cd: HOME environment variable not set\n");
-		return (1);
-	}
-	return (0);
+    home = get_env_value(envlist, "HOME");
+    if (home != NULL)
+    {
+        if (chdir(home) == -1)
+        {
+            ft_printf("cd: failed to change to home directory\n");
+            return (1);
+        }
+    }
+    else
+    {
+        ft_printf("cd: HOME environment variable not set\n");
+        return (1);
+    }
+    return (0);
 }
 
-int	cd(t_minishell *envlist, char *command)
+int cd(t_minishell *envlist, char **args)
 {
-	int	result;
+    int result = 0;
 
-	result = 0;
-	if (command == NULL || *command == '\0' || (*command == '~' && *(command + 1) == '\0'))
-		result = cd_home(envlist);
-	else if (command[1])
-		result = cd_path(command);
-	return (result);
+    if (!args || !args[0] || ft_strcmp(args[0], "cd") != 0)
+        return (1);
+
+    if (!args[1] || (ft_strcmp(args[1], "~") == 0))
+        result = cd_home(envlist);
+    else
+        result = cd_path(args[1]);
+    return (result);
 }

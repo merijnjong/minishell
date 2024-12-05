@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/27 21:56:43 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/04 18:04:02 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_input(char **argv, char **envp)
 			if (cmdlist.head == NULL)
 				minishell.status = 1;
 			// minishell.status = process(&minishell, &cmdlist, envp);
-			minishell.status = process(&minishell, &cmdlist, argv[0], envp);
+			minishell.status = process(&minishell, &cmdlist, envp);
 			add_history(argv[0]);
 		}
 		else

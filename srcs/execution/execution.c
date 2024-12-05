@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/21 14:48:18 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/04 17:57:10 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,58 @@ char	*ft_find_path(char **envp, char *cmd)
 	return (path);
 }
 
-void	ft_execute(char *argv, char **envp)
+void	ft_execute(t_cmd *cmd, char **envp)
 {
-	char	**cmd;
 	char	*path;
 
-	cmd = ft_split(argv, ' ');
-	if (handle_redirects(cmd) != 0)
-	{
-		ft_free_dbl(cmd);
-		exit(1);
+	// Handle redirections if present
+	if (cmd->redirect) {
+		int fd;
+		switch (cmd->redirect->type) {
+			case REDIR_IN:
+				fd = open(cmd->redirect->filename, O_RDONLY);
+				if (fd == -1) {
+					perror("Redirection");
+					exit(1);
+				}
+				dup2(fd, STDIN_FILENO);
+				close(fd);
+				break;
+			case REDIR_OUT:
+				fd = open(cmd->redirect->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				if (fd == -1) {
+					perror("Redirection");
+					exit(1);
+				}
+				dup2(fd, STDOUT_FILENO);
+				close(fd);
+				break;
+			case REDIR_APPEND:
+				fd = open(cmd->redirect->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+				if (fd == -1) {
+					perror("Redirection");
+					exit(1);
+				}
+				dup2(fd, STDOUT_FILENO);
+				close(fd);
+				break;
+			case REDIR_HEREDOC:
+				fprintf(stderr, "Heredoc not implemented\n");
+				exit(1);
+				break;
+			default:
+				break;
+		}
 	}
-	path = ft_find_path(envp, cmd[0]);
-	if (path == NULL)
-	{
-		ft_free_dbl(cmd);
-		ft_printf("%s: command not found\n", argv);
+	path = ft_find_path(envp, cmd->filename);
+	if (!path) {
+		ft_printf("%s: command not found\n", cmd->filename);
 		exit(127);
 	}
-	if (execve(path, cmd, envp) < 0)
+	if (execve(path, cmd->args, envp) < 0)
 		ft_error("execve");
 }
+
 
 // void ft_execute(char *argv, char **envp)
 // {
