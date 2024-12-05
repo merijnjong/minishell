@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/04 18:29:43 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/05 13:14:08 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,37 +90,57 @@ void		print_envlist(t_minishell *minishell);
 // /srcs/execution
 void		ft_execute(t_cmd *cmd, char **envp);
 int			ft_isdigit_str(const char *str);
-int			ft_call_pipe(t_minishell *minishell, char *argv, char **envp);
 int			handle_redirects(char **cmd);
 int			process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp); // Updated to remove argv
 // int parent_process(t_minishell status, t_minishell *minishell, char *argv, char **envp);
 
-// /parsing/cmdlist.c
-t_cmd *get_command(char **arg_array);
-void add_command(t_cmdlist *list, t_cmd *cmd);
-t_cmdlist	put_in_cmdlist(char **command_array);
-char **remove_redirections(char **args, t_redirect *redirect);
+int         ft_strlen(const char *str);
+char        *ft_strdup(const char *s);
+void        free_array(char **array);
+void        ft_print_array(char **array);
+int         ft_count_words(char *str, char c);
+int         ft_word_length(char *s, char c, int i);
+char        **ft_split_skip_quotes(char *s, char c);
+char        *ft_substr(const char *s, unsigned int start, size_t len);
+char        *convert_string(char *str);
+char        *replace_vars(const char *str);
+int         count_between_quotes(char *str, int i);
+void        free_command(t_cmd *cmd);
+void        free_commands(t_cmdlist *list);
 
+// Parsing Functions
+t_cmdlist   ft_parsing(char *argv);
+int         check_for_errors(char *str);
+int         check_for_uneven_quotes(char *str);
+int         is_metachar(char c);
+int         is_valid_double(char *str, int i);
+char        get_first_metachar(char *str);
+int         new_strlen(char *str);
+int         get_redirection_type(char *str);
+char        **get_command_array(char *str);
+t_cmd       *get_command(char **arg_array);
+t_cmdlist   put_in_cmdlist(char **command_array);
 
-// /parsing/get_command.c
-char		**get_command_array(char *str);
+// Command List Functions
+void        init_cmdlist(t_cmdlist *list);
+void        add_command(t_cmdlist *list, t_cmd *cmd);
+void        print_command(t_cmd *cmd);
+void        print_commands(t_cmdlist *list);
+t_node      *create_node(t_cmd *cmd);
 
-// /parsing/parsing_utils.c
-int			count_between_quotes(char *str, int i);
-void		free_array(char **array);
-void		print_commands(t_cmdlist *list);
-void		free_commands(t_cmdlist *list);
+// Redirection Handling
+t_redirect  *init_redirect(void);
+char        **remove_redirections(char **args, t_redirect *redirect);
+int         handle_redirect(char **args, int *i, t_redirect *redirect);
 
-// /parsing/parsing.c
-t_cmdlist	ft_parsing(char *argv);
-t_redirect *init_redirect(void);
-int init_cmd_struct(t_cmd **cmd);
+// Environment Variable Functions
+char        *get_environ_value(const char *var_name);
 
+// Other Helpers
+int         get_meta_len(char *str, int i);
+int         is_in_quoted_section(char *str, int i);
+void        add_spaces(char *new_str, char *str, int *i, int *j);
 
-
-// /parsing/new_dev.c
-char		*convert_string(char *str);
-char		check_for_errors(char *str);
 
 // minishell.c
 void		ft_input(char **argv, char **envp);
