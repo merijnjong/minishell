@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:01 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 16:42:00 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:35:11 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 char	*get_environ_value(const char *var_name)
 {
-	int		i;
 	size_t	len;
+	int		i;
 
-	i = 0;
 	len = strlen(var_name);
-	while (environ[i])
+	i = 0;
+	while (environ[i] != NULL)
 	{
 		if (strncmp(environ[i], var_name, len) == 0 && environ[i][len] == '=')
 			return (environ[i] + len + 1);
@@ -28,7 +27,6 @@ char	*get_environ_value(const char *var_name)
 	}
 	return (NULL);
 }
-
 
 char	*handle_var(const char **src, char *dst)
 {
@@ -39,42 +37,41 @@ char	*handle_var(const char **src, char *dst)
 
 	(*src)++;
 	start = *src;
-	while (isalnum(**src) || **src == '_')
+	while (ft_isalnum(**src) || **src == '_')
 		(*src)++;
 	var_len = *src - start;
-	var_name = strndup(start, var_len);
-	if (!var_name)
+	var_name = ft_strndup(start, var_len);
+	if (var_name == NULL)
 		return (NULL);
 	value = get_environ_value(var_name);
-	if (!value || *value == '\0')
+	if (value == NULL || *value == '\0')
 	{
-		printf("minishell: invalid redirection: `$%s` is not defined\n", var_name);
+		ft_printf("minishell: invalid redirection: `$%s` is not defined\n", var_name);
 		return (NULL);
 	}
 	free(var_name);
-	strcpy(dst, value);
-	return (dst + strlen(value));
+	ft_strcpy(dst, value);
+	return (dst + ft_strlen(value));
 }
-
 
 char	*replace_vars(const char *str)
 {
-	char		*result;
 	const char	*src;
+	char		*result;
 	char		*dst;
 
-	result = malloc(strlen(str) + 1);
-	if (!result)
+	result = malloc(ft_strlen(str) + 1);
+	if (result == NULL)
 		return (NULL);
 	src = str;
 	dst = result;
-	while (*src)
+	while (*src != '\0')
 	{
 		if (*src == '$' && *(src + 1) != '\0'
-			&& (isalpha(*(src + 1)) || *(src + 1) == '_'))
+			&& (ft_isalpha(*(src + 1)) || *(src + 1) == '_'))
 		{
 			char *new_dst = handle_var(&src, dst);
-			if (!new_dst)
+			if (new_dst == NULL)
 				return (free(result), NULL);
 			dst = new_dst;
 		}
@@ -84,4 +81,3 @@ char	*replace_vars(const char *str)
 	*dst = '\0';
 	return (result);
 }
-

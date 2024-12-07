@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 16:14:08 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:31:41 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmdlist ft_parsing(char *argv)
+t_cmdlist	ft_parsing(char *argv)
 {
 	t_cmdlist	command_list;
-	char		*converted_string;
 	char		**command_array;
+	char		*converted_string;
 
 	command_list.head = NULL;
 	if (check_for_errors(argv) != 0)
 		return (command_list);
 	converted_string = replace_vars(argv);
-	if (!converted_string)
+	if (converted_string == NULL)
 		return (command_list);
 	converted_string = convert_string(converted_string);
-	if (!converted_string)
+	if (converted_string == NULL)
 		return (command_list);
 	command_array = get_command_array(converted_string);
 	free(converted_string);
-	if (!command_array)
+	if (command_array == NULL)
 		return (command_list);
 	command_list = put_in_cmdlist(command_array);
 	return (command_list);
@@ -40,9 +40,9 @@ void ft_print_array(char **array)
 	int i;
 
 	i = 0;
-	while (array[i])
+	while (array[i] != NULL)
 	{
-		printf("%s\n", array[i]);
+		ft_printf("%s\n", array[i]);
 		i++;
 	}
 	return ;
@@ -50,17 +50,17 @@ void ft_print_array(char **array)
 
 char	**fill_array(char **array, char *str, int wordcount)
 {
+	int wordlen;
 	int i;
 	int j;
-	int wordlen;
 
 	i = 0;
 	j = 0;
-	while (i < wordcount && str[j])
+	while (i < wordcount && str[j] != '\0')
 	{
 		wordlen = count_wordlen(str, j);
 		array[i] = ft_substr(str, j, wordlen);
-		if (!array[i])
+		if (array[i] == NULL)
 			return (clean_array(array, i), NULL);
 		j += (wordlen + 1);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 16:21:59 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:05:01 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	handle_pipe_iteration(t_node *current, int *pipe_fd,
 		pipe_fd[1] = STDOUT_FILENO;
 	status = execute_piped_command(current->cmd, envp, *input_fd, 
 		current->next ? pipe_fd[1] : STDOUT_FILENO);
-	if (current->next)
+	if (current->next != NULL)
 	{
 		close(pipe_fd[1]);
 		if (*input_fd != STDIN_FILENO)

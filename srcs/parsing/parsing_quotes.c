@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_quotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:55 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 15:32:31 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:26:24 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 int count_between_quotes(char *str, int i)
 {
-	int j;
-	char temp;
+	char	temp;
+	int		j;
 
-	j = 1;
 	temp = str[i];
+	j = 1;
 	i++;
-	while (str[i] && str[i] != temp)
+	while (str[i] != '\0' && str[i] != temp)
 	{
 		j++;
 		i++;
 	}
-	if (!str[i])
+	if (str[i] == '\0')
 		return (-1);
 	return (j);
 }
 
 int ft_count_commands(char *str, char c)
 {
-	int i;
-	int wordcount;
+	int	wordcount;
+	int	i;
 
-	i = 0;
 	wordcount = 1;
-	while (str[i])
+	i = 0;
+	while (str[i] != '\0')
 	{
 		if (str[i] == c)
 		{
@@ -58,11 +58,11 @@ int ft_count_commands(char *str, char c)
 
 int count_wordlen(char *str, int i)
 {
-	int len;
-	int temp;
+	int	temp;
+	int	len;
 
 	len = 0;
-	while (str[i] && str[i] != '|')
+	while (str[i] != '\0' && str[i] != '|')
 	{
 		if (str[i] == 34 || str[i] == 39)
 		{
@@ -80,12 +80,12 @@ int count_wordlen(char *str, int i)
 
 int is_in_quoted_section(char *str, int i)
 {
-	int temp;
-	int count;
+	int	count;
+	int	temp;
 
-	temp = i;
 	count = 0;
-	while (str[temp--])
+	temp = i;
+	while (str[temp--] != '\0')
 	{
 		if (str[temp] == 34 || str[temp] == 39)
 			count++;
@@ -94,4 +94,3 @@ int is_in_quoted_section(char *str, int i)
 		return (1);
 	return (0);
 }
-

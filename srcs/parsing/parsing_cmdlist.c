@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_cmdlist.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 15:31:49 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:09:43 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void init_cmdlist(t_cmdlist *list)
 {
@@ -21,28 +20,31 @@ void init_cmdlist(t_cmdlist *list)
 
 void add_command(t_cmdlist *list, t_cmd *cmd)
 {
-	t_node *new_node;
-	t_node *temp;
+	t_node	*new_node;
+	t_node	*temp;
+
 	new_node = create_node(cmd);
-	if (!new_node)
-		return;
-    if (!list->head)
+	if (new_node == NULL)
+		return ;
+    if (list->head == NULL)
         list->head = new_node;
     else
 	{
         temp = list->head;
-        while (temp->next)
+        while (temp->next != NULL)
             temp = temp->next;
         temp->next = new_node;
     }
 }
 
-
-void free_commands(t_cmdlist *list)
+void	free_commands(t_cmdlist *list)
 {
-    t_node *current = list->head;
-    t_node *next;
-    while (current != NULL) {
+    t_node	*current;
+    t_node	*next;
+
+	current = list->head;
+    while (current != NULL)
+	{
         next = current->next;
         free_command(current->cmd);
         free(current);
@@ -52,9 +54,9 @@ void free_commands(t_cmdlist *list)
 }
 
 
-void print_commands(t_cmdlist *list)
+void	print_commands(t_cmdlist *list)
 {
-	t_node *current;
+	t_node	*current;
 
 	current = list->head;
 	while (current != NULL)
@@ -64,23 +66,22 @@ void print_commands(t_cmdlist *list)
     }
 }
 
-
-t_cmdlist put_in_cmdlist(char **command_array)
+t_cmdlist	put_in_cmdlist(char **command_array)
 {
-	int i;
-	char **temp;
-	t_cmd *command;
-	t_cmdlist command_list;
+	t_cmdlist	command_list;
+	t_cmd		*command;
+	char		**temp;
+	int			i;
 
-	i = 0;
 	init_cmdlist(&command_list);
-	while (command_array[i])
+	i = 0;
+	while (command_array[i] != NULL)
 	{
 		temp = ft_split_skip_quotes(command_array[i], ' ');
-		if (!temp)
+		if (temp == NULL)
 			free_array(command_array);
 		command = get_command(temp);
-		if (!command)
+		if (command == NULL)
 			free_array(command_array);
 		add_command(&command_list, command);
 		free_array(temp);

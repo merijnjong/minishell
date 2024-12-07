@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_arrays.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 15:06:14 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:07:10 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int ft_count_words(char *str, char c)
 {
-	int i;
 	int wordcount;
+	int i;
 
-	i = 0;
 	wordcount = 0;
-	while (str[i])
+	i = 0;
+	while (str[i] != '\0')
 	{
 		if (str[i] != c)
 		{
-			while (str[i] && str[i + 1] && str[i] != c)
+			while (str[i] != '\0' && str[i + 1 != '\0'] && str[i] != c)
 			{
 				if (str[i] == 34 || str[i] == 39)
 				{
@@ -35,7 +35,7 @@ int ft_count_words(char *str, char c)
 			}
 			wordcount++;
 		}
-		if (str[i])
+		if (str[i] != '\0')
 			i++;
 	}
 	return (wordcount);
@@ -65,13 +65,13 @@ int	ft_word_length(char *s, char c, int i)
 
 char	**ft_split_skip_quotes(char*s, char c)
 {
+	char	**array;
 	int		i;
 	int		j;
-	char	**array;
 
+	array = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
 	i = 0;
 	j = 0;
-	array = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
 	if (!array || !s)
 		return (NULL);
 	while (i < ft_count_words(s, c))

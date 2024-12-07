@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:09:24 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 18:20:10 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:33:46 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_qsort(char **array, int low, int high, int (*cmp)(const char *, const ch
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strdup(const char *s);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strjoin(char const *s1, char const *s2);

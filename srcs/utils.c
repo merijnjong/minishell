@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 16:59:21 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:35:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void ft_exit(char **args)
 			ft_printf("minishell: exit: too many arguments\n");
 			exit(1);
 		}
-		else if (ft_isdigit_str(args[1]) == NULL)
+		else if (!ft_isdigit_str(args[1]))
 		{
 			ft_printf("minishell: exit: %s: numeric argument required\n", args[1]);
 			exit_status = 2;
