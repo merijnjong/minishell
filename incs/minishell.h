@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 13:15:54 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 15:29:45 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,11 @@ void        free_commands(t_cmdlist *list);
 
 // Parsing Functions
 t_cmdlist   ft_parsing(char *argv);
+char		**fill_array(char **array, char *str, int wordcount);
+int			ft_count_commands(char *str, char c);
+int			count_wordlen(char *str, int i);
+void		clean_array(char **array, int i);
+int			is_space(char c);
 int         check_for_errors(char *str);
 int         check_for_uneven_quotes(char *str);
 int         is_metachar(char c);

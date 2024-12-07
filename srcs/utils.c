@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/04 18:10:18 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:08:12 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int ft_isdigit_str(const char *str)
 {
     int i = 0;
 
-    if (str[i] == '-' || str[i] == '+') // Allow sign at the beginning
+    if (str[i] == '-' || str[i] == '+')
         i++;
     while (str[i])
     {
@@ -32,6 +32,7 @@ int ft_isdigit_str(const char *str)
     }
     return (1);
 }
+
 void ft_exit(char **args)
 {
     int exit_status = 0;
@@ -56,7 +57,6 @@ void ft_exit(char **args)
     ft_printf("exit\n");
     exit(exit_status);
 }
-
 
 void	ft_free_dbl(char **ptr)
 {
