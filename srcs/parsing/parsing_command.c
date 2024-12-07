@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:07 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:19:34 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:45:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ char	**get_command_array(char *str)
 
 	wordcount = ft_count_commands(str, '|');
 	if (wordcount == -1)
-		return (printf("Error: No ending quote\n"), NULL);
+		return (ft_printf("Error: No ending quote\n"), NULL);
 	if (wordcount == -2)
-		return (printf("Error: Double pipes\n"), NULL);
+		return (ft_printf("Error: Double pipes\n"), NULL);
 	command_array = malloc((wordcount + 1) * sizeof(char *));
 	if (command_array == NULL)
-		return (printf("Error: Malloc fail"), NULL);
+		return (ft_printf("Error: Malloc fail"), NULL);
 	fill_array(command_array, str, wordcount);
 	return (command_array);
 }
