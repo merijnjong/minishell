@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/05 13:14:08 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 13:15:54 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,10 @@ void        add_command(t_cmdlist *list, t_cmd *cmd);
 void        print_command(t_cmd *cmd);
 void        print_commands(t_cmdlist *list);
 t_node      *create_node(t_cmd *cmd);
+void		free_envlist(t_minishell *head);
+int			start_envlist(t_minishell *envlist, char **envp, int i);
+void		init(t_minishell *minishell, char **envp);
+
 
 // Redirection Handling
 t_redirect  *init_redirect(void);
@@ -141,6 +145,13 @@ int         handle_redirect(char **args, int *i, t_redirect *redirect);
 
 // Environment Variable Functions
 char        *get_environ_value(const char *var_name);
+
+// Signals
+void		setup_signals(void);
+void		reset_signals_to_default(void);
+void		sigint_handler(int signum);
+void		sigquit_handler(int signum);
+
 
 // Other Helpers
 int         get_meta_len(char *str, int i);

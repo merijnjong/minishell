@@ -1,10 +1,10 @@
 {
   "files.associations": {
-	"minishell.h": "c",
-	"termios.h": "c",
-	"typeinfo": "c",
-	"fcntl.h": "c"
-},
+    "minishell.h": "c",
+    "termios.h": "c",
+    "typeinfo": "c",
+    "fcntl.h": "c"
+  },
   "C_Cpp_Runner.msvcBatchPath": "",
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",
