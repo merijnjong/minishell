@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 14:52:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/07 16:26:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,14 @@ typedef struct s_node
 	struct s_node	*next;
 } t_node;
 
-
 // /srcs/builtins
-// int			builtin_check(t_minishell *minishell, char **command);
 int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
-int			cd(t_minishell *envlist, char **args);          // Updated to take char **args
-int			echo(t_minishell *minishell, char **args);      // Updated to take char **args
+int			cd(t_minishell *envlist, char **args);
+int			echo(t_minishell *minishell, char **args);
 int			env(t_minishell *envlist);
-int			export(t_minishell *envlist, char **args);      // Updated to take char **args
-int			pwd(char **args);                               // Updated to take char **args
-int			unset(t_minishell *envlist, char **args);       // Updated to take char **args
+int			export(t_minishell *envlist, char **args);
+int			pwd(char **args);
+int			unset(t_minishell *envlist, char **args);
 
 // /srcs/builtins/buitins_utils.c
 char		*get_var_name(char *cmd, int *i);
@@ -161,7 +159,7 @@ void		ft_input(char **argv, char **envp);
 
 // utils.c
 void		ft_error(const char *msg);
-void		ft_exit(char **args);                            // Updated to take char **args
+void		ft_exit(char **args);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
 
