@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 13:16:44 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 14:28:22 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,12 @@ void init(t_minishell *minishell, char **envp)
     }
 }
 
-// void setup_signals(void)
-// {
-//     struct sigaction sa;
-    
-//     sa.sa_handler = SIG_IGN;
-//     sigemptyset(&sa.sa_mask);
-//     sa.sa_flags = 0;
-    
-//     sigaction(SIGQUIT, &sa, NULL);
-//     signal(SIGINT, sigint_handler);
-// }
-
 void	ft_input(char **argv, char **envp)
 {
 	t_minishell	minishell;
 	t_cmdlist	cmdlist;
 
 	init(&minishell, envp);
-	// signal(SIGINT, sigint_handler);
 	while (1)
 	{
 		argv[0] = readline("minishell> ");
@@ -111,7 +98,6 @@ void	ft_input(char **argv, char **envp)
 			cmdlist = ft_parsing(argv[0]);
 			if (cmdlist.head == NULL)
 				minishell.status = 1;
-			// minishell.status = process(&minishell, &cmdlist, envp);
 			minishell.status = process(&minishell, &cmdlist, envp);
 			add_history(argv[0]);
 		}
