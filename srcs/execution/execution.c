@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/04 17:57:10 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:21:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*ft_find_path_2(char **paths, char *cmd)
 {
-	int		i;
 	char	*temp;
 	char	*path;
+	int		i;
 
 	i = 0;
 	while (paths[i] != NULL)
@@ -61,7 +61,7 @@ int	ft_execute(t_cmd *cmd, char **envp)
 	if (handle_redirects(cmd) != 0)
 		return (1);
 	path = ft_find_path(envp, cmd->filename);
-	if (!path)
+	if (path == NULL)
 	{
 		ft_printf("%s: command not found\n", cmd->filename);
 		return (127);

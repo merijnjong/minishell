@@ -3,27 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/04 17:42:36 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:21:14 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void echo_env(t_minishell *envlist, const char *command)
+void    echo_env(t_minishell *envlist, const char *command)
 {
-    t_minishell *current = envlist;
-    char *env = NULL;
-    char *env_name = NULL;
-    int i;
+    t_minishell *current;
+    char        *env;
+    char        *env_name;
+    int         i;
 
+    current = envlist;
+    env = NULL;
+    env_name = NULL;
     command++;
-    while (current) {
+    while (current != NULL)
+    {
         i = 0;
         env_name = get_var_name(current->env, &i);
-        if (env_name && ft_strcmp(env_name, command) == 0) {
+        if (env_name && ft_strcmp(env_name, command) == 0)
+        {
             env = current->env + i;
             free(env_name);
             break;
@@ -31,20 +36,18 @@ void echo_env(t_minishell *envlist, const char *command)
         free(env_name);
         current = current->next_env;
     }
-
-    if (env)
+    if (env != NULL)
         ft_printf("%s", env);
 }
 
-
 int echo(t_minishell *minishell, char **args)
 {
-    int i;
-    int newline;
+    int	newline;
+    int	i;
 
-    i = 1;
     newline = 1;
-    if (!args[1])
+    i = 1;
+    if (args[1] == NULL)
     {
         ft_printf("\n");
         return (0);
@@ -54,7 +57,7 @@ int echo(t_minishell *minishell, char **args)
         newline = 0;
         i++;
     }
-    while (args[i])
+    while (args[i] != NULL)
     {
         if (ft_strcmp(args[i], "$?") == 0)
             ft_printf("%d", minishell->status);
@@ -67,7 +70,7 @@ int echo(t_minishell *minishell, char **args)
             ft_printf(" ");
         i++;
     }
-    if (newline)
+    if (newline != 0)
         ft_printf("\n");
     return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 14:13:38 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:22:05 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	run_child_process(t_cmd *cmd, char **envp, int input_fd, int output_fd)
 
 	if (input_fd != -1)
 		child_process_setup(input_fd, output_fd);
-	if (cmd->redirect)
+	if (cmd->redirect != 0)
 		handle_redirects(cmd);
 	signal(SIGINT, SIG_DFL);
     signal(SIGQUIT, SIG_DFL);
@@ -48,15 +48,16 @@ int	run_child_process(t_cmd *cmd, char **envp, int input_fd, int output_fd)
 	exit(status);
 }
 
-int run_parent_process(pid_t pid, int output_fd, int input_fd)
+int	run_parent_process(pid_t pid, int output_fd, int input_fd)
 {
-    int status;
+    int	status;
+	int	signal;
 
-    parent_process_cleanup(&output_fd, &input_fd);
-    waitpid(pid, &status, 0);
-    if (WIFSIGNALED(status))
-    {
-        int signal = WTERMSIG(status);
+	parent_process_cleanup(&output_fd, &input_fd);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status))
+	{
+		signal = WTERMSIG(status);
         if (signal == SIGINT)
             write(1, "\n", 1);
         else if (signal == SIGQUIT)
@@ -75,7 +76,7 @@ int	process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp)
 	if (!cmdlist || !cmdlist->head)
 		return (1);
 	current = cmdlist->head;
-	if (!current->next)
+	if (current->next == NULL)
 	{
 		minishell->status = builtin_check(minishell, cmdlist);
 		if (minishell->status != 127)

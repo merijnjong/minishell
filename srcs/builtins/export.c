@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/04 17:47:55 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:20:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void add_env_node(t_minishell *last, char *var_name, char *var_value)
+void    add_env_node(t_minishell *last, char *var_name, char *var_value)
 {
     t_minishell *new_node;
-    char *new_env;
-    char *temp;
+    char        *new_env;
+    char        *temp;
 
     new_node = (t_minishell *)malloc(sizeof(t_minishell));
     if (!new_node)
@@ -30,9 +30,9 @@ void add_env_node(t_minishell *last, char *var_name, char *var_value)
         last->next_env = new_node;
 }
 
-void replace_env_node(t_minishell *current, char *var_name, char *var_value, char *env_name)
+void    replace_env_node(t_minishell *current, char *var_name, char *var_value, char *env_name)
 {
-    char *temp;
+    char    *temp;
 
     free(current->env);
     temp = ft_strjoin(var_name, "=");
@@ -41,13 +41,13 @@ void replace_env_node(t_minishell *current, char *var_name, char *var_value, cha
     free(env_name);
 }
 
-void ft_setenv(t_minishell *envlist, char *var_name, char *var_value)
+void	ft_setenv(t_minishell *envlist, char *var_name, char *var_value)
 {
-    t_minishell *current;
-    t_minishell *last;
-    char *env_name;
-    int i;
-
+    t_minishell	*current;
+    t_minishell	*last;
+    char		*env_name;
+    int			i;
+	
     current = envlist;
     last = NULL;
     while (current)
@@ -90,13 +90,12 @@ int check_var_name(char *var_name)
 
 int export(t_minishell *envlist, char **args)
 {
-    int i;
-    char *var_name;
-    char *var_value;
+    char	*var_name;
+    char	*var_value;
+    int		i;
 
-    if (!args[1]) // No arguments, print sorted environment list
+    if (args[1] == NULL)
         return (print_sorted_envlist(envlist));
-
     i = 0;
     var_name = get_var_name(args[1], &i);
     if (var_name == NULL || check_var_name(var_name) == 1)

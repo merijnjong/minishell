@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 15:29:45 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:56:29 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,14 @@ typedef struct s_node
 	struct s_node	*next;
 } t_node;
 
-
 // /srcs/builtins
-// int			builtin_check(t_minishell *minishell, char **command);
 int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
-int			cd(t_minishell *envlist, char **args);          // Updated to take char **args
-int			echo(t_minishell *minishell, char **args);      // Updated to take char **args
-int			env(t_minishell *minishell);
-int			export(t_minishell *envlist, char **args);      // Updated to take char **args
-int			pwd(char **args);                               // Updated to take char **args
-int			unset(t_minishell *envlist, char **args);       // Updated to take char **args
+int			cd(t_minishell *envlist, char **args);
+int			echo(t_minishell *minishell, char **args);
+int			env(t_minishell *envlist);
+int			export(t_minishell *envlist, char **args);
+int			pwd(char **args);
+int			unset(t_minishell *envlist, char **args);
 
 // /srcs/builtins/buitins_utils.c
 char		*get_var_name(char *cmd, int *i);
@@ -99,6 +97,12 @@ int			run_child_process(t_cmd *cmd, char **envp, int input_fd, int output_fd);
 int			run_parent_process(pid_t pid, int output_fd, int input_fd);
 void		child_process_setup(int input_fd, int output_fd);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
+
+// /srcs/execution/signals.c
+void		setup_signals(void);
+void		reset_signals_to_default(void);
+void		sigint_handler(int signum);
+void		sigquit_handler(int signum);
 
 int         ft_strlen(const char *str);
 char        *ft_strdup(const char *s);
@@ -142,7 +146,6 @@ void		free_envlist(t_minishell *head);
 int			start_envlist(t_minishell *envlist, char **envp, int i);
 void		init(t_minishell *minishell, char **envp);
 
-
 // Redirection Handling
 t_redirect  *init_redirect(void);
 char        **remove_redirections(char **args, t_redirect *redirect);
@@ -151,27 +154,18 @@ int         handle_redirect(char **args, int *i, t_redirect *redirect);
 // Environment Variable Functions
 char        *get_environ_value(const char *var_name);
 
-// Signals
-void		setup_signals(void);
-void		reset_signals_to_default(void);
-void		sigint_handler(int signum);
-void		sigquit_handler(int signum);
-
-
 // Other Helpers
 int         get_meta_len(char *str, int i);
 int         is_in_quoted_section(char *str, int i);
 void        add_spaces(char *new_str, char *str, int *i, int *j);
-
 
 // minishell.c
 void		ft_input(char **argv, char **envp);
 
 // utils.c
 void		ft_error(const char *msg);
-void		ft_exit(char **args);                            // Updated to take char **args
+void		ft_exit(char **args);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
-
 
 #endif
