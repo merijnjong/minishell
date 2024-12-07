@@ -1,0 +1,9 @@
+total 100
+-rwxrwxrwx 1 mjong mjong    569 Dec  7 14:40 Makefile
+drwxrwxrwx 1 mjong mjong   4096 Dec  7 14:40 incs
+drwxrwxrwx 1 mjong mjong   4096 Dec  7 14:40 info
+drwxrwxrwx 1 mjong mjong   4096 Dec  7 14:41 libft
+-rwxrwxrwx 1 mjong mjong 101288 Dec  7 14:42 minishell
+drwxrwxrwx 1 mjong mjong   4096 Dec  7 14:42 srcs
+-rwxrwxrwx 1 mjong mjong      0 Dec  7  2024 test.txt
+drwxrwxrwx 1 mjong mjong   4096 Dec  7 14:40 tests

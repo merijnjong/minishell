@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/04 18:10:18 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:22:51 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,29 @@ int ft_isdigit_str(const char *str)
 }
 void ft_exit(char **args)
 {
-    int exit_status = 0;
+	int	exit_status;
 
-    if (args[1])
-    {
-        if (args[2])
-        {
-            ft_printf("minishell: exit: too many arguments\n");
-            exit(1);
-        }
-        else if (!ft_isdigit_str(args[1]))
-        {
-            ft_printf("minishell: exit: %s: numeric argument required\n", args[1]);
-            exit_status = 2;
-        }
-        else
-        {
-            exit_status = ft_atoi(args[1]);
-        }
-    }
-    ft_printf("exit\n");
-    exit(exit_status);
+	exit_status = 0;
+	if (args[1] != NULL)
+	{
+		if (args[2] != NULL)
+		{
+			ft_printf("minishell: exit: too many arguments\n");
+			exit(1);
+		}
+		else if (ft_isdigit_str(args[1]) == NULL)
+		{
+			ft_printf("minishell: exit: %s: numeric argument required\n", args[1]);
+			exit_status = 2;
+		}
+		else
+		{
+			exit_status = ft_atoi(args[1]);
+		}
+	}
+	ft_printf("exit\n");
+	exit(exit_status);
 }
-
 
 void	ft_free_dbl(char **ptr)
 {

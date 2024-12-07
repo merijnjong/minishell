@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 14:28:22 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/07 16:22:34 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,56 +27,57 @@ void free_envlist(t_minishell *head)
 
 int start_envlist(t_minishell *envlist, char **envp, int i)
 {
-    t_minishell *new_node;
-    t_minishell *current = envlist;
+	t_minishell	*new_node;
+	t_minishell	*current;
 
-    while (envp[i])
-    {
-        new_node = malloc(sizeof(t_minishell));
-        if (new_node == NULL)
-        {
-            free_envlist(current);
-            return (1);
-        }
-        new_node->env = ft_strdup(envp[i]);
-        if (new_node->env == NULL)
-        {
-            free(new_node);
-            free_envlist(current);
-            return (1);
-        }
-        new_node->next_env = NULL;
-        envlist->next_env = new_node;
+	current = envlist;
+	while (envp[i] != NULL)
+	{
+		new_node = malloc(sizeof(t_minishell));
+		if (new_node == NULL)
+		{
+			free_envlist(current);
+			return (1);
+		}
+		new_node->env = ft_strdup(envp[i]);
+		if (new_node->env == NULL)
+		{
+			free(new_node);
+			free_envlist(current);
+			return (1);
+		}
+		new_node->next_env = NULL;
+		envlist->next_env = new_node;
         envlist = new_node;
-        i++;
-    }
-    return (0);
+		i++;
+	}
+	return (0);
 }
 
-void init(t_minishell *minishell, char **envp)
+void	init(t_minishell *minishell, char **envp)
 {
-    int         i;
-    t_minishell *current;
+	t_minishell	*current;
+	int			i;
 
-    minishell->status = 0;
-    minishell->cmdlist = NULL;
-    i = 0;
-    if (envp == NULL || envp[0] == NULL)
-        return;
-    current = minishell;
-    current->env = ft_strdup(envp[i]);
-    if (current->env == NULL)
-    {
-        free_envlist(minishell);
-        return;
-    }
-    current->next_env = NULL;
-    i++;
-    if (start_envlist(current, envp, i) == 1)
-    {
-        free_envlist(minishell);
-        minishell->env = NULL;
-    }
+	minishell->status = 0;
+	minishell->cmdlist = NULL;
+	i = 0;
+	if (envp == NULL || envp[0] == NULL)
+		return ;
+	current = minishell;
+	current->env = ft_strdup(envp[i]);
+	if (current->env == NULL)
+	{
+		free_envlist(minishell);
+		return ;
+	}
+	current->next_env = NULL;
+	i++;
+	if (start_envlist(current, envp, i) == 1)
+	{
+		free_envlist(minishell);
+		minishell->env = NULL;
+	}
 }
 
 void	ft_input(char **argv, char **envp)
