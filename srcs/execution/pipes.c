@@ -1,95 +1,84 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   re_pipes.c                                         :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-// /*   Updated: 2024/11/14 16:33:29 by mjong            ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
+/*   Updated: 2024/11/14 16:33:29 by mjong            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// int	ft_array_len(char **cmds)
-// {
-// 	int	i;
+static int	setup_pipe(int *pipe_fd)
+{
+	if (pipe(pipe_fd) == -1)
+	{
+		perror("pipe");
+		return (1);
+	}
+	return (0);
+}
 
-// 	i = 0;
-// 	// print_dbl_ptr(cmds);
-// 	while (cmds[i] != NULL)
-// 	{
-// 		i++;
-// 	}
-// 	// printf("i: %i\n", i);
-// 	return (i);
-// }
+static int	execute_piped_command(t_cmd *cmd, char **envp, int input_fd, int output_fd)
+{
+	pid_t	pid;
 
-// void	ft_execute_command(char *cmd, char *envp[], int input_fd, int output_fd)
-// {
-// 	pid_t	pid;
+	pid = fork();
+	if (pid == -1)
+		return (ft_error("fork"), 1);
+	if (pid == 0)
+	{
+		if (cmd->redirect)
+		{
+			if (cmd->redirect->type == REDIR_OUT || 
+				cmd->redirect->type == REDIR_APPEND)
+				output_fd = -1;
+			if (cmd->redirect->type == REDIR_IN)
+				input_fd = -1;
+		}
+		run_child_process(cmd, envp, input_fd, output_fd);
+	}
+	return (run_parent_process(pid, output_fd, input_fd));
+}
 
-// 	pid = fork();
-// 	if (pid == -1)
-// 		ft_error("fork");
-// 	else if (pid == 0)
-// 	{
-// 		if (input_fd != STDIN_FILENO)
-// 		{
-// 			dup2(input_fd, STDIN_FILENO);
-// 			close(input_fd);
-// 		}
-// 		if (output_fd != STDOUT_FILENO)
-// 		{
-// 			dup2(output_fd, STDOUT_FILENO);
-// 			close(output_fd);
-// 		}
-// 		ft_execute(cmd, envp);
-// 		exit(EXIT_FAILURE);
-// 	}
-// }
+static int	handle_pipe_iteration(t_node *current, int *pipe_fd, 
+	int *input_fd, char **envp)
+{
+	int	status;
 
-// int ft_execute_pipe(char *argv[], char *envp[], int cmd_count)
-// {
-// 	int		input_fd;
-// 	int		fd[2];
-// 	int		i;
+	if (current->next && setup_pipe(pipe_fd))
+		return (1);
+	if (!current->next)
+		pipe_fd[1] = STDOUT_FILENO;
+	status = execute_piped_command(current->cmd, envp, *input_fd, 
+		current->next ? pipe_fd[1] : STDOUT_FILENO);
+	if (current->next)
+	{
+		close(pipe_fd[1]);
+		if (*input_fd != STDIN_FILENO)
+			close(*input_fd);
+		*input_fd = pipe_fd[0];
+	}
+	return (status);
+}
 
-// 	input_fd = STDIN_FILENO;
-// 	i = -1;
-// 	while (++i < cmd_count)
-// 	{
-// 		if (i < cmd_count - 1)
-// 		{
-// 			if (pipe(fd) == -1)
-// 				ft_error("pipe");
-// 		}
-// 		else
-// 			fd[1] = STDOUT_FILENO;
-// 		ft_execute_command(argv[i], envp, input_fd, fd[1]);
-// 		if (i < cmd_count - 1)
-// 			close(fd[1]);
-// 		if (input_fd != STDIN_FILENO)
-// 			close(input_fd);
-// 		input_fd = fd[0];
-// 	}
-// 	while (wait(NULL) != -1)
-// 		;
-//     return (0);
-// }
+int	execute_pipeline(t_cmdlist *cmdlist, char **envp)
+{
+	t_node	*current;
+	int		pipe_fd[2];
+	int		input_fd;
+	int		status;
 
-// int	ft_call_pipe(t_minishell *minishell, char *argv, char **envp)
-// {
-// 	char	**cmds;
-
-// 	cmds = ft_split(argv, '|');
-// 	if (cmds == NULL)
-// 	{
-// 		ft_error("Memory allocation error");
-// 		return (1);
-// 	}
-// 	minishell->status = ft_execute_pipe(cmds, envp, ft_array_len(cmds));
-// 	ft_free_dbl(cmds);
-// 	return (minishell->status);
-// }
+	current = cmdlist->head;
+	input_fd = STDIN_FILENO;
+	status = 0;
+	while (current)
+	{
+		status = handle_pipe_iteration(current, pipe_fd, &input_fd, envp);
+		current = current->next;
+	}
+	return (status);
+}

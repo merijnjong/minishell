@@ -66,7 +66,6 @@ void ft_setenv(t_minishell *envlist, char *var_name, char *var_value)
     add_env_node(last, var_name, var_value);
 }
 
-
 int check_var_name(char *var_name)
 {
 	int i;

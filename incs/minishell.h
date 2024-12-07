@@ -88,11 +88,17 @@ int			print_sorted_envlist(t_minishell *minishell);
 void		print_envlist(t_minishell *minishell);
 
 // /srcs/execution
-void		ft_execute(t_cmd *cmd, char **envp);
+int			ft_execute(t_cmd *cmd, char **envp);
 int			ft_isdigit_str(const char *str);
-int			handle_redirects(char **cmd);
-int			process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp); // Updated to remove argv
-// int parent_process(t_minishell status, t_minishell *minishell, char *argv, char **envp);
+int			handle_redirects(t_cmd *cmd);
+int			execute_pipeline(t_cmdlist *cmdlist, char **envp);
+
+// /srcs/execution/processes.c
+int			process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp);
+int			run_child_process(t_cmd *cmd, char **envp, int input_fd, int output_fd);
+int			run_parent_process(pid_t pid, int output_fd, int input_fd);
+void		child_process_setup(int input_fd, int output_fd);
+void		parent_process_cleanup(int *pipe_fd, int *input_fd);
 
 int         ft_strlen(const char *str);
 char        *ft_strdup(const char *s);

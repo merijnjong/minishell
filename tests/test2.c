@@ -941,14 +941,7 @@ void execute_commands(t_cmdlist *cmdlist, char **envp) {
 }
 
 void process_builtin_or_execute(t_cmdlist *cmdlist, char **envp) {
-    t_node *current = cmdlist->head;
-
-    while (current) {
-        // Check for builtins here (use a function like `builtin_check`)
-        // If not a builtin, execute normally
-        execute_commands(cmdlist, envp); // Call the execute_commands function
-        current = current->next;
-    }
+    execute_commands(cmdlist, envp);
 }
 
 
