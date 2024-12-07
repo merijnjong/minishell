@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:09:43 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:38:20 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void init_cmdlist(t_cmdlist *list)
 {
     list->head = NULL;
 }
-
 
 void add_command(t_cmdlist *list, t_cmd *cmd)
 {

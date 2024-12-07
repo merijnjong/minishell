@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:07:10 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/07 17:38:29 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,3 @@ char	**ft_split_skip_quotes(char*s, char c)
 	array[i] = NULL;
 	return (array);
 }
-
