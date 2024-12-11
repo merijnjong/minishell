@@ -6,15 +6,15 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:30:45 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:23:23 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_array(char **array)
+void	free_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (array == NULL)

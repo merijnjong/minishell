@@ -6,16 +6,16 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:38:29 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:12:35 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_count_words(char *str, char c)
+int	ft_count_words(char *str, char c)
 {
-	int wordcount;
-	int i;
+	int	wordcount;
+	int	i;
 
 	wordcount = 0;
 	i = 0;
@@ -43,20 +43,20 @@ int ft_count_words(char *str, char c)
 
 int	ft_word_length(char *s, char c, int i)
 {
+	int	temp;
 	int	j;
-	int temp;
 
 	j = 0;
 	while (s[i] != '\0' && s[i] != c)
 	{
 		if (s[i] == 34 || s[i] == 39)
-			{
-				temp = count_between_quotes(s, i);
-				if (temp < 0)
-					return (-1);
-				i += temp;
-				j += temp;
-			}
+		{
+			temp = count_between_quotes(s, i);
+			if (temp < 0)
+				return (-1);
+			i += temp;
+			j += temp;
+		}
 		i++;
 		j++;
 	}

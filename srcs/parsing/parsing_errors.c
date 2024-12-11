@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:59 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:36:36 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:11:41 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ char	get_first_metachar(char *str)
 	return (0);
 }
 
-int check_for_uneven_quotes(char *str)
+int	check_for_uneven_quotes(char *str)
 {
-	int single_count;
-	int double_count;
-	int i;
+	int	single_count;
+	int	double_count;
+	int	i;
 
 	single_count = 0;
 	double_count = 0;
@@ -68,7 +68,7 @@ int check_for_uneven_quotes(char *str)
 	return (0);
 }
 
-int check_for_errors(char *str)
+int	check_for_errors(char *str)
 {
 	char	last_char;
 	int		i;
@@ -83,8 +83,10 @@ int check_for_errors(char *str)
 			i++;
 		while (str[i] != '\0' && !ft_isspace(str[i]))
 		{
-			if ((is_metachar(str[i]) && is_metachar(last_char)) && !is_valid_double(str, i))
-				return (ft_printf("syntax error near unexpected token '%c'\n", last_char), last_char);
+			if ((is_metachar(str[i]) && is_metachar(last_char))
+				&& !is_valid_double(str, i))
+				return (ft_printf("syntax error near unexpected token '%c'\n",
+						last_char), last_char);
 			last_char = str[i];
 			i++;
 		}
@@ -92,7 +94,7 @@ int check_for_errors(char *str)
 	if (last_char == 0 || check_for_uneven_quotes(str) == 1)
 		return (1);
 	if (is_metachar(last_char))
-		return (ft_printf("syntax error near unexpected token '%c'\n", last_char), last_char);
+		return (ft_printf("syntax error near unexpected token '%c'\n",
+				last_char), last_char);
 	return (0);
 }
-

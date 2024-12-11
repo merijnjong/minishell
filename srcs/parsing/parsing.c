@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:31:41 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:12:56 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void ft_print_array(char **array)
 
 char	**fill_array(char **array, char *str, int wordcount)
 {
-	int wordlen;
-	int i;
-	int j;
+	int	wordlen;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -69,7 +69,7 @@ char	**fill_array(char **array, char *str, int wordcount)
 	return (array);
 }
 
-void clean_array(char **array, int i)
+void	clean_array(char **array, int i)
 {
 	while (i--)
 		free(array[i]);

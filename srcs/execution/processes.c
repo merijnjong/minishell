@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 16:22:05 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:21:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	run_child_process(t_cmd *cmd, char **envp, int input_fd, int output_fd)
 	if (cmd->redirect != 0)
 		handle_redirects(cmd);
 	signal(SIGINT, SIG_DFL);
-    signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	status = ft_execute(cmd, envp);
 	exit(status);
 }
 
 int	run_parent_process(pid_t pid, int output_fd, int input_fd)
 {
-    int	status;
+	int	status;
 	int	signal;
 
 	parent_process_cleanup(&output_fd, &input_fd);
@@ -58,15 +58,15 @@ int	run_parent_process(pid_t pid, int output_fd, int input_fd)
 	if (WIFSIGNALED(status))
 	{
 		signal = WTERMSIG(status);
-        if (signal == SIGINT)
-            write(1, "\n", 1);
-        else if (signal == SIGQUIT)
-            write(1, "Quit (core dumped)\n", 20);
-        return (128 + signal);
-    }
-    if (WIFEXITED(status))
-        return WEXITSTATUS(status);
-    return (1);
+		if (signal == SIGINT)
+			write(1, "\n", 1);
+		else if (signal == SIGQUIT)
+			write(1, "Quit (core dumped)\n", 20);
+		return (128 + signal);
+	}
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (1);
 }
 
 int	process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp)

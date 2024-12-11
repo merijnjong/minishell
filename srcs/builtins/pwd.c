@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:39 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/04 17:50:44 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/11 14:58:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ int	ft_isprint2(char c)
 	return (0);
 }
 
-int pwd(char **args)
+int	pwd(char **args)
 {
-    char cwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
-    if (args[1] != NULL)
-        return (ft_printf("pwd: too many arguments\n"));
-    if (getcwd(cwd, sizeof(cwd)) != NULL)
-        ft_printf("%s\n", cwd);
-    else
-        perror("getcwd");
-    return (0);
+	if (args[1] != NULL)
+		return (ft_printf("pwd: too many arguments\n"));
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		ft_printf("%s\n", cwd);
+	else
+		perror("getcwd");
+	return (0);
 }

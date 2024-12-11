@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:01 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:35:11 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:13:25 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ char	*handle_var(const char **src, char *dst)
 	value = get_environ_value(var_name);
 	if (value == NULL || *value == '\0')
 	{
-		ft_printf("minishell: invalid redirection: `$%s` is not defined\n", var_name);
+		ft_printf("minishell: invalid redirection: `$%s` is not defined\n",
+			var_name);
 		return (NULL);
 	}
 	free(var_name);
@@ -59,6 +60,7 @@ char	*replace_vars(const char *str)
 	const char	*src;
 	char		*result;
 	char		*dst;
+	char		*new_dst
 
 	result = malloc(ft_strlen(str) + 1);
 	if (result == NULL)
@@ -70,7 +72,7 @@ char	*replace_vars(const char *str)
 		if (*src == '$' && *(src + 1) != '\0'
 			&& (ft_isalpha(*(src + 1)) || *(src + 1) == '_'))
 		{
-			char *new_dst = handle_var(&src, dst);
+			new_dst = handle_var(&src, dst);
 			if (new_dst == NULL)
 				return (free(result), NULL);
 			dst = new_dst;

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 17:05:01 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:19:03 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	setup_pipe(int *pipe_fd)
 	return (0);
 }
 
-static int	execute_piped_command(t_cmd *cmd, char **envp, int input_fd, int output_fd)
+static int	execute_piped_command(t_cmd *cmd, char **envp, int input_fd,
+	int output_fd)
 {
 	pid_t	pid;
 
@@ -33,8 +34,8 @@ static int	execute_piped_command(t_cmd *cmd, char **envp, int input_fd, int outp
 	{
 		if (cmd->redirect)
 		{
-			if (cmd->redirect->type == REDIR_OUT || 
-				cmd->redirect->type == REDIR_APPEND)
+			if (cmd->redirect->type == REDIR_OUT
+				|| cmd->redirect->type == REDIR_APPEND)
 				output_fd = -1;
 			if (cmd->redirect->type == REDIR_IN)
 				input_fd = -1;
@@ -44,17 +45,19 @@ static int	execute_piped_command(t_cmd *cmd, char **envp, int input_fd, int outp
 	return (run_parent_process(pid, output_fd, input_fd));
 }
 
-static int	handle_pipe_iteration(t_node *current, int *pipe_fd, 
+static int	handle_pipe_iteration(t_node *current, int *pipe_fd,
 	int *input_fd, char **envp)
 {
 	int	status;
+	int	output_fd;
 
 	if (current->next && setup_pipe(pipe_fd) != 0)
 		return (1);
 	if (current->next == NULL)
-		pipe_fd[1] = STDOUT_FILENO;
-	status = execute_piped_command(current->cmd, envp, *input_fd, 
-		current->next ? pipe_fd[1] : STDOUT_FILENO);
+		output_fd = STDOUT_FILENO;
+	else
+		output_fd = pipe_fd[1];
+	status = execute_piped_command(current->cmd, envp, *input_fd, output_fd);
 	if (current->next != NULL)
 	{
 		close(pipe_fd[1]);

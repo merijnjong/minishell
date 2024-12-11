@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:07 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:45:34 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:14:10 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ t_node	*create_node(t_cmd *cmd)
 	new_node->next = NULL;
 	return (new_node);
 }
-
 
 void free_command(t_cmd *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:48 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:29:52 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:23:11 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,16 @@ int	handle_redirect(char **args, int *i, t_redirect *redirect)
 	{
 		if (args[*i + 1] == NULL)
 		{
-			// needs to be changed to ft_printf or equavalent
 			ft_printf("Error: Missing filename for redirection\n");
 			return (-1);
 		}
 		redirect->type = type;
-
 		free(redirect->filename);
 		redirect->filename = ft_strdup(args[*i + 1]);
 		if (redirect->filename == NULL)
 			return (-1);
-
 		*i += 2;
-        return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -123,4 +120,3 @@ char	**remove_redirections(char **args, t_redirect *redirect)
 	new_args = create_new_args(args, redirect, new_size);
 	return (new_args);
 }
-

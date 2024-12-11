@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:53:10 by mjong             #+#    #+#             */
-/*   Updated: 2024/11/14 16:22:25 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 14:50:07 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,83 @@ char	*get_var_value(char *cmd, int i)
 	return (var_value);
 }
 
-char	*get_var_name(char *cmd, int *i)
+char	*extract_and_update_var_name(char *cmd, int *i, int length)
 {
-	int		j;
 	char	*var_name;
 
+	var_name = (char *)malloc(sizeof(char) * (length + 1));
+	if (var_name == NULL)
+		return (NULL);
+	ft_strncpy(var_name, cmd + *i, length);
+	var_name[length] = '\0';
+	if (cmd[*i + length] == '=')
+		*i += length + 1;
+	else
+		*i += length;
+	return (var_name);
+}
+
+int	validate_and_get_var_length(char *cmd, int i)
+{
+	int	j;
+
 	j = 0;
-	if (cmd[*i] == '=')
+	if (cmd[i] == '=')
 	{
 		ft_printf("zsh: `%s` not found\n", cmd);
-		return (NULL);
+		return (-1);
 	}
-	while (cmd[*i + j] != '=' && cmd[*i + j] != '\0')
+	while (cmd[i + j] != '=' && cmd[i + j] != '\0')
 	{
-		if (cmd[*i + j] == ' ' && cmd[*i + j + 1] != '=' && cmd[*i + j + 1] != '\0')
+		if (cmd[i + j] == ' ' && cmd[i + j + 1] != '='
+			&& cmd[i + j + 1] != '\0')
 		{
 			ft_printf("zsh: %s not found\n", cmd);
-			return (NULL);
+			return (-1);
 		}
 		j++;
 	}
-	var_name = (char *)malloc(sizeof(char) * (j + 1));
-	if (var_name == NULL)
+	return (j);
+}
+
+char	*get_var_name(char *cmd, int *i)
+{
+	int		length;
+	char	*var_name;
+
+	length = validate_and_get_var_length(cmd, *i);
+	if (length == -1)
 		return (NULL);
-	ft_strncpy(var_name, cmd + *i, j);
-	var_name[j] = '\0';
-	*i += j + (cmd[*i + j] == '=' ? 1 : 0);
+	var_name = extract_and_update_var_name(cmd, i, length);
 	return (var_name);
 }
+
+// char	*get_var_name(char *cmd, int *i)
+// {
+// 	int		j;
+// 	char	*var_name;
+
+// 	j = 0;
+// 	if (cmd[*i] == '=')
+// 	{
+// 		ft_printf("zsh: `%s` not found\n", cmd);
+// 		return (NULL);
+// 	}
+// 	while (cmd[*i + j] != '=' && cmd[*i + j] != '\0')
+// 	{
+// 		if (cmd[*i + j] == ' ' && cmd[*i + j + 1] != '='
+// 			&& cmd[*i + j + 1] != '\0')
+// 		{
+// 			ft_printf("zsh: %s not found\n", cmd);
+// 			return (NULL);
+// 		}
+// 		j++;
+// 	}
+// 	var_name = (char *)malloc(sizeof(char) * (j + 1));
+// 	if (var_name == NULL)
+// 		return (NULL);
+// 	ft_strncpy(var_name, cmd + *i, j);
+// 	var_name[j] = '\0';
+// 	*i += j + (cmd[*i + j] == '=' ? 1 : 0);
+// 	return (var_name);
+// }

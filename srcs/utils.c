@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 17:35:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:07:15 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,23 @@ void	ft_error(const char *msg)
 	exit(EXIT_FAILURE);
 }
 
-int ft_isdigit_str(const char *str)
+int	ft_isdigit_str(const char *str)
 {
-    int i = 0;
+	int	i;
 
-    if (str[i] == '-' || str[i] == '+')
-        i++;
-    while (str[i])
-    {
-        if (!ft_isdigit(str[i]))
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-void ft_exit(char **args)
+void	ft_exit(char **args)
 {
 	int	exit_status;
 
@@ -47,7 +48,8 @@ void ft_exit(char **args)
 		}
 		else if (!ft_isdigit_str(args[1]))
 		{
-			ft_printf("minishell: exit: %s: numeric argument required\n", args[1]);
+			ft_printf("minishell: exit: %s: numeric argument required\n",
+				args[1]);
 			exit_status = 2;
 		}
 		else

@@ -6,26 +6,26 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 16:22:34 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:08:12 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_envlist(t_minishell *head)
+void	free_envlist(t_minishell *head)
 {
-    t_minishell *tmp;
+	t_minishell	*temp;
 
-    while (head)
-    {
-        tmp = head->next_env;
-        free(head->env);
-        free(head);
-        head = tmp;
-    }
+	while (head != NULL)
+	{
+		temp = head->next_env;
+		free(head->env);
+		free(head);
+		head = temp;
+	}
 }
 
-int start_envlist(t_minishell *envlist, char **envp, int i)
+int	start_envlist(t_minishell *envlist, char **envp, int i)
 {
 	t_minishell	*new_node;
 	t_minishell	*current;
@@ -48,7 +48,7 @@ int start_envlist(t_minishell *envlist, char **envp, int i)
 		}
 		new_node->next_env = NULL;
 		envlist->next_env = new_node;
-        envlist = new_node;
+		envlist = new_node;
 		i++;
 	}
 	return (0);

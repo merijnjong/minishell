@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:11:34 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 14:12:08 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:03:09 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	swap(char **a, char **b)
 {
-	char *temp;
+	char	*temp;
 
 	temp = *a;
 	*a = *b;
 	*b = temp;
 }
 
-int	partition(char **array, int low, int high, int (*cmp)(const char *, const char *))
+int	partition(char **array, int low, int high, int (*cmp)(const char *,
+	const char *))
 {
 	char	*pivot;
 	int		i;
@@ -43,9 +44,10 @@ int	partition(char **array, int low, int high, int (*cmp)(const char *, const ch
 	return (i + 1);
 }
 
-void	ft_qsort(char **array, int low, int high, int (*cmp)(const char *, const char *))
+void	ft_qsort(char **array, int low, int high, int (*cmp)(const char *,
+	const char *))
 {
-	int pivot_index;
+	int	pivot_index;
 
 	if (low < high)
 	{

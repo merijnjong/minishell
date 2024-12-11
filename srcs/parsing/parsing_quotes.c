@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:55 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:26:24 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:09:25 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_between_quotes(char *str, int i)
+int	count_between_quotes(char *str, int i)
 {
 	char	temp;
 	int		j;
@@ -30,7 +30,7 @@ int count_between_quotes(char *str, int i)
 	return (j);
 }
 
-int ft_count_commands(char *str, char c)
+int	ft_count_commands(char *str, char c)
 {
 	int	wordcount;
 	int	i;
@@ -56,7 +56,7 @@ int ft_count_commands(char *str, char c)
 	return (wordcount);
 }
 
-int count_wordlen(char *str, int i)
+int	count_wordlen(char *str, int i)
 {
 	int	temp;
 	int	len;
@@ -78,7 +78,7 @@ int count_wordlen(char *str, int i)
 	return (len);
 }
 
-int is_in_quoted_section(char *str, int i)
+int	is_in_quoted_section(char *str, int i)
 {
 	int	count;
 	int	temp;

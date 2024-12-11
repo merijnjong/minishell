@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:05 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/07 17:21:11 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:09:46 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	add_spaces(char *new_str, char *str, int *i, int *j)
 		new_str[(*j)++] = str[(*i)++];
 		k++;
 	}
-	if (str[*i] != '\0' && str[*i] != ' '  && is_in_quoted_section(str, *i) == 0)
+	if (str[*i] != '\0' && str[*i] != ' '
+		&& is_in_quoted_section(str, *i) == 0)
 		new_str[(*j)++] = ' ';
 }
 

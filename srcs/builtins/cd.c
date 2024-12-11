@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/07 16:21:08 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 14:52:46 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,56 +21,57 @@ char	*get_env_value(t_minishell *envlist, char *key)
 	key_len = ft_strlen(key);
 	while (current != NULL)
 	{
-		if (ft_strncmp(current->env, key, key_len) == 0 && current->env[key_len] == '=')
+		if (ft_strncmp(current->env, key, key_len) == 0
+			&& current->env[key_len] == '=')
 			return (current->env + key_len + 1);
 		current = current->next_env;
 	}
 	return (NULL);
 }
 
-int cd_path(char *path)
+int	cd_path(char *path)
 {
-    if (path == NULL)
-        return (1);
-    if (chdir(path) == -1)
-    {
-        ft_printf("cd: not a directory: %s\n", path);
-        return (1);
-    }
-    return (0);
+	if (path == NULL)
+		return (1);
+	if (chdir(path) == -1)
+	{
+		ft_printf("cd: not a directory: %s\n", path);
+		return (1);
+	}
+	return (0);
 }
 
-int cd_home(t_minishell *envlist)
+int	cd_home(t_minishell *envlist)
 {
-    char	*home;
+	char	*home;
 
-    home = get_env_value(envlist, "HOME");
-    if (home != NULL)
-    {
-        if (chdir(home) == -1)
-        {
-            ft_printf("cd: failed to change to home directory\n");
-            return (1);
-        }
-    }
-    else
-    {
-        ft_printf("cd: HOME environment variable not set\n");
-        return (1);
-    }
-    return (0);
+	home = get_env_value(envlist, "HOME");
+	if (home != NULL)
+	{
+		if (chdir(home) == -1)
+		{
+			ft_printf("cd: failed to change to home directory\n");
+			return (1);
+		}
+	}
+	else
+	{
+		ft_printf("cd: HOME environment variable not set\n");
+		return (1);
+	}
+	return (0);
 }
 
-int cd(t_minishell *envlist, char **args)
+int	cd(t_minishell *envlist, char **args)
 {
-    int	result;
+	int	result;
 
-    result = 0;
-    if (args == NULL || args[0] == NULL || ft_strcmp(args[0], "cd") != 0)
-        return (1);
-    if (args[1] == NULL || (ft_strcmp(args[1], "~") == 0))
-        result = cd_home(envlist);
-    else
-        result = cd_path(args[1]);
-    return (result);
+	result = 0;
+	if (args == NULL || args[0] == NULL || ft_strcmp(args[0], "cd") != 0)
+		return (1);
+	if (args[1] == NULL || (ft_strcmp(args[1], "~") == 0))
+		result = cd_home(envlist);
+	else
+		result = cd_path(args[1]);
+	return (result);
 }
