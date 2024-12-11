@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 15:12:56 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 16:28:21 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ t_cmdlist	ft_parsing(char *argv)
 	command_list.head = NULL;
 	if (check_for_errors(argv) != 0)
 		return (command_list);
-	converted_string = replace_vars(argv);
-	if (converted_string == NULL)
-		return (command_list);
-	converted_string = convert_string(converted_string);
+	converted_string = convert_string(argv);
 	if (converted_string == NULL)
 		return (command_list);
 	command_array = get_command_array(converted_string);

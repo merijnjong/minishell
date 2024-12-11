@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 15:06:10 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 16:28:35 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,6 @@ void		init(t_minishell *minishell, char **envp);
 t_redirect	*init_redirect(void);
 char		**remove_redirections(char **args, t_redirect *redirect);
 int			handle_redirect(char **args, int *i, t_redirect *redirect);
-
-// Environment Variable Functions
-char		*get_environ_value(const char *var_name);
 
 // Other Helpers
 int			get_meta_len(char *str, int i);
