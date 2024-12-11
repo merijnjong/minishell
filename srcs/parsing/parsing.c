@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 16:28:21 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 16:57:50 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_cmdlist	ft_parsing(char *argv)
 	return (command_list);
 }
 
-void ft_print_array(char **array)
+void	ft_print_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:41 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 15:01:16 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:02:04 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,48 @@ int	remove_current_node(t_minishell **envlist, t_minishell *current,
 	return (0);
 }
 
-int	unset(t_minishell *envlist, char **args)
+int	find_and_remove_node(t_minishell **envlist, char *target_var)
 {
 	t_minishell	*current;
 	t_minishell	*prev;
 	char		*current_var_name;
 	int			i;
-	int			j;
 
 	prev = NULL;
+	current = *envlist;
+	while (current != NULL)
+	{
+		i = 0;
+		current_var_name = get_var_name(current->env, &i);
+		if (current_var_name && ft_strcmp(current_var_name, target_var) == 0)
+		{
+			free(current_var_name);
+			remove_current_node(envlist, current, prev);
+			return (1);
+		}
+		free(current_var_name);
+		prev = current;
+		current = current->next_env;
+	}
+	return (0);
+}
+
+void	process_unset_args(t_minishell **envlist, char **args)
+{
+	int	j;
+
 	j = 1;
 	while (args[j] != NULL)
 	{
-		current = envlist;
-		while (current != NULL)
-		{
-			i = 0;
-			current_var_name = get_var_name(current->env, &i);
-			if (current_var_name && ft_strcmp(current_var_name, args[j]) == 0)
-			{
-				free(current_var_name);
-				remove_current_node(&envlist, current, prev);
-				break ;
-			}
-			free(current_var_name);
-			prev = current;
-			current = current->next_env;
-		}
+		find_and_remove_node(envlist, args[j]);
 		j++;
 	}
+}
+
+int	unset(t_minishell *envlist, char **args)
+{
+	if (args[1] == NULL)
+		return (0);
+	process_unset_args(&envlist, args);
 	return (0);
 }

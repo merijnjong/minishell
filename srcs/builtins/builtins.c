@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 16:50:16 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 16:58:03 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	builtin_check(t_minishell *minishell, t_cmdlist *cmdlist)
 	if (!current || !current->cmd)
 		return (127);
 	args = current->cmd->args;
-	// print_dbl_ptr(args);
 	if (!args || !args[0])
 		return (127);
 	if (ft_strcmp(args[0], "exit") == 0)

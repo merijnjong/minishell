@@ -6,25 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:07 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 15:14:10 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:05:41 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	init_cmd_struct(t_cmd **cmd)
-{
-	*cmd = malloc(sizeof(t_cmd));
-	if (*cmd == NULL)
-		return (0);
-	(*cmd)->redirect = init_redirect();
-	if ((*cmd)->redirect == NULL)
-	{
-		free(*cmd);
-		return (0);
-	}
-	return (1);
-}
 
 t_cmd	*get_command(char **arg_array)
 {
@@ -113,7 +99,7 @@ t_node	*create_node(t_cmd *cmd)
 	return (new_node);
 }
 
-void free_command(t_cmd *cmd)
+void	free_command(t_cmd *cmd)
 {
 	if (cmd == NULL)
 		return ;

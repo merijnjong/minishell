@@ -6,16 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 15:10:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:05:25 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	init_cmdlist(t_cmdlist *list)
-{
-	list->head = NULL;
-}
 
 void	add_command(t_cmdlist *list, t_cmd *cmd)
 {

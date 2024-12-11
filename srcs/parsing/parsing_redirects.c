@@ -6,23 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:48 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 15:23:11 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:03:26 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_redirect	*init_redirect(void)
-{
-	t_redirect	*redirect;
-
-	redirect = malloc(sizeof(t_redirect));
-	if (redirect == NULL)
-		return (NULL);
-	redirect->type = NO_REDIR;
-	redirect->filename = NULL;
-	return (redirect);
-}
 
 int	get_redirection_type(char *str)
 {
