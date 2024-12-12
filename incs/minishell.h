@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 17:30:59 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/12 15:35:06 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,57 +107,45 @@ void		setup_signals(void);
 void		sigint_handler(int signum);
 void		sigquit_handler(int signum);
 
+// /srcs/parsing/arrays.c
+char		**ft_split_skip_quotes(char *s, char c);
+
 // /srcs/parsing/envlist.c
 void		free_envlist(t_minishell *head);
 int			start_envlist(t_minishell *envlist, char **envp, int i);
 
-// /srcs/parsing/init.c
-t_redirect	*init_redirect(void);
-int			init_cmd_struct(t_cmd **cmd);
-void		init_cmdlist(t_cmdlist *list);
-void		init_minishell(t_minishell *minishell, char **envp);
 
-// /srcs/parsing/parsing_arrays.c
-char		**ft_split_skip_quotes(char *s, char c);
-
-// /srcs/parsing/parsing_cmdlist.c
+// /srcs/parsing/cmdlist.c
 t_cmdlist	put_in_cmdlist(char **command_array);
 void		print_commands(t_cmdlist *list);
 void		free_commands(t_cmdlist *list);
 void		add_command(t_cmdlist *list, t_cmd *cmd);
 
-// /srcs/parsing/parsing_command.c
+// /srcs/parsing/command.c
 void		free_command(t_cmd *cmd);
 t_node		*create_node(t_cmd *cmd);
 void		print_command(t_cmd *cmd);
 char		**get_command_array(char *str);
 t_cmd		*get_command(char **arg_array);
 
-// /srcs/parsing/parsing_convert.c
+// /srcs/parsing/convert.c
 char		*convert_string(char *str);
 void		add_spaces(char *new_str, char *str, int *i, int *j);
 int			new_strlen(char *str);
 int			get_meta_len(char *str, int i);
 
-// /srcs/parsing/parsing_errors.c
+// /srcs/parsing/errors.c
 int			check_for_errors(char *str);
 int			check_for_uneven_quotes(char *str);
 char		get_first_metachar(char *str);
 int			is_valid_double(char *str, int i);
 int			is_metachar(char c);
 
-// /srcs/parsing/parsing_quotes.c
-int			is_in_quoted_section(char *str, int i);
-int			count_wordlen(char *str, int i);
-int			ft_count_commands(char *str, char c);
-int			count_between_quotes(char *str, int i);
-
-// /srcs/parsing/parsing_redirects.c
-char		**remove_redirections(char **args, t_redirect *redirect);
-char		**create_new_args(char **args, t_redirect *redirect, int new_size);
-int			handle_redirect(char **args, int *i, t_redirect *redirect);
-int			count_new_size(char **args);
-int			get_redirection_type(char *str);
+// /srcs/parsing/init.c
+t_redirect	*init_redirect(void);
+int			init_cmd_struct(t_cmd **cmd);
+void		init_cmdlist(t_cmdlist *list);
+void		init_minishell(t_minishell *minishell, char **envp);
 
 // /srcs/parsing/parsing_utils.c
 void		free_array(char **array);
@@ -167,6 +155,19 @@ t_cmdlist	ft_parsing(char *argv);
 void		ft_print_array(char **array);
 char		**fill_array(char **array, char *str, int wordcount);
 void		clean_array(char **array, int i);
+
+// /srcs/parsing/quotes.c
+int			is_in_quoted_section(char *str, int i);
+int			count_wordlen(char *str, int i);
+int			ft_count_commands(char *str, char c);
+int			count_between_quotes(char *str, int i);
+
+// /srcs/parsing/redirects.c
+char		**remove_redirections(char **args, t_redirect *redirect);
+char		**create_new_args(char **args, t_redirect *redirect, int new_size);
+int			handle_redirect(char **args, int *i, t_redirect *redirect);
+int			count_new_size(char **args);
+int			get_redirection_type(char *str);
 
 // minishell.c
 void		ft_input(char **argv, char **envp);
