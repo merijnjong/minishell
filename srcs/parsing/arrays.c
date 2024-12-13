@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_arrays.c                                   :+:      :+:    :+:   */
+/*   arrays.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 15:12:35 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/13 10:47:16 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,34 @@ int	ft_word_length(char *s, char c, int i)
 	return (j);
 }
 
-char	**ft_split_skip_quotes(char*s, char c)
+void remove_quotes(char *arg)
+{
+	char *temp;
+	int i = 0, j = 0;
+
+	temp = malloc(ft_strlen(arg) + 1);
+	if (!temp)
+		return;
+
+	while (arg[i] != '\0')
+	{
+		if (arg[i] != '"' && arg[i] != '\'')
+		{
+			temp[j++] = arg[i];
+		}
+		i++;
+	}
+	temp[j] = '\0';
+	ft_strcpy(arg, temp);
+	free(temp);
+}
+
+char	**ft_split_skip_quotes(char *s, char c)
 {
 	char	**array;
 	int		i;
 	int		j;
+	int		word_len;
 
 	array = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
 	i = 0;
@@ -78,13 +101,15 @@ char	**ft_split_skip_quotes(char*s, char c)
 	{
 		while (s[j] == c)
 			j++;
-		array[i] = ft_substr(s, j, ft_word_length(s, c, j));
+		word_len = ft_word_length(s, c, j);
+		array[i] = ft_substr(s, j, word_len);
 		if (array[i] == NULL)
 		{
 			free_array(array);
 			return (NULL);
 		}
-		j += ft_word_length(s, c, j);
+		remove_quotes(array[i]);
+		j += word_len;
 		i++;
 	}
 	array[i] = NULL;
