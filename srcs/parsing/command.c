@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_command.c                                  :+:      :+:    :+:   */
+/*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:07 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 17:05:41 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/15 09:43:26 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,25 @@ void	free_command(t_cmd *cmd)
 	if (cmd == NULL)
 		return ;
 	if (cmd->filename != NULL)
+	{
 		free(cmd->filename);
+		cmd->filename = NULL;
+	}
 	if (cmd->args != NULL)
+	{
 		free_array(cmd->args);
+		cmd->args = NULL;
+	}
 	if (cmd->redirect != NULL)
 	{
 		if (cmd->redirect->filename != NULL)
 			free(cmd->redirect->filename);
 		free(cmd->redirect);
+		cmd->redirect->filename = NULL;
+		cmd->redirect = NULL;
 	}
 	free(cmd);
+	cmd = NULL;
 }
+
+

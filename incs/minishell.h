@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/13 10:49:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/15 11:40:27 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 # define REDIR_OUT 2
 # define REDIR_APPEND 3
 # define REDIR_HEREDOC 4
+
+# define SINGLE_QUOTE 11
+# define DOUBLE_QUOTE 12
+
 
 extern char	**environ;
 
@@ -73,7 +77,7 @@ typedef struct s_node
 // srcs/builtins
 int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
 int			cd(t_minishell *envlist, char **args);
-int			echo(t_minishell *minishell, char **args);
+int			echo(t_cmd *command);
 int			env(t_minishell *envlist);
 int			export(t_minishell *envlist, char **args);
 int			pwd(char **args);
@@ -119,6 +123,9 @@ t_cmdlist	put_in_cmdlist(char **command_array);
 void		print_commands(t_cmdlist *list);
 void		free_commands(t_cmdlist *list);
 void		add_command(t_cmdlist *list, t_cmd *cmd);
+int			process_command(t_cmdlist *command_list, char *command_str);
+
+
 
 // srcs/parsing/command.c
 void		free_command(t_cmd *cmd);
@@ -148,18 +155,28 @@ void		init_minishell(t_minishell *minishell, char **envp);
 
 // srcs/parsing/parsing_utils.c
 void		free_array(char **array);
+void		cleanup_minishell(t_minishell *minishell);
+char		*extract_var_name(char **src);
+char		*handle_var(char **src, char *dst, t_minishell *minishell);
+char		*get_environ_value(char *var_name, t_minishell *minishell);
+
 
 // srcs/parsing/parsing.c
-t_cmdlist	ft_parsing(char *argv);
+t_cmdlist	ft_parsing(char *argv, t_minishell *minishell);
 void		ft_print_array(char **array);
 char		**fill_array(char **array, char *str, int wordcount);
 void		clean_array(char **array, int i);
+char		*replace_vars(t_minishell *minishell, char *str);
+
+
 
 // srcs/parsing/quotes.c
 int			is_in_quoted_section(char *str, int i);
 int			count_wordlen(char *str, int i);
 int			ft_count_commands(char *str, char c);
 int			count_between_quotes(char *str, int i);
+char		*process_src(t_minishell *minishell, char *src, char *str, char *result);
+
 
 // srcs/parsing/redirects.c
 char		**remove_redirections(char **args, t_redirect *redirect);

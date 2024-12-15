@@ -3,73 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 14:54:58 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/15 12:33:45 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo_env(t_minishell *envlist, const char *command)
+int echo(t_cmd *command)
 {
-	t_minishell	*current;
-	char		*env;
-	char		*env_name;
-	int			i;
-
-	current = envlist;
-	env = NULL;
-	env_name = NULL;
-	command++;
-	while (current != NULL)
-	{
-		i = 0;
-		env_name = get_var_name(current->env, &i);
-		if (env_name && ft_strcmp(env_name, command) == 0)
-		{
-			env = current->env + i;
-			free(env_name);
-			break ;
-		}
-		free(env_name);
-		current = current->next_env;
-	}
-	if (env != NULL)
-		ft_printf("%s", env);
-}
-
-int	echo(t_minishell *minishell, char **args)
-{
-	int	newline;
 	int	i;
+	int	newline;
+	int saved_stdout;
 
+	if (!command || !command->args)
+		return (1);
+	saved_stdout = dup(STDOUT_FILENO);
+	if (handle_redirects(command) != 0)
+		return (1);
 	newline = 1;
 	i = 1;
-	if (args[1] == NULL)
-	{
-		ft_printf("\n");
-		return (0);
-	}
-	if (ft_strcmp(args[1], "-n") == 0)
+	if (command->args[1] && ft_strcmp(command->args[1], "-n") == 0)
 	{
 		newline = 0;
 		i++;
 	}
-	while (args[i] != NULL)
+	while (command->args[i] != NULL)
 	{
-		if (ft_strcmp(args[i], "$?") == 0)
-			ft_printf("%d", minishell->status);
-		else if (ft_strncmp(args[i], "$", 1) == 0)
-			echo_env(minishell, args[i]);
-		else
-			ft_printf("%s", args[i]);
-		if (args[i + 1])
+		ft_printf("%s", command->args[i]);
+		if (command->args[i + 1] != NULL)
 			ft_printf(" ");
 		i++;
 	}
-	if (newline != 0)
+	if (newline)
 		ft_printf("\n");
+	if (dup2(saved_stdout, STDOUT_FILENO) == -1)
+    {
+        close(saved_stdout);
+        return (perror("Error restoring STDOUT"), 1);
+    }
+    close(saved_stdout);
 	return (0);
 }

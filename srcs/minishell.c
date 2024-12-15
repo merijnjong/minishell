@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 17:08:14 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/15 09:53:21 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	ft_input(char **argv, char **envp)
 		if (argv[0] == NULL)
 		{
 			ft_printf("exit\n");
-			break ;
+            cleanup_minishell(&minishell);
+            exit(0);
 		}
 		if (argv[0][0] != '\0')
 		{
-			cmdlist = ft_parsing(argv[0]);
+			cmdlist = ft_parsing(argv[0], &minishell);
 			if (cmdlist.head == NULL)
 				minishell.status = 1;
 			minishell.status = process(&minishell, &cmdlist, envp);
@@ -38,7 +39,7 @@ void	ft_input(char **argv, char **envp)
 			minishell.status = 130;
 		free(argv[0]);
 	}
-	rl_clear_history();
+	cleanup_minishell(&minishell);
 }
 
 int	main(int argc, char **argv, char **envp)

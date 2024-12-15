@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_cmdlist.c                                  :+:      :+:    :+:   */
+/*   cmdlist.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 17:05:25 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/15 10:35:09 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,44 @@ void	print_commands(t_cmdlist *list)
 	}
 }
 
+int	process_command(t_cmdlist *command_list, char *command_str)
+{
+	char	**temp;
+	t_cmd	*command;
+
+	temp = ft_split_skip_quotes(command_str, ' ');
+	if (temp == NULL)
+		return (0);
+	command = get_command(temp);
+	if (command == NULL)
+	{
+		free_array(temp);
+		return (0);
+	}
+	add_command(command_list, command);
+	free_array(temp);
+	return (1);
+}
+
 t_cmdlist	put_in_cmdlist(char **command_array)
 {
-	t_cmdlist	command_list;
-	t_cmd		*command;
-	char		**temp;
 	int			i;
+	t_cmdlist	command_list;
 
 	init_cmdlist(&command_list);
+	if (command_array == NULL)
+		return (command_list);
 	i = 0;
 	while (command_array[i] != NULL)
 	{
-		temp = ft_split_skip_quotes(command_array[i], ' ');
-		if (temp == NULL)
+		if (!process_command(&command_list, command_array[i]))
+		{
 			free_array(command_array);
-		command = get_command(temp);
-		if (command == NULL)
-			free_array(command_array);
-		add_command(&command_list, command);
-		free_array(temp);
+			free_commands(&command_list);
+			return (command_list);
+		}
 		i++;
 	}
+	free_array(command_array);
 	return (command_list);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_redirects.c                                :+:      :+:    :+:   */
+/*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:48 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 17:03:26 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/15 11:53:21 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_redirection_type(char *str)
 {
-	if (str == NULL)
+	if (str == NULL || *str == '\0')
 		return (NO_REDIR);
 	if (ft_strcmp(str, "<<") == 0)
 		return (REDIR_HEREDOC);

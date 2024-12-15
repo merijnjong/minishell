@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:55 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/13 10:34:28 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/14 20:23:40 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,24 @@ int	count_wordlen(char *str, int i)
 
 int	is_in_quoted_section(char *str, int i)
 {
-	int	count;
+	int	count_single;
+	int	count_double;
 	int	temp;
 
-	count = 0;
-	temp = i;
-	while (str[temp--] != '\0')
+	count_single = 0;
+	count_double = 0;
+	temp = 0;
+	while (temp < i)
 	{
-		if (str[temp] == 34 || str[temp] == 39)
-			count++;
+		if (str[temp] == '\'' && count_double % 2 == 0)
+			count_single++;
+		else if (str[temp] == '\"' && count_single % 2 == 0)
+			count_double++;
+		temp++;
 	}
-	if (count % 2 == 1)
-		return (1);
+	if (count_single % 2 == 1)
+		return (SINGLE_QUOTE);
+	else if (count_double % 2 == 1)
+		return (DOUBLE_QUOTE);
 	return (0);
 }
