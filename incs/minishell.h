@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/18 15:56:08 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/18 17:39:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define DOUBLE_QUOTE 12
 
 # define BUFSIZE 4096
+# define TMP_HEREDOC_FILE "/tmp/.heredoc_tmp"
 
 extern char	**environ;
 
@@ -114,9 +115,6 @@ int			run_child_process(t_cmd *cmd, char **envp, int input_fd,
 int			run_parent_process(pid_t pid, int output_fd, int input_fd);
 void		child_process_setup(int input_fd, int output_fd);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
-
-// srcs/execution/redirects.c
-int			handle_redirects(t_cmd *cmd);
 
 // srcs/execution/signals.c
 void		setup_signals(void);
