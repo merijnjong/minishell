@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/15 10:53:11 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:08:32 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,31 @@ void	free_array(char **array)
 	return ;
 }
 
-void cleanup_minishell(t_minishell *minishell)
+void	cleanup_minishell(t_minishell *minishell)
 {
-    if (!minishell)
-        return;
-    if (minishell->next_env != NULL)
-    {
-        free_envlist(minishell->next_env);
-        minishell->next_env = NULL;
-    }
-    if (minishell->env != NULL)
-    {
-        free(minishell->env);
-        minishell->env = NULL;
-    }
-    if (minishell->cmdlist != NULL)
-    {
-        free_commands(minishell->cmdlist);
-        free(minishell->cmdlist);
-        minishell->cmdlist = NULL;
-    }
-    minishell->status = 0;
+	if (!minishell)
+		return ;
+	if (minishell->next_env != NULL)
+	{
+		free_envlist(minishell->next_env);
+		minishell->next_env = NULL;
+	}
+	if (minishell->env != NULL)
+	{
+		free(minishell->env);
+		minishell->env = NULL;
+	}
+	if (minishell->cmdlist != NULL)
+	{
+		free_commands(minishell->cmdlist);
+		free(minishell->cmdlist);
+		minishell->cmdlist = NULL;
+	}
+	minishell->status = 0;
 	rl_clear_history();
 }
 
-char *get_environ_value(char *var_name, t_minishell *minishell)
+char	*get_environ_value(char *var_name, t_minishell *minishell)
 {
 	t_minishell	*current;
 	size_t		len;
@@ -70,7 +70,8 @@ char *get_environ_value(char *var_name, t_minishell *minishell)
 	current = minishell->next_env;
 	while (current)
 	{
-		if (strncmp(current->env, var_name, len) == 0 && current->env[len] == '=')
+		if (strncmp(current->env, var_name, len) == 0
+			&& current->env[len] == '=')
 			return (current->env + len + 1);
 		current = current->next_env;
 	}

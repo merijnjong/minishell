@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/15 12:33:45 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:10:10 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int echo(t_cmd *command)
+int	echo(t_cmd *command)
 {
 	int	i;
 	int	newline;
-	int saved_stdout;
+	int	saved_stdout;
 
 	if (!command || !command->args)
 		return (1);
@@ -40,10 +40,10 @@ int echo(t_cmd *command)
 	if (newline)
 		ft_printf("\n");
 	if (dup2(saved_stdout, STDOUT_FILENO) == -1)
-    {
-        close(saved_stdout);
-        return (perror("Error restoring STDOUT"), 1);
-    }
-    close(saved_stdout);
+	{
+		close(saved_stdout);
+		return (perror("Error restoring STDOUT"), 1);
+	}
+	close(saved_stdout);
 	return (0);
 }

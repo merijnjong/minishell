@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/18 13:47:47 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:11:51 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	setup_pipe(int *pipe_fd)
 	return (0);
 }
 
-static int	execute_piped_command(t_cmd *cmd, char **envp, int input_fd, int output_fd)
+static int	execute_piped_command(t_cmd *cmd, char **envp, int input_fd,
+	int output_fd)
 {
 	pid_t	pid;
 

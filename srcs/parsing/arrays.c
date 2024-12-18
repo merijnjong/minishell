@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/13 10:47:16 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:12:37 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ int	ft_word_length(char *s, char c, int i)
 	return (j);
 }
 
-void remove_quotes(char *arg)
+void	remove_quotes(char *arg)
 {
-	char *temp;
-	int i = 0, j = 0;
+	char	*temp;
 
 	temp = malloc(ft_strlen(arg) + 1);
 	if (!temp)
-		return;
-
+		return ;
+	i = 0;
+	j = 0;
 	while (arg[i] != '\0')
 	{
 		if (arg[i] != '"' && arg[i] != '\'')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/15 10:49:57 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:13:07 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char *process_src(t_minishell *minishell, char *src, char *str, char *result)
 	while (*src)
 	{
 		i = src - str;
-		if (*src == '$' && *(src + 1) != '\0' && is_in_quoted_section(str, i) != SINGLE_QUOTE
+		if (*src == '$' && *(src + 1) != '\0'
+			&& is_in_quoted_section(str, i) != SINGLE_QUOTE
 			&& (isalpha(*(src + 1)) || *(src + 1) == '_' || *(src + 1) == '?'))
 		{
 			new_dst = handle_var(&src, dst, minishell);
@@ -74,7 +75,7 @@ t_cmdlist	ft_parsing(char *argv, t_minishell *minishell)
 	if (command_list.head == NULL)
 		ft_printf("Error: Failed to process commands.\n");
 	return (command_list);
-	}
+}
 
 void	ft_print_array(char **array)
 {

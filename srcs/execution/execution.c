@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/18 13:07:56 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:10:49 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	*ft_find_path(char **envp, char *cmd)
 	i = 0;
 	while (envp[i] && ft_strnstr(envp[i], "PATH=", 5) == 0)
 		i++;
-
 	if (!envp[i])
 	{
 		ft_printf("%s: PATH not found\n", cmd);
