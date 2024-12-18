@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 15:21:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/18 13:09:05 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int	run_child_process(t_cmd *cmd, char **envp, int input_fd, int output_fd)
 
 	if (input_fd != -1)
 		child_process_setup(input_fd, output_fd);
-	if (cmd->redirect != 0)
+	if (cmd->redirect)
 		handle_redirects(cmd);
+	setvbuf(stdout, NULL, _IONBF, 0);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	status = ft_execute(cmd, envp);
