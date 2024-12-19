@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/19 01:22:02 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:47:59 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_input(char **argv, char **envp)
 		}
 		if (argv[0][0] != '\0')
 		{
+			cmdlist = malloc(sizeof(t_cmdlist))
 			cmdlist = ft_parsing(argv[0], &minishell);
 			if (cmdlist.head == NULL)
 				minishell.status = 1;

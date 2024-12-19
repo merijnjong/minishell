@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 01:18:26 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:49:00 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int	process_command(t_cmdlist *command_list, char *command_str)
 	return (1);
 }
 
-t_cmdlist	put_in_cmdlist(char **command_array)
+t_cmdlist	*put_in_cmdlist(char **command_array)
 {
 	int			i;
-	t_cmdlist	command_list;
+	t_cmdlist	*command_list;
 
 	init_cmdlist(&command_list);
 	if (command_array == NULL)

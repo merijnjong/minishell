@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:50:45 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/19 01:43:34 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:42:08 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	handle_redirects(t_cmd *cmd)
 {
 	if (!cmd || !cmd->redirect)
 		return (0);
-	printf("{%s}", cmd->redirect->filename);
 	if (cmd->redirect->type != NO_REDIR && !*cmd->redirect->filename)
 		return (ft_printf("minishell: no such file or directory:\n"), 0);
 	if (cmd->redirect->type == REDIR_IN)

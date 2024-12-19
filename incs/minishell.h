@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 01:31:32 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:50:29 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void		free_envlist(t_minishell *head);
 int			start_envlist(t_minishell *envlist, char **envp, int i);
 
 // srcs/parsing/cmdlist.c
-t_cmdlist	put_in_cmdlist(char **command_array);
+t_cmdlist	*put_in_cmdlist(char **command_array);
 void		print_commands(t_cmdlist *list);
 void		free_commands(t_cmdlist *list);
 void		add_command(t_cmdlist *list, t_cmd *cmd);
@@ -170,7 +170,7 @@ char		*handle_var(char **src, char *dst, t_minishell *minishell);
 char		*get_environ_value(char *var_name, t_minishell *minishell);
 
 // srcs/parsing/parsing.c
-t_cmdlist	ft_parsing(char *argv, t_minishell *minishell);
+t_cmdlist	*ft_parsing(char *argv, t_minishell *minishell);
 void		ft_print_array(char **array);
 char		**fill_array(char **array, char *str, int wordcount);
 void		clean_array(char **array, int i);
