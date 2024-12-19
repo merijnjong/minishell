@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 00:28:23 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 01:31:32 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,18 @@
 # define SINGLE_QUOTE 11
 # define DOUBLE_QUOTE 12
 
+# define BUFSIZE 4096
+# define TMP_HEREDOC_FILE "/tmp/.heredoc_tmp"
 
 extern char	**environ;
+
+typedef struct s_buffer
+{
+	char	*buffer;
+	int		buf_size;
+	int		buf_index;
+	int		mode;
+}	t_buffer;
 
 typedef struct s_cmdlist
 {
@@ -94,6 +104,10 @@ int			ft_execute(t_cmd *cmd, char **envp);
 int			handle_redirects(t_cmd *cmd);
 int			execute_pipeline(t_cmdlist *cmdlist, char **envp);
 
+// execution/buffer.c
+int			ft_setvbuf(t_buffer *buf, int mode);
+void		flush_buffer(t_buffer *buf, int fd);
+
 // srcs/execution/processes.c
 int			process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp);
 int			run_child_process(t_cmd *cmd, char **envp, int input_fd,
@@ -101,9 +115,6 @@ int			run_child_process(t_cmd *cmd, char **envp, int input_fd,
 int			run_parent_process(pid_t pid, int output_fd, int input_fd);
 void		child_process_setup(int input_fd, int output_fd);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
-
-// srcs/execution/redirects.c
-int			handle_redirects(t_cmd *cmd);
 
 // srcs/execution/signals.c
 void		setup_signals(void);
@@ -124,8 +135,6 @@ void		print_commands(t_cmdlist *list);
 void		free_commands(t_cmdlist *list);
 void		add_command(t_cmdlist *list, t_cmd *cmd);
 int			process_command(t_cmdlist *command_list, char *command_str);
-
-
 
 // srcs/parsing/command.c
 void		free_command(t_cmd *cmd);
@@ -160,7 +169,6 @@ char		*extract_var_name(char **src);
 char		*handle_var(char **src, char *dst, t_minishell *minishell);
 char		*get_environ_value(char *var_name, t_minishell *minishell);
 
-
 // srcs/parsing/parsing.c
 t_cmdlist	ft_parsing(char *argv, t_minishell *minishell);
 void		ft_print_array(char **array);
@@ -168,15 +176,12 @@ char		**fill_array(char **array, char *str, int wordcount);
 void		clean_array(char **array, int i);
 char		*replace_vars(t_minishell *minishell, char *str);
 
-
-
 // srcs/parsing/quotes.c
 int			is_in_quoted_section(char *str, int i);
 int			count_wordlen(char *str, int i);
 int			ft_count_commands(char *str, char c);
 int			count_between_quotes(char *str, int i);
 char		*process_src(t_minishell *minishell, char *src, char *str, char *result);
-
 
 // srcs/parsing/redirects.c
 char		**remove_redirections(char **args, t_redirect *redirect);

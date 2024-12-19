@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 01:02:33 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 01:35:00 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,27 @@ void	free_array(char **array)
 	return ;
 }
 
-void cleanup_minishell(t_minishell *minishell)
+void	cleanup_minishell(t_minishell *minishell)
 {
-    if (!minishell)
-        return;
-    if (minishell->next_env != NULL)
-    {
-        free_envlist(minishell->next_env);
-        minishell->next_env = NULL;
-    }
-    if (minishell->env != NULL)
-    {
-        free(minishell->env);
-        minishell->env = NULL;
-    }
-    if (minishell->cmdlist != NULL)
-    {
-        free_commands(minishell->cmdlist);
-        free(minishell->cmdlist);
-        minishell->cmdlist = NULL;
-    }
-    minishell->status = 0;
+	if (!minishell)
+		return ;
+	if (minishell->next_env != NULL)
+	{
+		free_envlist(minishell->next_env);
+		minishell->next_env = NULL;
+	}
+	if (minishell->env != NULL)
+	{
+		free(minishell->env);
+		minishell->env = NULL;
+	}
+	if (minishell->cmdlist != NULL)
+	{
+		free_commands(minishell->cmdlist);
+		free(minishell->cmdlist);
+		minishell->cmdlist = NULL;
+	}
+	minishell->status = 0;
 	rl_clear_history();
 }
 
