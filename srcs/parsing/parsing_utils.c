@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 14:31:36 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 17:08:17 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void free_array(char **array)
 {
-    int i = 0;
-    while (array && array[i])
-    {
-        free(array[i]);
-        i++;
-    }
-    free(array);
+	int i = 0;
+	while (array && array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
 
-void	cleanup_minishell(t_minishell *minishell)
+void cleanup_minishell(t_minishell *minishell)
 {
 	if (!minishell)
-		return ;
+		return;
 	if (minishell->next_env != NULL)
 	{
 		free_envlist(minishell->next_env);

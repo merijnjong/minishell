@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 13:49:40 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 17:10:39 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void		ft_input(char **argv, char **envp);
 // utils.c
 void		ft_error(const char *msg);
 int			ft_isdigit_str(const char *str);
-void		ft_exit(char **args);
+void		ft_exit(char **args, t_minishell *minishell);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
 

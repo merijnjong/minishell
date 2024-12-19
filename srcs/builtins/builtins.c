@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/19 00:34:54 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 17:10:21 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_check(t_minishell *minishell, t_cmdlist *cmdlist)
 	if (!args || !args[0])
 		return (127);
 	if (ft_strcmp(args[0], "exit") == 0)
-		ft_exit(args);
+		ft_exit(args, minishell);
 	else if (ft_strcmp(args[0], "cd") == 0)
 		return (cd(minishell, args));
 	else if (ft_strcmp(args[0], "echo") == 0)

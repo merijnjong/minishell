@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 15:07:15 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 17:13:10 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_isdigit_str(const char *str)
 	return (1);
 }
 
-void	ft_exit(char **args)
+void	ft_exit(char **args, t_minishell *minishell)
 {
 	int	exit_status;
 
@@ -44,6 +44,7 @@ void	ft_exit(char **args)
 		if (args[2] != NULL)
 		{
 			ft_printf("minishell: exit: too many arguments\n");
+			cleanup_minishell(minishell);
 			exit(1);
 		}
 		else if (!ft_isdigit_str(args[1]))
@@ -58,6 +59,7 @@ void	ft_exit(char **args)
 		}
 	}
 	ft_printf("exit\n");
+	cleanup_minishell(minishell);
 	exit(exit_status);
 }
 
