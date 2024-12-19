@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:50:45 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/18 17:38:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:32:37 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,15 @@ static int	handle_append_redirection(t_redirect *redirect)
 
 static int	handle_heredoc_redirection(t_redirect *redirect)
 {
-	int		fd;
-	char	*line;
+	int	fd;
 
 	fd = open(TMP_HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		return (perror("Error creating heredoc file"), 1);
-	while (1)
+	if (write_to_heredoc_file(redirect, fd) != 0)
 	{
-		line = readline("> ");
-		if (!line || strcmp(line, redirect->filename) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(fd, line, strlen(line));
-		write(fd, "\n", 1);
-		free(line);
+		close(fd);
+		return (1);
 	}
 	close(fd);
 	fd = open(TMP_HEREDOC_FILE, O_RDONLY);

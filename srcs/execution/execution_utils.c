@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 16:21:34 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/11 15:22:27 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:32:47 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,22 @@
 // 	}
 // 	return (cmd);
 // }
+
+int	write_to_heredoc_file(t_redirect *redirect, int fd)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (!line || ft_strcmp(line, redirect->filename) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+		free(line);
+	}
+	return (0);
+}

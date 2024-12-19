@@ -6,16 +6,32 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/18 15:10:10 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:36:56 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	echo(t_cmd *command)
+static void	print_arguments(char **args, int start_index, int newline)
 {
 	int	i;
+
+	i = start_index;
+	while (args[i] != NULL)
+	{
+		ft_printf("%s", args[i]);
+		if (args[i + 1] != NULL)
+			ft_printf(" ");
+		i++;
+	}
+	if (newline)
+		ft_printf("\n");
+}
+
+int	echo(t_cmd *command)
+{
 	int	newline;
+	int	i;
 	int	saved_stdout;
 
 	if (!command || !command->args)
@@ -30,15 +46,7 @@ int	echo(t_cmd *command)
 		newline = 0;
 		i++;
 	}
-	while (command->args[i] != NULL)
-	{
-		ft_printf("%s", command->args[i]);
-		if (command->args[i + 1] != NULL)
-			ft_printf(" ");
-		i++;
-	}
-	if (newline)
-		ft_printf("\n");
+	print_arguments(command->args, i, newline);
 	if (dup2(saved_stdout, STDOUT_FILENO) == -1)
 	{
 		close(saved_stdout);

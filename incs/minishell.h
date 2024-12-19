@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/18 17:39:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:57:01 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ typedef struct s_minishell
 
 typedef struct s_redirect
 {
-	int		type;
-	char	*filename;
+	int					type;
+	char				*filename;
+	struct s_redirect	*next;
 }	t_redirect;
 
 typedef struct s_cmd
@@ -103,6 +104,7 @@ void		print_envlist(t_minishell *minishell);
 int			ft_execute(t_cmd *cmd, char **envp);
 int			handle_redirects(t_cmd *cmd);
 int			execute_pipeline(t_cmdlist *cmdlist, char **envp);
+int			write_to_heredoc_file(t_redirect *redirect, int fd);
 
 // execution/buffer.c
 int			ft_setvbuf(t_buffer *buf, int mode);
@@ -181,7 +183,8 @@ int			is_in_quoted_section(char *str, int i);
 int			count_wordlen(char *str, int i);
 int			ft_count_commands(char *str, char c);
 int			count_between_quotes(char *str, int i);
-char		*process_src(t_minishell *minishell, char *src, char *str, char *result);
+char		*process_src(t_minishell *minishell, char *src, char *str,
+				char *result);
 
 // srcs/parsing/redirects.c
 char		**remove_redirections(char **args, t_redirect *redirect);

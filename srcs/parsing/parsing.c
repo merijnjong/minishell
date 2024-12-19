@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/18 15:13:07 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:39:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *process_src(t_minishell *minishell, char *src, char *str, char *result)
+char	*process_src(t_minishell *minishell, char *src, char *str, char *result)
 {
 	int		i;
 	char	*dst;
@@ -109,11 +109,4 @@ char	**fill_array(char **array, char *str, int wordcount)
 	}
 	array[wordcount] = NULL;
 	return (array);
-}
-
-void	clean_array(char **array, int i)
-{
-	while (i--)
-		free(array[i]);
-	free(array);
 }
