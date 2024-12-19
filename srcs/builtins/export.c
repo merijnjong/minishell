@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 14:58:27 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:47:40 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,14 @@ int	check_var_name(char *var_name)
 	i = 0;
 	if (!(ft_isalpha(var_name[0]) || var_name[0] == '_'))
 	{
-		ft_printf("minishell: export: '%s': not a valid identifier\n",
-			var_name);
+		ft_putstr_fd(" not a valid identifier\n", 2);
 		return (1);
 	}
 	while (var_name[i])
 	{
 		if (!(ft_isalnum(var_name[i]) || var_name[i] == '_'))
 		{
-			ft_printf("minishell: export: '%s': not a valid identifier\n",
-				var_name);
+			ft_putstr_fd(" not a valid identifier\n", 2);
 			return (1);
 		}
 		i++;

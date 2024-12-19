@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/19 13:03:24 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:12:06 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ void	ft_handle_input(char **argv, t_minishell *minishell, t_cmdlist *cmdlist)
 			minishell->status = 1;
 	}
 	else
-		minishell->status = 130;
+	{
+		free(argv[0]);
+		argv[0] = NULL;
+		return ;
+	}
 }
 
 void	ft_input(char **argv, char **envp)
@@ -51,7 +55,8 @@ void	ft_input(char **argv, char **envp)
 	while (1)
 	{
 		ft_handle_input(argv, &minishell, &cmdlist);
-		ft_process_command(argv, &minishell, &cmdlist, envp);
+		if (argv[0] != NULL && argv[0][0] != '\0')
+			ft_process_command(argv, &minishell, &cmdlist, envp);
 	}
 	cleanup_minishell(&minishell);
 }

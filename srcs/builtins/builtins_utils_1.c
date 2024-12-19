@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:53:10 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/14 17:02:44 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:50:17 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	validate_and_get_var_length(char *cmd, int i)
 	j = 0;
 	if (cmd[i] == '=')
 	{
-		ft_printf("zsh: `%s` not found\n", cmd);
+		ft_putstr_fd(" not a valid identifier", 2);
 		return (-1);
 	}
 	while (cmd[i + j] != '=' && cmd[i + j] != '\0')
@@ -68,7 +68,7 @@ int	validate_and_get_var_length(char *cmd, int i)
 		if (cmd[i + j] == ' ' && cmd[i + j + 1] != '='
 			&& cmd[i + j + 1] != '\0')
 		{
-			ft_printf("zsh: %s not found\n", cmd);
+			ft_putstr_fd(" not a valid identifier", 2);
 			return (-1);
 		}
 		j++;

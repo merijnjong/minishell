@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 12:57:01 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:41:32 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <linux/limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -199,7 +200,7 @@ void		ft_input(char **argv, char **envp);
 // utils.c
 void		ft_error(const char *msg);
 int			ft_isdigit_str(const char *str);
-void		ft_exit(char **args);
+int			ft_exit(char **args);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
 

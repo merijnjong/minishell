@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 14:21:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/15 12:33:18 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:39:12 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_check(t_minishell *minishell, t_cmdlist *cmdlist)
 	if (!args || !args[0])
 		return (127);
 	if (ft_strcmp(args[0], "exit") == 0)
-		ft_exit(args);
+		return (ft_exit(args));
 	else if (ft_strcmp(args[0], "cd") == 0)
 		return (cd(minishell, args));
 	else if (ft_strcmp(args[0], "echo") == 0)

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 15:07:15 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:45:18 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_isdigit_str(const char *str)
 	return (1);
 }
 
-void	ft_exit(char **args)
+int	ft_exit(char **args)
 {
 	int	exit_status;
 
@@ -43,14 +43,13 @@ void	ft_exit(char **args)
 	{
 		if (args[2] != NULL)
 		{
-			ft_printf("minishell: exit: too many arguments\n");
-			exit(1);
+			ft_putstr_fd(" too many arguments\n", 2);
+			return (1);
 		}
 		else if (!ft_isdigit_str(args[1]))
 		{
-			ft_printf("minishell: exit: %s: numeric argument required\n",
-				args[1]);
-			exit_status = 2;
+			ft_putstr_fd(" numeric argument required\n", 2);
+			return (2);
 		}
 		else
 		{
@@ -59,6 +58,7 @@ void	ft_exit(char **args)
 	}
 	ft_printf("exit\n");
 	exit(exit_status);
+	return (0);
 }
 
 void	ft_free_dbl(char **ptr)

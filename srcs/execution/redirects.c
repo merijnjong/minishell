@@ -6,11 +6,36 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:50:45 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/19 12:32:37 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 13:08:25 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	handle_heredoc_redirection(t_redirect *redirect)
+{
+	int	fd;
+
+	fd = open(TMP_HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		return (perror("Error creating heredoc file"), 1);
+	if (write_to_heredoc_file(redirect, fd) != 0)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	fd = open(TMP_HEREDOC_FILE, O_RDONLY);
+	if (fd == -1)
+		return (perror("Error opening heredoc file"), 1);
+	if (dup2(fd, STDIN_FILENO) == -1)
+	{
+		close(fd);
+		return (1);
+	}
+	close(fd);
+	return (0);
+}
 
 static int	handle_input_redirection(t_redirect *redirect)
 {
@@ -52,31 +77,6 @@ static int	handle_append_redirection(t_redirect *redirect)
 	if (fd == -1)
 		return (perror("Error opening file"), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
-	{
-		close(fd);
-		return (1);
-	}
-	close(fd);
-	return (0);
-}
-
-static int	handle_heredoc_redirection(t_redirect *redirect)
-{
-	int	fd;
-
-	fd = open(TMP_HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-		return (perror("Error creating heredoc file"), 1);
-	if (write_to_heredoc_file(redirect, fd) != 0)
-	{
-		close(fd);
-		return (1);
-	}
-	close(fd);
-	fd = open(TMP_HEREDOC_FILE, O_RDONLY);
-	if (fd == -1)
-		return (perror("Error opening heredoc file"), 1);
-	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		close(fd);
 		return (1);

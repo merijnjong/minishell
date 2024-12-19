@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 14:52:46 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:46:08 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	cd_path(char *path)
 		return (1);
 	if (chdir(path) == -1)
 	{
-		ft_printf("cd: not a directory: %s\n", path);
+		ft_putstr_fd(" No such file or directory\n", 2);
 		return (1);
 	}
 	return (0);
