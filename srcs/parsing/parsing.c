@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 12:48:44 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:58:35 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ char	*replace_vars(t_minishell *minishell, char *str)
 	return (result);
 }
 
-t_cmdlist	*ft_parsing(char *argv, t_minishell *minishell)
+t_cmdlist	ft_parsing(char *argv, t_minishell *minishell)
 {
-	t_cmdlist	*command_list;
+	t_cmdlist	command_list;
 	char		**command_array;
 	char		*converted_string;
 
-	command_list->head = NULL;
+	command_list.head = NULL;
 	if (check_for_errors(argv) != 0)
 		return (command_list);
 	converted_string = convert_string(argv);
@@ -81,8 +81,9 @@ t_cmdlist	*ft_parsing(char *argv, t_minishell *minishell)
 	if (command_array == NULL)
 		return (command_list);
 	command_list = put_in_cmdlist(command_array);
-	if (command_list->head == NULL)
+	if (command_list.head == NULL)
 		ft_printf("Error: Failed to process commands.\n");
+
 	return (command_list);
 }
 

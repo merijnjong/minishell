@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/19 12:47:59 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:31:56 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_input(char **argv, char **envp)
 {
 	t_minishell	minishell;
-	t_cmdlist	cmdlist;
 
 	init_minishell(&minishell, envp);
 	while (1)
@@ -29,13 +28,15 @@ void	ft_input(char **argv, char **envp)
 		}
 		if (argv[0][0] != '\0')
 		{
-			cmdlist = malloc(sizeof(t_cmdlist))
-			cmdlist = ft_parsing(argv[0], &minishell);
-			if (cmdlist.head == NULL)
-				minishell.status = 1;
+			minishell.cmdlist = ft_parsing(argv[0], &minishell);
+			if (minishell.cmdlist.head != NULL)
+			{
+				minishell.status = process(&minishell, envp);
+				free_commands(&minishell.cmdlist);
+				minishell.cmdlist.head = NULL;
+			}
 			else
-				minishell.status = process(&minishell, &cmdlist, envp);
-			free_commands(&cmdlist);
+				minishell.status = 1;
 			add_history(argv[0]);
 		}
 		else

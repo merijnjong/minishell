@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:03:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 17:07:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/19 13:57:06 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_minishell(t_minishell *minishell, char **envp)
 	int			i;
 
 	minishell->status = 0;
-	minishell->cmdlist = NULL;
+	minishell->cmdlist.head = NULL;
 	i = 0;
 	if (envp == NULL || envp[0] == NULL)
 		return ;

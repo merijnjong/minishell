@@ -6,27 +6,21 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 01:35:00 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:31:36 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_array(char **array)
+void free_array(char **array)
 {
-	int	i;
-
-	i = 0;
-	if (array == NULL)
-		return ;
-	while (array[i] != NULL)
-	{
-		if (array[i] != NULL)
-			free(array[i]);
-		i++;
-	}
-	free(array);
-	return ;
+    int i = 0;
+    while (array && array[i])
+    {
+        free(array[i]);
+        i++;
+    }
+    free(array);
 }
 
 void	cleanup_minishell(t_minishell *minishell)
@@ -43,11 +37,10 @@ void	cleanup_minishell(t_minishell *minishell)
 		free(minishell->env);
 		minishell->env = NULL;
 	}
-	if (minishell->cmdlist != NULL)
+	if (minishell->cmdlist.head != NULL)
 	{
-		free_commands(minishell->cmdlist);
-		free(minishell->cmdlist);
-		minishell->cmdlist = NULL;
+		free_commands(&minishell->cmdlist);
+		minishell->cmdlist.head = NULL;
 	}
 	minishell->status = 0;
 	rl_clear_history();

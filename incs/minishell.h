@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 12:50:29 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 13:49:40 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_minishell
 	struct s_minishell	*next_env;
 	int					status;
 
-	t_cmdlist			*cmdlist;
+	t_cmdlist			cmdlist;
 }	t_minishell;
 
 typedef struct s_redirect
@@ -109,7 +109,7 @@ int			ft_setvbuf(t_buffer *buf, int mode);
 void		flush_buffer(t_buffer *buf, int fd);
 
 // srcs/execution/processes.c
-int			process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp);
+int			process(t_minishell *minishell, char **envp);
 int			run_child_process(t_cmd *cmd, char **envp, int input_fd,
 				int output_fd);
 int			run_parent_process(pid_t pid, int output_fd, int input_fd);
@@ -130,7 +130,7 @@ void		free_envlist(t_minishell *head);
 int			start_envlist(t_minishell *envlist, char **envp, int i);
 
 // srcs/parsing/cmdlist.c
-t_cmdlist	*put_in_cmdlist(char **command_array);
+t_cmdlist	put_in_cmdlist(char **command_array);
 void		print_commands(t_cmdlist *list);
 void		free_commands(t_cmdlist *list);
 void		add_command(t_cmdlist *list, t_cmd *cmd);
@@ -170,7 +170,7 @@ char		*handle_var(char **src, char *dst, t_minishell *minishell);
 char		*get_environ_value(char *var_name, t_minishell *minishell);
 
 // srcs/parsing/parsing.c
-t_cmdlist	*ft_parsing(char *argv, t_minishell *minishell);
+t_cmdlist	ft_parsing(char *argv, t_minishell *minishell);
 void		ft_print_array(char **array);
 char		**fill_array(char **array, char *str, int wordcount);
 void		clean_array(char **array, int i);
