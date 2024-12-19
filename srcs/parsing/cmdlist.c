@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/15 10:35:09 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 01:18:26 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	add_command(t_cmdlist *list, t_cmd *cmd)
 
 	new_node = create_node(cmd);
 	if (new_node == NULL)
-		return ;
+	{
+		free_command(cmd);
+		return;
+	}
 	if (list->head == NULL)
 		list->head = new_node;
 	else

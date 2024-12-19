@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/15 09:53:21 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 01:22:02 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ void	ft_input(char **argv, char **envp)
 		if (argv[0] == NULL)
 		{
 			ft_printf("exit\n");
-            cleanup_minishell(&minishell);
-            exit(0);
+			cleanup_minishell(&minishell);
+			exit(0);
 		}
 		if (argv[0][0] != '\0')
 		{
 			cmdlist = ft_parsing(argv[0], &minishell);
 			if (cmdlist.head == NULL)
 				minishell.status = 1;
-			minishell.status = process(&minishell, &cmdlist, envp);
+			else
+				minishell.status = process(&minishell, &cmdlist, envp);
+			free_commands(&cmdlist);
 			add_history(argv[0]);
 		}
 		else

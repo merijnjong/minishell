@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:07 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/15 09:43:26 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/19 01:20:50 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ char	**get_command_array(char *str)
 		return (ft_printf("Error: Double pipes\n"), NULL);
 	command_array = malloc((wordcount + 1) * sizeof(char *));
 	if (command_array == NULL)
-		return (ft_printf("Error: Malloc fail"), NULL);
-	fill_array(command_array, str, wordcount);
+		return (ft_printf("Error: Malloc fail\n"), NULL);
+	command_array = fill_array(command_array, str, wordcount);
+	if (command_array == NULL)
+		return (NULL);
+
 	return (command_array);
 }
 
@@ -102,7 +105,7 @@ t_node	*create_node(t_cmd *cmd)
 void	free_command(t_cmd *cmd)
 {
 	if (cmd == NULL)
-		return ;
+		return;
 	if (cmd->filename != NULL)
 	{
 		free(cmd->filename);
@@ -116,9 +119,11 @@ void	free_command(t_cmd *cmd)
 	if (cmd->redirect != NULL)
 	{
 		if (cmd->redirect->filename != NULL)
+		{
 			free(cmd->redirect->filename);
+			cmd->redirect->filename = NULL;
+		}
 		free(cmd->redirect);
-		cmd->redirect->filename = NULL;
 		cmd->redirect = NULL;
 	}
 	free(cmd);
