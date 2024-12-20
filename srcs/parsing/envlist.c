@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:08:44 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:06:15 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:12:22 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,15 @@ void	free_envlist(t_minishell *head)
 	}
 }
 
-int start_envlist(t_minishell *envlist, char **envp, int i)
+int	init_envlist_head(t_minishell *envlist, char **envp, int i)
 {
-	t_minishell *new_node;
-	t_minishell *current;
-
 	if (envp[i] != NULL)
 	{
 		envlist->env = ft_strdup(envp[i]);
 		if (envlist->env == NULL)
 			return (1);
 		envlist->next_env = NULL;
-		current = envlist;
-		i++;
+		return (0);
 	}
 	else
 	{
@@ -45,6 +41,12 @@ int start_envlist(t_minishell *envlist, char **envp, int i)
 		envlist->next_env = NULL;
 		return (0);
 	}
+}
+
+int	append_to_envlist(t_minishell *current, char **envp, int i)
+{
+	t_minishell	*new_node;
+
 	while (envp[i] != NULL)
 	{
 		new_node = malloc(sizeof(t_minishell));
@@ -65,5 +67,14 @@ int start_envlist(t_minishell *envlist, char **envp, int i)
 		current = new_node;
 		i++;
 	}
+	return (0);
+}
+
+int	start_envlist(t_minishell *envlist, char **envp, int i)
+{
+	if (init_envlist_head(envlist, envp, i) != 0)
+		return (1);
+	if (envp[i] != NULL)
+		return (append_to_envlist(envlist, envp, i + 1));
 	return (0);
 }

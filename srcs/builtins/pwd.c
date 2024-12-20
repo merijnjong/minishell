@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:39 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:14:19 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:08:23 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	pwd(t_cmd *command)
 	else
 		perror("getcwd");
 	if (dup2(saved_stdout, STDOUT_FILENO) == -1)
-    {
-        close(saved_stdout);
-        return (perror("Error restoring STDOUT"), 1);
-    }
-    close(saved_stdout);
+	{
+		close(saved_stdout);
+		return (perror("Error restoring STDOUT"), 1);
+	}
+	close(saved_stdout);
 	return (0);
 }

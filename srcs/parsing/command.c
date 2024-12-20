@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:07 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:06:06 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:08:47 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,37 +57,37 @@ char	**get_command_array(char *str)
 	return (command_array);
 }
 
-void	print_command(t_cmd *cmd)
-{
-	int	i;
+// void	print_command(t_cmd *cmd)
+// {
+// 	int	i;
 
-	if (cmd == NULL)
-		return ;
-	ft_printf("Command: %s\n", cmd->filename);
-	i = 0;
-	if (cmd->args != NULL)
-	{
-		ft_printf("Arguments: ");
-		while (cmd->args[i] != NULL)
-			ft_printf("(%s) ", cmd->args[i++]);
-		ft_printf("\n");
-	}
-	if (cmd->redirect != NULL)
-	{
-		ft_printf("Redirection: ");
-		if (cmd->redirect->type == REDIR_IN)
-			ft_printf("< %s\n", cmd->redirect->filename);
-		else if (cmd->redirect->type == REDIR_OUT)
-			ft_printf("> %s\n", cmd->redirect->filename);
-		else if (cmd->redirect->type == REDIR_APPEND)
-			ft_printf(">> %s\n", cmd->redirect->filename);
-		else if (cmd->redirect->type == REDIR_HEREDOC)
-			ft_printf("<< %s\n", cmd->redirect->filename);
-		else
-			ft_printf("none\n");
-	}
-	ft_printf("\n");
-}
+// 	if (cmd == NULL)
+// 		return ;
+// 	ft_printf("Command: %s\n", cmd->filename);
+// 	i = 0;
+// 	if (cmd->args != NULL)
+// 	{
+// 		ft_printf("Arguments: ");
+// 		while (cmd->args[i] != NULL)
+// 			ft_printf("(%s) ", cmd->args[i++]);
+// 		ft_printf("\n");
+// 	}
+// 	if (cmd->redirect != NULL)
+// 	{
+// 		ft_printf("Redirection: ");
+// 		if (cmd->redirect->type == REDIR_IN)
+// 			ft_printf("< %s\n", cmd->redirect->filename);
+// 		else if (cmd->redirect->type == REDIR_OUT)
+// 			ft_printf("> %s\n", cmd->redirect->filename);
+// 		else if (cmd->redirect->type == REDIR_APPEND)
+// 			ft_printf(">> %s\n", cmd->redirect->filename);
+// 		else if (cmd->redirect->type == REDIR_HEREDOC)
+// 			ft_printf("<< %s\n", cmd->redirect->filename);
+// 		else
+// 			ft_printf("none\n");
+// 	}
+// 	ft_printf("\n");
+// }
 
 t_node	*create_node(t_cmd *cmd)
 {
@@ -104,7 +104,7 @@ t_node	*create_node(t_cmd *cmd)
 void	free_command(t_cmd *cmd)
 {
 	if (cmd == NULL)
-		return;
+		return ;
 	if (cmd->filename != NULL)
 	{
 		free(cmd->filename);

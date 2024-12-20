@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:07:36 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:12:48 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	free_array(char **array)
 	return ;
 }
 
-void cleanup_minishell(t_minishell *minishell)
+void	cleanup_minishell(t_minishell *minishell)
 {
 	if (!minishell)
-		return;
+		return ;
 	if (minishell->next_env != NULL)
 	{
 		free_envlist(minishell->next_env);
