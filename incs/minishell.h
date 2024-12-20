@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 14:41:32 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 15:25:59 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_minishell
 	struct s_minishell	*next_env;
 	int					status;
 
-	t_cmdlist			*cmdlist;
+	t_cmdlist			cmdlist;
 }	t_minishell;
 
 typedef struct s_redirect
@@ -90,9 +90,10 @@ typedef struct s_node
 int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
 int			cd(t_minishell *envlist, char **args);
 int			echo(t_cmd *command);
-int			env(t_minishell *envlist);
+int			env(t_minishell *envlist, t_cmd *command);
+
 int			export(t_minishell *envlist, char **args);
-int			pwd(char **args);
+int			pwd(t_cmd *command);
 int			unset(t_minishell *envlist, char **args);
 
 // srcs/builtins/buitins_utils.c
@@ -112,7 +113,7 @@ int			ft_setvbuf(t_buffer *buf, int mode);
 void		flush_buffer(t_buffer *buf, int fd);
 
 // srcs/execution/processes.c
-int			process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp);
+int			process(t_minishell *minishell, char **envp);
 int			run_child_process(t_cmd *cmd, char **envp, int input_fd,
 				int output_fd);
 int			run_parent_process(pid_t pid, int output_fd, int input_fd);
@@ -200,7 +201,7 @@ void		ft_input(char **argv, char **envp);
 // utils.c
 void		ft_error(const char *msg);
 int			ft_isdigit_str(const char *str);
-int			ft_exit(char **args);
+int			ft_exit(char **args, t_minishell *minishell);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/18 15:08:32 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 15:34:10 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	free_array(char **array)
 	return ;
 }
 
-void	cleanup_minishell(t_minishell *minishell)
+void cleanup_minishell(t_minishell *minishell)
 {
 	if (!minishell)
-		return ;
+		return;
 	if (minishell->next_env != NULL)
 	{
 		free_envlist(minishell->next_env);
@@ -43,11 +43,10 @@ void	cleanup_minishell(t_minishell *minishell)
 		free(minishell->env);
 		minishell->env = NULL;
 	}
-	if (minishell->cmdlist != NULL)
+	if (minishell->cmdlist.head != NULL)
 	{
-		free_commands(minishell->cmdlist);
-		free(minishell->cmdlist);
-		minishell->cmdlist = NULL;
+		free_commands(&minishell->cmdlist);
+		minishell->cmdlist.head = NULL;
 	}
 	minishell->status = 0;
 	rl_clear_history();
@@ -66,40 +65,16 @@ char	*get_environ_value(char *var_name, t_minishell *minishell)
 		status_value = ft_itoa(minishell->status);
 		return (status_value);
 	}
-	len = strlen(var_name);
+	len = ft_strlen(var_name);
 	current = minishell->next_env;
 	while (current)
 	{
-		if (strncmp(current->env, var_name, len) == 0
+		if (ft_strncmp(current->env, var_name, len) == 0
 			&& current->env[len] == '=')
 			return (current->env + len + 1);
 		current = current->next_env;
 	}
 	return (NULL);
-}
-
-char	*handle_var(char **src, char *dst, t_minishell *minishell)
-{
-	int		len;
-	char	*var_name;
-	char	*value;
-
-	var_name = extract_var_name(src);
-	if (!var_name)
-		return (NULL);
-	value = get_environ_value(var_name, minishell);
-	free(var_name);
-	if (value == NULL)
-		return (NULL);
-	if (*var_name == '?' && var_name[1] == '\0')
-	{
-		ft_strcpy(dst, value);
-		free(value);
-	}
-	else
-		ft_strcpy(dst, value);
-	len = ft_strlen(value);
-	return (dst + len);
 }
 
 char	*extract_var_name(char **src)
@@ -115,4 +90,29 @@ char	*extract_var_name(char **src)
 	var_len = *src - start;
 	var_name = ft_strndup(start, var_len);
 	return (var_name);
+}
+
+char	*handle_var(char **src, char *dst, t_minishell *minishell)
+{
+	int		len;
+	char	*var_name;
+	char	*value;
+	int		is_question;
+
+	var_name = extract_var_name(src);
+	if (!var_name)
+		return (NULL);
+	value = get_environ_value(var_name, minishell);
+	if (value == NULL || !*var_name)
+	{
+		free(var_name);
+		return (NULL);
+	}
+	is_question = (*var_name == '?' && var_name[1] == '\0');
+	ft_strcpy(dst, value);
+	len = ft_strlen(value);
+	if (is_question)
+		free(value);
+	free(var_name);
+	return (dst + len);
 }

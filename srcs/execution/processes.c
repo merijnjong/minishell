@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/18 15:34:19 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 15:23:27 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ void	parent_process_cleanup(int *pipe_fd, int *input_fd)
 // 	return (1);
 // }
 
-int	process(t_minishell *minishell, t_cmdlist *cmdlist, char **envp)
+int	process(t_minishell *minishell, char **envp)
 {
 	t_node	*current;
 
-	if (!cmdlist || !cmdlist->head)
+	if (!minishell->cmdlist.head)
 		return (1);
-	current = cmdlist->head;
+	current = minishell->cmdlist.head;
 	if (current->next == NULL)
 	{
-		minishell->status = builtin_check(minishell, cmdlist);
+		minishell->status = builtin_check(minishell, &minishell->cmdlist);
 		if (minishell->status != 127)
 			return (minishell->status);
 	}
-	minishell->status = execute_pipeline(cmdlist, envp);
+	minishell->status = execute_pipeline(&minishell->cmdlist, envp);
 	return (minishell->status);
 }

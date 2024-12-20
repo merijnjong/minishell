@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/19 12:39:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 15:35:17 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ char	*process_src(t_minishell *minishell, char *src, char *str, char *result)
 		i = src - str;
 		if (*src == '$' && *(src + 1) != '\0'
 			&& is_in_quoted_section(str, i) != SINGLE_QUOTE
-			&& (isalpha(*(src + 1)) || *(src + 1) == '_' || *(src + 1) == '?'))
+			&& (ft_isalpha(*(src + 1)) || *(src + 1) == '_' || *(src + 1) == '?'))
 		{
 			new_dst = handle_var(&src, dst, minishell);
 			if (!new_dst)
-				return (free(result), NULL);
+			{
+				free(result);
+				return (NULL);
+			}
 			dst = new_dst;
 		}
 		else
@@ -42,12 +45,18 @@ char	*replace_vars(t_minishell *minishell, char *str)
 {
 	char	*result;
 
-	result = malloc(strlen(str) + 1);
+	result = malloc((ft_strlen(str) * 4) + 1);
 	if (!result)
+	{
+		free(str);
 		return (NULL);
+	}
 	result = process_src(minishell, str, str, result);
 	if (!result)
+	{
+		free(str);
 		return (NULL);
+	}
 	free(str);
 	return (result);
 }
