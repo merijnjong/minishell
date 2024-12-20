@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:07:46 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:15:16 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*process_src(t_minishell *minishell, char *src, char *str, char *result)
 	while (*src)
 	{
 		i = src - str;
-		if (*src == '$' && *(src + 1) != '\0'
-			&& is_in_quoted_section(str, i) != SINGLE_QUOTE
-			&& (ft_isalpha(*(src + 1)) || *(src + 1) == '_' || *(src + 1) == '?'))
+		if (*src == '$' && *(src + 1) != '\0' && is_in_quoted_section(str,
+				i) != SINGLE_QUOTE && (ft_isalpha(*(src + 1))
+				|| *(src + 1) == '_' || *(src + 1) == '?'))
 		{
 			new_dst = handle_var(&src, dst, minishell);
 			if (!new_dst)

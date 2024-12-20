@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:08:04 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:20:39 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,18 @@ static void	handle_exit(t_minishell *minishell)
 	exit(0);
 }
 
-static void	handle_command_line(t_minishell *minishell, char **argv, char **envp)
+static void	handle_command_line(t_minishell *minishell, char **argv,
+	char **envp)
 {
-    if (minishell->cmdlist.head != NULL)
-        free_commands(&minishell->cmdlist);
-    minishell->cmdlist = ft_parsing(argv[0], minishell);
-    if (minishell->cmdlist.head != NULL)
-        minishell->status = process(minishell, envp);
-    else
-        minishell->status = 1;
-    add_history(argv[0]);
+	if (minishell->cmdlist.head != NULL)
+		free_commands(&minishell->cmdlist);
+	minishell->cmdlist = ft_parsing(argv[0], minishell);
+	if (minishell->cmdlist.head != NULL)
+		minishell->status = process(minishell, envp);
+	else
+		minishell->status = 1;
+	add_history(argv[0]);
 }
-
-
 
 static void	process_line(t_minishell *minishell, char **argv, char **envp)
 {
