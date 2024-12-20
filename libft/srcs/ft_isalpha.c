@@ -6,11 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 15:05:07 by mjong             #+#    #+#             */
-/*   Updated: 2023/10/25 13:34:20 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:00:05 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/libft.h"
 
 int	ft_isalpha(int c)
 {

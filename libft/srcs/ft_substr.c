@@ -6,11 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:02:55 by mjong             #+#    #+#             */
-/*   Updated: 2023/10/25 13:36:22 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:00:05 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/libft.h"
 
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {

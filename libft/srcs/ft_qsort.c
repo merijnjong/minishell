@@ -6,11 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:11:34 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/11 15:03:09 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:00:05 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/libft.h"
 
 void	swap(char **a, char **b)
 {

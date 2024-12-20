@@ -6,11 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:03:40 by mjong             #+#    #+#             */
-/*   Updated: 2023/10/24 12:16:43 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:00:05 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/libft.h"
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {

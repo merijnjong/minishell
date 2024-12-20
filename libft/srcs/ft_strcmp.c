@@ -6,11 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 14:19:31 by mjong             #+#    #+#             */
-/*   Updated: 2024/10/31 14:21:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:00:05 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/libft.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

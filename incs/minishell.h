@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 15:25:59 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:04:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "libft.h"
+# include "../incs/libft.h"
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -188,7 +188,7 @@ int			count_between_quotes(char *str, int i);
 char		*process_src(t_minishell *minishell, char *src, char *str,
 				char *result);
 
-// srcs/parsing/redirects.c
+// srcs/parsing/parsing_redirects.c
 char		**remove_redirections(char **args, t_redirect *redirect);
 char		**create_new_args(char **args, t_redirect *redirect, int new_size);
 int			handle_redirect(char **args, int *i, t_redirect *redirect);

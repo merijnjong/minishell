@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdlist.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 15:40:16 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:06:01 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	add_command(t_cmdlist *list, t_cmd *cmd)
 	if (new_node == NULL)
 	{
 		free_command(cmd);
-		return;
+		return ;
 	}
 	if (list->head == NULL)
 		list->head = new_node;

@@ -6,11 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 18:14:46 by mjong             #+#    #+#             */
-/*   Updated: 2023/10/26 14:49:01 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:42:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/libft.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
