@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:59 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 12:50:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:49:13 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	check_for_uneven_quotes(char *str)
 		i++;
 	}
 	if (single_open)
-		return (ft_printf("syntax error near unexpected token '\''\n"), 1);
+		return (ft_fprintf(2, "syntax error near unexpected token '\''\n"), 1);
 	if (double_open)
-		return (ft_printf("syntax error near unexpected token '\"'\n"), 1);
+		return (ft_fprintf(2, "syntax error near unexpected token '\"'\n"), 1);
 	return (0);
 }

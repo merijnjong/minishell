@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:07 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 18:19:44 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:49:38 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ char	**get_command_array(char *str)
 
 	wordcount = ft_count_commands(str, '|');
 	if (wordcount == -1)
-		return (ft_printf("Error: No ending quote\n"), NULL);
+		return (ft_fprintf(2, "Error: No ending quote\n"), NULL);
 	if (wordcount == -2)
-		return (ft_printf("Error: Double pipes\n"), NULL);
+		return (ft_fprintf(2, "Error: Double pipes\n"), NULL);
 	command_array = malloc((wordcount + 1) * sizeof(char *));
 	if (command_array == NULL)
-		return (ft_printf("Error: Malloc fail\n"), NULL);
+		return (ft_fprintf(2, "Error: Malloc fail\n"), NULL);
 	command_array = fill_array(command_array, str, wordcount);
 	if (command_array == NULL)
 		return (NULL);

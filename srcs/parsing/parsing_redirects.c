@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_redirects.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:48 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:07:28 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:48:29 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	handle_redirect(char **args, int *i, t_redirect *redirect)
 	{
 		if (args[*i + 1] == NULL)
 		{
-			ft_printf("Error: Missing filename for redirection\n");
+			ft_fprintf(2, "Error: Missing filename for redirection\n");
 			return (-1);
 		}
 		redirect->type = type;

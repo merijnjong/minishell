@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:52:12 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 12:25:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:47:37 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	ft_exit(char **args, t_minishell *minishell)
 	{
 		if (args[2] != NULL)
 		{
-			ft_putstr_fd(" too many arguments\n", 2);
+			ft_fprintf(2, " too many arguments\n");
 			return (1);
 		}
 		else if (!ft_isdigit_str(args[1]))
 		{
-			ft_putstr_fd(" numeric argument required\n", 2);
+			ft_fprintf(2, " numeric argument required\n");
 			return (2);
 		}
 		else

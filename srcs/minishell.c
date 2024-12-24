@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 18:20:39 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:46:34 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_input(argv, envp);
 	}
 	else
-		ft_printf("\033[31mError: Incorrect notation.\n\
+		ft_fprintf(2, "\033[31mError: Incorrect notation.\n\
 		Start program by typing: ./minishell\e[0m\n");
 	return (0);
 }

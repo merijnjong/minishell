@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:46:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 13:10:52 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:48:56 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_metachar_syntax(char *str, char *last_char)
 			if (is_metachar(str[i]) && is_metachar(*last_char)
 				&& !is_valid_double(str, i))
 			{
-				ft_printf("syntax error near unexpected token '%c'\n",
+				ft_fprintf(2, "syntax error near unexpected token '%c'\n",
 					*last_char);
 				return (*last_char);
 			}
@@ -65,7 +65,7 @@ static int	check_for_quotes_or_trailing_metachar(char *str, char last_char)
 	}
 	if (is_metachar(last_char) && !in_single_quote && !in_double_quote)
 	{
-		ft_printf("syntax error near unexpected token '%c'\n", last_char);
+		ft_fprintf(2, "syntax error near unexpected token '%c'\n", last_char);
 		return (last_char);
 	}
 	return (0);

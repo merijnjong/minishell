@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 12:31:13 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:51:44 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	cd_home(t_minishell *envlist)
 	{
 		if (chdir(home) == -1)
 		{
-			ft_printf("cd: failed to change to home directory\n");
+			ft_fprintf(2, "cd: failed to change to home directory\n");
 			return (1);
 		}
 	}
 	else
 	{
-		ft_printf("cd: HOME environment variable not set\n");
+		ft_fprintf(2, "cd: HOME environment variable not set\n");
 		return (1);
 	}
 	return (0);
