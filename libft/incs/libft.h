@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:09:24 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:25:04 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:45:29 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,15 @@ int		ft_prints(char *s);
 int		ft_printu(unsigned int n);
 int		ft_printx_lo(long n);
 int		ft_printx_up(long n);
+int		ft_fprintp2(int fd, void *p);
+int		ft_fprintp(int fd, void *p);
+int		ft_fprintu(int fd, unsigned int n);
+int		ft_fprintx_up(int fd, long n);
+int		ft_fprintd(int fd, int n);
+int		ft_fprints(int fd, char *s);
+int		ft_fprintc(int fd, char c);
+int		ft_fprintf(int fd, const char *s, ...);
+int		ft_fprintx_lo(int fd, long n);
+
 
 #endif
