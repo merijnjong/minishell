@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 12:03:21 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:50:41 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_find_path(char **envp, char *cmd)
 		i++;
 	if (!envp[i])
 	{
-		ft_printf("%s: PATH not found\n", cmd);
+		ft_fprintf(2, "%s: PATH not found\n", cmd);
 		return (NULL);
 	}
 	paths = ft_split(envp[i] + 5, ':');
@@ -62,7 +62,7 @@ int	ft_execute(t_cmd *cmd, char **envp)
 
 	if (handle_redirects(cmd) != 0)
 	{
-		ft_printf("%s: Redirection error\n", cmd->filename);
+		ft_fprintf(2, "%s: Redirection error\n", cmd->filename);
 		return (1);
 	}
 	path = ft_find_path(envp, cmd->filename);

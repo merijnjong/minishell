@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 18:15:16 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:48:04 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_cmdlist	ft_parsing(char *argv, t_minishell *minishell)
 		return (command_list);
 	command_list = put_in_cmdlist(command_array);
 	if (command_list.head == NULL)
-		ft_printf("Error: Failed to process commands.\n");
+		ft_fprintf(2, "Error: Failed to process commands.\n");
 	return (command_list);
 }
 
