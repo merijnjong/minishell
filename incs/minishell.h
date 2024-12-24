@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 13:34:50 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:21:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,9 @@ void		flush_buffer(t_buffer *buf, int fd);
 // srcs/execution/processes.c
 int			process(t_minishell *minishell, char **envp);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
+int			handle_child_process(t_node *current, int input_fd,
+				int *pipe_fd, char **envp);
+int			wait_for_all_processes(void);
 
 // srcs/execution/signals.c
 void		setup_signals(void);
