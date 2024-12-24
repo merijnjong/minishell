@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 13:47:50 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:57:46 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ char	**ft_split_skip_quotes(char *s, char c)
 	int		j;
 	int		word_count;
 
-	if (!s || (word_count = ft_count_words(s, c)) < 0)
+	word_count = ft_count_words(s, c);
+	if (word_count < 0)
 		return (NULL);
 	array = malloc((word_count + 1) * sizeof(char *));
 	if (!array)
