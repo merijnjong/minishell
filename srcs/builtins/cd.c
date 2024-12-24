@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:14:48 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 12:31:13 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ int	cd(t_minishell *envlist, char **args)
 		return (1);
 	if (args[1] == NULL || (ft_strcmp(args[1], "~") == 0))
 		result = cd_home(envlist);
+	if (args[2] != NULL)
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (1);
+	}
 	else
 		result = cd_path(args[1]);
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:46:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:06:39 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:10:52 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,30 @@
 
 static int	check_metachar_syntax(char *str, char *last_char)
 {
+	int	in_single_quote;
+	int	in_double_quote;
 	int	i;
 
+	in_single_quote = 0;
+	in_double_quote = 0;
 	i = 0;
 	while (str[i] != '\0' && !ft_isspace(str[i]))
 	{
-		if ((is_metachar(str[i]) && is_metachar(*last_char))
-			&& !is_valid_double(str, i))
+		if (str[i] == '\'' && !in_double_quote)
+			in_single_quote = !in_single_quote;
+		else if (str[i] == '"' && !in_single_quote)
+			in_double_quote = !in_double_quote;
+		if (!in_single_quote && !in_double_quote)
 		{
-			ft_printf("syntax error near unexpected token '%c'\n", *last_char);
-			return (*last_char);
+			if (is_metachar(str[i]) && is_metachar(*last_char)
+				&& !is_valid_double(str, i))
+			{
+				ft_printf("syntax error near unexpected token '%c'\n",
+					*last_char);
+				return (*last_char);
+			}
+			*last_char = str[i];
 		}
-		*last_char = str[i];
 		i++;
 	}
 	return (i);
@@ -33,9 +45,25 @@ static int	check_metachar_syntax(char *str, char *last_char)
 
 static int	check_for_quotes_or_trailing_metachar(char *str, char last_char)
 {
-	if (last_char == 0 || check_for_uneven_quotes(str) == 1)
+	int	in_single_quote;
+	int	in_double_quote;
+	int	i;
+
+	in_single_quote = 0;
+	in_double_quote = 0;
+	i = 0;
+	if (check_for_uneven_quotes(str) == 1)
 		return (1);
-	if (is_metachar(last_char))
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\'' && !in_double_quote)
+			in_single_quote = !in_single_quote;
+		else if (str[i] == '"' && !in_single_quote)
+			in_double_quote = !in_double_quote;
+		last_char = str[i];
+		i++;
+	}
+	if (is_metachar(last_char) && !in_single_quote && !in_double_quote)
 	{
 		ft_printf("syntax error near unexpected token '%c'\n", last_char);
 		return (last_char);

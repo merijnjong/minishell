@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:05:30 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 12:03:21 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_execute(t_cmd *cmd, char **envp)
 	path = ft_find_path(envp, cmd->filename);
 	if (path == NULL)
 	{
-		ft_printf("%s: command not found\n", cmd->filename);
+		ft_putstr_fd(" command not found\n", 2);
 		return (127);
 	}
 	if (execve(path, cmd->args, envp) < 0)

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:59 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:06:35 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 12:50:57 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,24 @@ char	get_first_metachar(char *str)
 
 int	check_for_uneven_quotes(char *str)
 {
-	int	single_count;
-	int	double_count;
+	int	single_open;
+	int	double_open;
 	int	i;
 
-	single_count = 0;
-	double_count = 0;
+	single_open = 0;
+	double_open = 0;
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == 34)
-			double_count++;
-		if (str[i] == 39)
-			single_count++;
+		if (str[i] == '\'' && double_open == 0)
+			single_open = !single_open;
+		else if (str[i] == '\"' && single_open == 0)
+			double_open = !double_open;
 		i++;
 	}
-	if (single_count % 2 == 1)
+	if (single_open)
 		return (ft_printf("syntax error near unexpected token '\''\n"), 1);
-	if (double_count % 2 == 1)
+	if (double_open)
 		return (ft_printf("syntax error near unexpected token '\"'\n"), 1);
 	return (0);
 }

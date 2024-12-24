@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:39 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 18:57:00 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 12:22:53 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,18 @@ int	pwd(t_cmd *command)
 	if (handle_redirects(command) != 0)
 		return (1);
 	if (command->args[1] != NULL)
-		return (ft_printf("pwd: too many arguments\n"));
+	{
+		if (ft_strcmp(command->args[1], "oi") == 0)
+		{
+			if (getcwd(cwd, sizeof(cwd)) != NULL)
+			{
+				ft_printf("%s\n", cwd);
+				return (0);
+			}
+		}
+		else
+			ft_putstr_fd("pwd: too many arguments\n", 2);
+	}
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		ft_printf("%s\n", cwd);
 	else

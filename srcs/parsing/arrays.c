@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:05:56 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:10:40 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,50 +41,45 @@ int	ft_count_words(char *str, char c)
 	return (wordcount);
 }
 
-int	ft_word_length(char *s, char c, int i)
+int	ft_word_length(const char *s, char c, int start)
 {
-	int	temp;
-	int	j;
+	char	quote_char;
+	int		len;
 
-	j = 0;
-	while (s[i] != '\0' && s[i] != c)
+	quote_char = 0;
+	len = 0;
+	while (s[start] && (s[start] != c || quote_char))
 	{
-		if (s[i] == 34 || s[i] == 39)
-		{
-			temp = count_between_quotes(s, i);
-			if (temp < 0)
-				return (-1);
-			i += temp;
-			j += temp;
-		}
-		i++;
-		j++;
+		if ((s[start] == '\'' || s[start] == '\"') && !quote_char)
+			quote_char = s[start];
+		else if (s[start] == quote_char)
+			quote_char = 0;
+		len++;
+		start++;
 	}
-	return (j);
+	return (len);
 }
 
-void	remove_quotes(char *arg)
+void	remove_quotes(char *str)
 {
-	char	*temp;
+	char	quote_char;
 	int		i;
 	int		j;
 
-	temp = malloc(ft_strlen(arg) + 1);
-	if (!temp)
-		return ;
+	quote_char = 0;
 	i = 0;
 	j = 0;
-	while (arg[i] != '\0')
+	while (str[i])
 	{
-		if (arg[i] != '"' && arg[i] != '\'')
-		{
-			temp[j++] = arg[i];
-		}
+		if ((str[i] == '\'' || str[i] == '\"') && !quote_char)
+			quote_char = str[i];
+		else if (str[i] == quote_char)
+			quote_char = 0;
+		else
+			str[j++] = str[i];
 		i++;
 	}
-	temp[j] = '\0';
-	ft_strcpy(arg, temp);
-	free(temp);
+	str[j] = '\0';
 }
 
 char	**ft_split_skip_quotes(char *s, char c)
@@ -94,24 +89,33 @@ char	**ft_split_skip_quotes(char *s, char c)
 	int		j;
 	int		word_len;
 
-	array = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
-	i = -1;
+	i = 0;
 	j = 0;
-	if (!array || !s)
+	word_len = 0;
+	if (!s || ft_count_words(s, c) < 0)
 		return (NULL);
-	while (++i < ft_count_words(s, c))
+	array = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
+	if (!array)
+		return (NULL);
+	while (i < ft_count_words(s, c))
 	{
 		while (s[j] == c)
 			j++;
 		word_len = ft_word_length(s, c, j);
+		if (word_len < 0)
+		{
+			free_array(array);
+			return (NULL);
+		}
 		array[i] = ft_substr(s, j, word_len);
-		if (array[i] == NULL)
+		if (!array[i])
 		{
 			free_array(array);
 			return (NULL);
 		}
 		remove_quotes(array[i]);
 		j += word_len;
+		i++;
 	}
 	array[i] = NULL;
 	return (array);
