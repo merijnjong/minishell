@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 14:21:57 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:24:58 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,9 @@
 # define REDIR_OUT 2
 # define REDIR_APPEND 3
 # define REDIR_HEREDOC 4
-
 # define SINGLE_QUOTE 11
 # define DOUBLE_QUOTE 12
-
-# define BUFSIZE 4096
 # define TMP_HEREDOC_FILE "/tmp/.heredoc_tmp"
-
-extern char	**environ;
-
-typedef struct s_buffer
-{
-	char	*buffer;
-	int		buf_size;
-	int		buf_index;
-	int		mode;
-}	t_buffer;
 
 typedef struct s_cmdlist
 {
