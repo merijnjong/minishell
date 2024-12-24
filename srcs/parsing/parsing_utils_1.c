@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 18:12:48 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:27:39 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*get_environ_value(char *var_name, t_minishell *minishell)
 
 	if (!minishell || !var_name)
 		return (NULL);
-	if (var_name[0] == '?' && var_name[1] == '\0')
+	if (var_name[0] == '?')
 	{
 		status_value = ft_itoa(minishell->status);
 		return (status_value);
@@ -108,7 +108,7 @@ char	*handle_var(char **src, char *dst, t_minishell *minishell)
 		free(var_name);
 		return (NULL);
 	}
-	is_question = (*var_name == '?' && var_name[1] == '\0');
+	is_question = (*var_name == '?');
 	ft_strcpy(dst, value);
 	len = ft_strlen(value);
 	if (is_question)
