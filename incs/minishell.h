@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 14:24:58 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:25:44 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,6 @@ int			ft_execute(t_cmd *cmd, char **envp);
 int			handle_redirects(t_cmd *cmd);
 int			execute_pipeline(t_cmdlist *cmdlist, char **envp);
 int			write_to_heredoc_file(t_redirect *redirect, int fd);
-
-// execution/buffer.c
-int			ft_setvbuf(t_buffer *buf, int mode);
-void		flush_buffer(t_buffer *buf, int fd);
 
 // srcs/execution/processes.c
 int			process(t_minishell *minishell, char **envp);
