@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:50:45 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:04:29 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:31:25 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	handle_heredoc_redirection(t_redirect *redirect)
 
 	fd = open(TMP_HEREDOC_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		return (perror("Error creating heredoc file"), 1);
+		return (perror(redirect->filename), 1);
 	if (write_to_heredoc_file(redirect, fd) != 0)
 	{
 		close(fd);
@@ -43,7 +43,7 @@ static int	handle_input_redirection(t_redirect *redirect)
 
 	fd = open(redirect->filename, O_RDONLY);
 	if (fd == -1)
-		return (perror("Error opening file"), 1);
+		return (perror(redirect->filename), 1);
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		close(fd);
@@ -59,7 +59,7 @@ static int	handle_output_redirection(t_redirect *redirect)
 
 	fd = open(redirect->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		return (perror("Error opening file"), 1);
+		return (perror(redirect->filename), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		close(fd);
@@ -75,7 +75,7 @@ static int	handle_append_redirection(t_redirect *redirect)
 
 	fd = open(redirect->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-		return (perror("Error opening file"), 1);
+		return (perror(redirect->filename), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		close(fd);

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 14:25:44 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:26:09 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
 int			cd(t_minishell *envlist, char **args);
 int			echo(t_cmd *command);
 int			env(t_minishell *envlist, t_cmd *command);
-
 int			export(t_minishell *envlist, char **args);
 int			pwd(t_cmd *command);
 int			unset(t_minishell *envlist, char **args);
