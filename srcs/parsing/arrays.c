@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:13 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 13:10:40 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:47:50 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,39 +82,46 @@ void	remove_quotes(char *str)
 	str[j] = '\0';
 }
 
+char	*extract_word_skip_quotes(char *s, char c, int *index)
+{
+	int		word_len;
+	char	*word;
+
+	while (s[*index] == c)
+		(*index)++;
+	word_len = ft_word_length(s, c, *index);
+	if (word_len < 0)
+		return (NULL);
+	word = ft_substr(s, *index, word_len);
+	if (!word)
+		return (NULL);
+	remove_quotes(word);
+	*index += word_len;
+	return (word);
+}
+
 char	**ft_split_skip_quotes(char *s, char c)
 {
 	char	**array;
 	int		i;
 	int		j;
-	int		word_len;
+	int		word_count;
 
-	i = 0;
-	j = 0;
-	word_len = 0;
-	if (!s || ft_count_words(s, c) < 0)
+	if (!s || (word_count = ft_count_words(s, c)) < 0)
 		return (NULL);
-	array = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
+	array = malloc((word_count + 1) * sizeof(char *));
 	if (!array)
 		return (NULL);
-	while (i < ft_count_words(s, c))
+	i = 0;
+	j = 0;
+	while (i < word_count)
 	{
-		while (s[j] == c)
-			j++;
-		word_len = ft_word_length(s, c, j);
-		if (word_len < 0)
-		{
-			free_array(array);
-			return (NULL);
-		}
-		array[i] = ft_substr(s, j, word_len);
+		array[i] = extract_word_skip_quotes(s, c, &j);
 		if (!array[i])
 		{
 			free_array(array);
 			return (NULL);
 		}
-		remove_quotes(array[i]);
-		j += word_len;
 		i++;
 	}
 	array[i] = NULL;

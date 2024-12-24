@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:04:53 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:34:50 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,6 @@ void		flush_buffer(t_buffer *buf, int fd);
 
 // srcs/execution/processes.c
 int			process(t_minishell *minishell, char **envp);
-int			run_child_process(t_cmd *cmd, char **envp, int input_fd,
-				int output_fd);
-int			run_parent_process(pid_t pid, int output_fd, int input_fd);
-void		child_process_setup(int input_fd, int output_fd);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
 
 // srcs/execution/signals.c
