@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:46:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 14:16:50 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:17:48 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	check_metachar_syntax(char *str, char *last_char)
 	in_single_quote = 0;
 	in_double_quote = 0;
 	i = 0;
-
 	while (str[i] != '\0' && !ft_isspace(str[i]))
 	{
 		update_quote_states(str[i], &in_single_quote, &in_double_quote);
