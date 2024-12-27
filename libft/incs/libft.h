@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:09:24 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 13:45:29 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:58:37 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ int		ft_fprints(int fd, char *s);
 int		ft_fprintc(int fd, char c);
 int		ft_fprintf(int fd, const char *s, ...);
 int		ft_fprintx_lo(int fd, long n);
-
 
 #endif

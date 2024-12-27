@@ -6,7 +6,11 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/12/24 14:16:06 by dkros            ###   ########.fr       */
+=======
+/*   Updated: 2024/12/24 14:26:09 by mjong            ###   ########.fr       */
+>>>>>>> 31cfa3792694b5ae72a85bddde1c260655dbc644
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +40,9 @@
 # define REDIR_OUT 2
 # define REDIR_APPEND 3
 # define REDIR_HEREDOC 4
-
 # define SINGLE_QUOTE 11
 # define DOUBLE_QUOTE 12
-
-# define BUFSIZE 4096
 # define TMP_HEREDOC_FILE "/tmp/.heredoc_tmp"
-
-extern char	**environ;
-
-typedef struct s_buffer
-{
-	char	*buffer;
-	int		buf_size;
-	int		buf_index;
-	int		mode;
-}	t_buffer;
 
 typedef struct s_cmdlist
 {
@@ -92,7 +83,6 @@ int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
 int			cd(t_minishell *envlist, char **args);
 int			echo(t_cmd *command);
 int			env(t_minishell *envlist, t_cmd *command);
-
 int			export(t_minishell *envlist, char **args);
 int			pwd(t_cmd *command);
 int			unset(t_minishell *envlist, char **args);
@@ -109,13 +99,12 @@ int			handle_redirects(t_cmd *cmd);
 int			execute_pipeline(t_cmdlist *cmdlist, char **envp);
 int			write_to_heredoc_file(t_redirect *redirect, int fd);
 
-// execution/buffer.c
-int			ft_setvbuf(t_buffer *buf, int mode);
-void		flush_buffer(t_buffer *buf, int fd);
-
 // srcs/execution/processes.c
 int			process(t_minishell *minishell, char **envp);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
+int			handle_child_process(t_node *current, int input_fd,
+				int *pipe_fd, char **envp);
+int			wait_for_all_processes(void);
 
 // srcs/execution/signals.c
 void		setup_signals(void);

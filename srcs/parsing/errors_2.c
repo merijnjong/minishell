@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   errors_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:46:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 13:48:56 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/24 14:17:48 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	update_quote_states(char current_char, int *in_single_quote,
+	int *in_double_quote)
+{
+	if (current_char == '\'' && !(*in_double_quote))
+		*in_single_quote = !(*in_single_quote);
+	else if (current_char == '"' && !(*in_single_quote))
+		*in_double_quote = !(*in_double_quote);
+}
 
 static int	check_metachar_syntax(char *str, char *last_char)
 {
@@ -23,10 +32,7 @@ static int	check_metachar_syntax(char *str, char *last_char)
 	i = 0;
 	while (str[i] != '\0' && !ft_isspace(str[i]))
 	{
-		if (str[i] == '\'' && !in_double_quote)
-			in_single_quote = !in_single_quote;
-		else if (str[i] == '"' && !in_single_quote)
-			in_double_quote = !in_double_quote;
+		update_quote_states(str[i], &in_single_quote, &in_double_quote);
 		if (!in_single_quote && !in_double_quote)
 		{
 			if (is_metachar(str[i]) && is_metachar(*last_char)

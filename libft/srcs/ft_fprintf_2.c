@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fprintf_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:42:44 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 13:42:51 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/24 13:59:01 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,3 @@ int	ft_fprintx_lo(int fd, long n)
 	chars += ft_fprintc(fd, hex[n % 16]);
 	return (chars);
 }
-
