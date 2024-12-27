@@ -1,0 +1,9 @@
+Stap voor stap hoe je je eigen shell shrijft:
+https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+
+Subject:
+https://cdn.intra.42.fr/pdf/pdf/117739/en.subject.pdf
+
+Medium article:
+https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
+

@@ -1,0 +1,41 @@
+#TO_DO:
+							
+Meeting point:
+__________________________________________________________
+
+Basic structure:
+
+input 
+    '-> tokenization
+			       '-> parsing/error handling
+			  				                '-> put into nodes (cmd_list)
+											                            '-> execution
+
+Devlin:
+
+Parsing:
+		- Lexer: takes the input chars and puts the words into tokens
+		- Parser: processes the tokens
+		- Absolute and relative paths
+		- Also with no path so just "ls"
+
+Merra:
+
+Execution:
+		- Execute parsed information
+		- Make a clear distinction between parent process and child processes
+		- Implement	here-doc					( << )
+					double and single quotes	( "", '' )
+					signals 					( ctrl + c, ctrl + \ )
+
+don't use ft_split!!!
+
+< infile wc -l | ls -l > outfile
+
+"touch test > txt" behaves differently in our minishell than in bash
+
+"echo hello > test1 > test2 > test3" will add 3 files but only put "hello" into test3 in bash
+
+hello world
+
+$SHLVL must be incremented with every ./minishell
