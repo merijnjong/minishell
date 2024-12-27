@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 13:46:34 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:07:50 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	handle_command_line(t_minishell *minishell, char **argv,
 
 static void	process_line(t_minishell *minishell, char **argv, char **envp)
 {
-	if (argv[0][0] != '\0')
+	if (argv[0][0] != '\0' && !is_whitespace_only(argv[0]))
 		handle_command_line(minishell, argv, envp);
 	else
 		minishell->status = 130;
