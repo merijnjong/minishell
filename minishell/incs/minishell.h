@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 14:26:09 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:13:12 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int			start_envlist(t_minishell *envlist, char **envp, int i);
 
 // srcs/parsing/cmdlist.c
 t_cmdlist	put_in_cmdlist(char **command_array);
-void		print_commands(t_cmdlist *list);
 void		free_commands(t_cmdlist *list);
 void		add_command(t_cmdlist *list, t_cmd *cmd);
 int			process_command(t_cmdlist *command_list, char *command_str);
@@ -186,5 +185,6 @@ int			ft_isdigit_str(const char *str);
 int			ft_exit(char **args, t_minishell *minishell);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
+int			is_whitespace_only(const char *str);
 
 #endif

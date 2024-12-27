@@ -6,13 +6,13 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 16:07:32 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/27 16:07:44 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:12:49 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-static int	is_whitespace_only(const char *str)
+int	is_whitespace_only(const char *str)
 {
 	while (*str)
 	{

@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/20 16:14:43 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:12:27 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ static void	print_arguments(char **args, int start_index, int newline)
 		ft_printf("\n");
 }
 
+static int	is_valid_n_flag(const char *arg)
+{
+	int	i;
+
+	i = 2;
+	if (arg[0] != '-' || arg[1] != 'n')
+		return (0);
+	while (arg[i] != '\0')
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	echo(t_cmd *command)
 {
 	int	newline;
@@ -41,7 +57,7 @@ int	echo(t_cmd *command)
 		return (1);
 	newline = 1;
 	i = 1;
-	if (command->args[1] && ft_strcmp(command->args[1], "-n") == 0)
+	while (command->args[i] && is_valid_n_flag(command->args[i]))
 	{
 		newline = 0;
 		i++;
@@ -55,3 +71,4 @@ int	echo(t_cmd *command)
 	close(saved_stdout);
 	return (0);
 }
+
