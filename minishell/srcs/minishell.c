@@ -12,7 +12,6 @@
 
 #include "../incs/minishell.h"
 
-
 static void	handle_exit(t_minishell *minishell)
 {
 	ft_printf("exit\n");
