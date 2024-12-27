@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/24 14:27:39 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:26:11 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ char	*get_environ_value(char *var_name, t_minishell *minishell)
 		return (status_value);
 	}
 	len = ft_strlen(var_name);
-	current = minishell->next_env;
+	current = minishell;
 	while (current)
 	{
-		if (ft_strncmp(current->env, var_name, len) == 0
-			&& current->env[len] == '=')
+		if (ft_strncmp(current->env, var_name, len) == 0 && current->env[len] == '=')
 			return (current->env + len + 1);
 		current = current->next_env;
 	}

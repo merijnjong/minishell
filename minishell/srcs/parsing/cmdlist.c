@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdlist.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:06:01 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:20:24 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ void	free_commands(t_cmdlist *list)
 	list->head = NULL;
 }
 
-// void	print_commands(t_cmdlist *list)
-// {
-// 	t_node	*current;
+void	print_commands(t_cmdlist *list)
+{
+	t_node	*current;
 
-// 	current = list->head;
-// 	while (current != NULL)
-// 	{
-// 		print_command(current->cmd);
-// 		current = current->next;
-// 	}
-// }
+	current = list->head;
+	while (current != NULL)
+	{
+		print_command(current->cmd);
+		current = current->next;
+	}
+}
 
 int	process_command(t_cmdlist *command_list, char *command_str)
 {
