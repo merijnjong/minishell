@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/27 16:07:50 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:24:58 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ static void	handle_command_line(t_minishell *minishell, char **argv,
 
 static void	process_line(t_minishell *minishell, char **argv, char **envp)
 {
+	int	exit_code;
+
+	if (ft_strcmp(argv[0], "exit") == 0)
+	{
+		exit_code = ft_exit(argv, minishell);
+		if (exit_code != 0)
+			minishell->status = exit_code;
+		return ;
+	}
 	if (argv[0][0] != '\0' && !is_whitespace_only(argv[0]))
 		handle_command_line(minishell, argv, envp);
 	else

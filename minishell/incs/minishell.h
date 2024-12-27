@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/27 16:22:40 by dkros            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:30:21 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
 int			cd(t_minishell *envlist, char **args);
 int			echo(t_cmd *command);
 int			env(t_minishell *envlist, t_cmd *command);
+int			ft_exit(char **args, t_minishell *minishell);
 int			export(t_minishell *envlist, char **args);
 int			pwd(t_cmd *command);
 int			unset(t_minishell *envlist, char **args);
@@ -184,7 +185,6 @@ void		ft_input(char **argv, char **envp);
 // utils.c
 void		ft_error(const char *msg);
 int			ft_isdigit_str(const char *str);
-int			ft_exit(char **args, t_minishell *minishell);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
 int			is_whitespace_only(const char *str);
