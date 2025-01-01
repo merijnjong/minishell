@@ -62,21 +62,16 @@ int	cd_home(t_minishell *envlist)
 	return (0);
 }
 
-int	cd(t_minishell *envlist, char **args)
+int cd(t_minishell *envlist, char **args)
 {
-	int	result;
-
-	result = 0;
-	if (args == NULL || args[0] == NULL || ft_strcmp(args[0], "cd") != 0)
-		return (1);
-	if (args[1] == NULL || (ft_strcmp(args[1], "~") == 0))
-		result = cd_home(envlist);
-	if (args[2] != NULL)
-	{
-		ft_putstr_fd("cd: too many arguments\n", 2);
-		return (1);
-	}
-	else
-		result = cd_path(args[1]);
-	return (result);
+    if (!args || !args[0] || ft_strcmp(args[0], "cd") != 0)
+        return (1);
+    if (args[1] == NULL || ft_strcmp(args[1], "~") == 0) 
+        return (cd_home(envlist));
+    if (args[2] != NULL) 
+    {
+        ft_putstr_fd("cd: too many arguments\n", 2);
+        return (1);
+    }
+    return (cd_path(args[1]));
 }
