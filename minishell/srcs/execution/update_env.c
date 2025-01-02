@@ -6,24 +6,24 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:47:01 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/02 17:51:36 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/02 19:06:47 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/minishell.h"
 
-int is_matching_var(char *varname, char *to_compare)
+int	is_matching_var(char *varname, char *to_compare)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(varname);
-	if (ft_strncmp(varname, to_compare, len) == 0 &&
-		to_compare[len] && to_compare[len] == '=')
-			return (1);
+	if (ft_strncmp(varname, to_compare, len) == 0
+		&& to_compare[len] && to_compare[len] == '=')
+		return (1);
 	return (0);
 }
 
-char *get_new_env_str(char *var_to_change, char *new_value)
+char	*get_new_env_str(char *var_to_change, char *new_value)
 {
 	int		i;
 	char	*new_str;
@@ -46,11 +46,11 @@ char *get_new_env_str(char *var_to_change, char *new_value)
 	return (new_str);
 }
 
-int update_env(t_minishell *env, char *var_to_change, char *value)
+int	update_env(t_minishell *env, char *var_to_change, char *value)
 {
 	t_minishell	*temp;
-	char *test;
-	char *new_str;
+	char		*test;
+	char		*new_str;
 
 	temp = env;
 	test = ft_strdup(value);

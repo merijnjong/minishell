@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/02 18:59:20 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/02 19:07:55 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	cd_path(char *path, t_minishell *envlist)
 	update_env(envlist, "OLDPWD", pwd);
 	if (path == NULL)
 		return (1);
-	printf("path: %s\n", path);
 	if (chdir(path) == -1)
 	{
 		ft_putstr_fd(" No such file or directory\n", 2);
@@ -70,7 +69,7 @@ int	cd_home(t_minishell *envlist)
 	return (0);
 }
 
-int cd(t_minishell *envlist, char **args)
+int	cd(t_minishell *envlist, char **args)
 {
 	int		result;
 	char	*path;
