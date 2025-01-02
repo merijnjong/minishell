@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 13:51:44 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:17:07 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ char	*get_env_value(t_minishell *envlist, char *key)
 	return (NULL);
 }
 
-int	cd_path(char *path)
+int	cd_path(char *path, t_minishell *envlist)
 {
+	char	*pwd;
+
+	pwd = get_environ_value("PWD", envlist);
+	update_env(envlist, "OLDPWD", pwd);
 	if (path == NULL)
 		return (1);
 	if (chdir(path) == -1)
@@ -44,7 +48,10 @@ int	cd_path(char *path)
 int	cd_home(t_minishell *envlist)
 {
 	char	*home;
+	char	*pwd;
 
+	pwd = get_environ_value("PWD", envlist);
+	update_env(envlist, "OLDPWD", pwd);
 	home = get_env_value(envlist, "HOME");
 	if (home != NULL)
 	{
@@ -64,19 +71,25 @@ int	cd_home(t_minishell *envlist)
 
 int	cd(t_minishell *envlist, char **args)
 {
-	int	result;
+	int		result;
+	char	cwd[PATH_MAX];
+
 
 	result = 0;
 	if (args == NULL || args[0] == NULL || ft_strcmp(args[0], "cd") != 0)
 		return (1);
 	if (args[1] == NULL || (ft_strcmp(args[1], "~") == 0))
 		result = cd_home(envlist);
-	if (args[2] != NULL)
+	else if ((ft_strcmp(args[1], "-") == 0))
+		result = cd_path(get_env_value(envlist, "OLDPWD"), envlist);
+	else if (args[2] != NULL)
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
 	else
-		result = cd_path(args[1]);
+		result = cd_path(args[1], envlist);
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		update_env(envlist, "PWD", cwd);
 	return (result);
 }

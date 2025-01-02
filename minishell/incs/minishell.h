@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/27 16:30:21 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/02 16:23:57 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,10 @@ int			ft_isdigit_str(const char *str);
 void		ft_free_dbl(char **ptr);
 void		print_dbl_ptr(char **ptr);
 int			is_whitespace_only(const char *str);
+
+// update_env.c
+int			update_env(t_minishell *env, char *var_to_change, char *value);
+char		*get_new_env_str(char *var_to_change, char *new_value);
+int			is_matching_var(char *varname, char *to_compare);
 
 #endif
