@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/02 16:23:57 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:37:15 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,12 @@ t_cmdlist	put_in_cmdlist(char **command_array);
 void		free_commands(t_cmdlist *list);
 void		add_command(t_cmdlist *list, t_cmd *cmd);
 int			process_command(t_cmdlist *command_list, char *command_str);
-void		print_commands(t_cmdlist *list);
 
 // srcs/parsing/command.c
-void		free_command(t_cmd *cmd);
 t_node		*create_node(t_cmd *cmd);
-void		print_command(t_cmd *cmd);
 char		**get_command_array(char *str);
 t_cmd		*get_command(char **arg_array);
-void		print_command(t_cmd *cmd);
+void		free_command(t_cmd *cmd);
 
 // srcs/parsing/convert.c
 char		*convert_string(char *str);

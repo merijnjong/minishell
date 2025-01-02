@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/02 18:17:07 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:36:57 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	cd_home(t_minishell *envlist)
 	return (0);
 }
 
-int	cd(t_minishell *envlist, char **args)
+int cd(t_minishell *envlist, char **args)
 {
 	int		result;
 	char	cwd[PATH_MAX];

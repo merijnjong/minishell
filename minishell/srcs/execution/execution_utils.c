@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 16:21:34 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/20 16:05:34 by mjong            ###   ########.fr       */
+/*   Updated: 2024/12/27 18:17:36 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,13 @@ int	write_to_heredoc_file(t_redirect *redirect, int fd)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strcmp(line, redirect->filename) == 0)
+		if (!line)
+		{
+			ft_printf("warning: heredoc delimited by EOF (wanted '%s')\n",
+				redirect->filename);
+			break ;
+		}
+		if (ft_strcmp(line, redirect->filename) == 0)
 		{
 			free(line);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/02 17:40:36 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/02 18:38:15 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ char	*get_environ_value(char *var_name, t_minishell *minishell)
 	current = minishell;
 	while (current)
 	{
-		if (ft_strncmp(current->env, var_name, len) == 0 && current->env[len] == '=')
+		if (ft_strncmp(current->env, var_name, len) == 0
+			&& current->env[len] == '=')
 			return (current->env + len + 1);
 		current = current->next_env;
 	}
