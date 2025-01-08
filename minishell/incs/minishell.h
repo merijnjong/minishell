@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/02 18:37:15 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:54:17 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,16 @@ int			print_sorted_envlist(t_minishell *minishell);
 void		print_envlist(t_minishell *minishell);
 
 // srcs/execution
-int			ft_execute(t_cmd *cmd, char **envp);
+int			ft_execute(t_minishell *minishell, t_cmd *cmd);
 int			handle_redirects(t_cmd *cmd);
-int			execute_pipeline(t_cmdlist *cmdlist, char **envp);
+int			execute_pipeline(t_minishell *minishell, t_cmdlist *cmdlist);
 int			write_to_heredoc_file(t_redirect *redirect, int fd);
 
 // srcs/execution/processes.c
-int			process(t_minishell *minishell, char **envp);
+int			process(t_minishell *minishell);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
-int			handle_child_process(t_node *current, int input_fd,
-				int *pipe_fd, char **envp);
+int			handle_child_process(t_minishell *minishell, t_node *current,
+			int input_fd, int *pipe_fd);
 int			wait_for_all_processes(void);
 
 // srcs/execution/signals.c
@@ -114,7 +114,6 @@ char		**ft_split_skip_quotes(char *s, char c);
 
 // srcs/parsing/envlist.c
 void		free_envlist(t_minishell *head);
-int			start_envlist(t_minishell *envlist, char **envp, int i);
 
 // srcs/parsing/cmdlist.c
 t_cmdlist	put_in_cmdlist(char **command_array);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/02 18:37:59 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:29:38 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	handle_child_process(t_node *current, int input_fd, int *pipe_fd,
-	char **envp)
+int	handle_child_process(t_minishell *minishell, t_node *current, int input_fd,
+	int *pipe_fd)
 {
 	if (input_fd != STDIN_FILENO)
 	{
@@ -36,7 +36,7 @@ int	handle_child_process(t_node *current, int input_fd, int *pipe_fd,
 	}
 	if (current->cmd->redirect && handle_redirects(current->cmd) != 0)
 		exit(1);
-	ft_execute(current->cmd, envp);
+	ft_execute(minishell, current->cmd);
 	exit(1);
 }
 
@@ -61,7 +61,7 @@ void	parent_process_cleanup(int *pipe_fd, int *input_fd)
 		close(*input_fd);
 }
 
-int	process(t_minishell *minishell, char **envp)
+int	process(t_minishell *minishell)
 {
 	t_node	*current;
 
@@ -74,6 +74,6 @@ int	process(t_minishell *minishell, char **envp)
 		if (minishell->status != 127)
 			return (minishell->status);
 	}
-	minishell->status = execute_pipeline(&minishell->cmdlist, envp);
+	minishell->status = execute_pipeline(minishell, &minishell->cmdlist);
 	return (minishell->status);
 }

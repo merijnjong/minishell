@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/27 18:06:11 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:52:29 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_find_path_2(char **paths, char *cmd)
 	return (NULL);
 }
 
-char	*ft_find_path(char **envp, char *cmd)
+char	*ft_find_path(char **environ, char *cmd)
 {
 	char	**paths;
 	char	*path;
@@ -41,14 +41,11 @@ char	*ft_find_path(char **envp, char *cmd)
 	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	i = 0;
-	while (envp[i] && ft_strnstr(envp[i], "PATH=", 5) == 0)
+	while (environ[i] && ft_strnstr(environ[i], "PATH=", 5) == 0)
 		i++;
-	if (!envp[i])
-	{
-		ft_fprintf(2, "%s: PATH not found\n", cmd);
+	if (!environ[i])
 		return (NULL);
-	}
-	paths = ft_split(envp[i] + 5, ':');
+	paths = ft_split(environ[i] + 5, ':');
 	if (!paths)
 		return (NULL);
 	path = ft_find_path_2(paths, cmd);
@@ -56,22 +53,67 @@ char	*ft_find_path(char **envp, char *cmd)
 	return (path);
 }
 
-int	ft_execute(t_cmd *cmd, char **envp)
+int	get_env_count(t_minishell *envlist)
+{
+	int	count;
+
+	count = 0;
+	while (envlist)
+	{
+		count++;
+		envlist = envlist->next_env;
+	}
+	return (count);
+}
+
+char	**env_to_2d_array(t_minishell *envlist)
+{
+	char	**env_array;
+	int		env_count;
+	int		i;
+	int		j;
+
+	env_count = get_env_count(envlist);
+	i = 0;
+	env_array = (char **)malloc((env_count + 1) * sizeof(char *));
+	if (!env_array)
+		return (NULL);
+	while (envlist)
+	{
+		env_array[i] = strdup(envlist->env);
+		if (!env_array[i])
+		{
+			j = 0;
+			while (++j < i)
+				free(env_array[j]);
+			free(env_array);
+			return (NULL);
+		}
+		i++;
+		envlist = envlist->next_env;
+	}
+	env_array[i] = NULL;
+	return (env_array);
+}
+
+int	ft_execute(t_minishell *minishell, t_cmd *cmd)
 {
 	char	*path;
+	char	**environ;
 
+	environ = env_to_2d_array(minishell);
 	if (handle_redirects(cmd) != 0)
 	{
 		ft_fprintf(2, "%s: Redirection error\n", cmd->filename);
 		return (1);
 	}
-	path = ft_find_path(envp, cmd->filename);
+	path = ft_find_path(environ, cmd->filename);
 	if (path == NULL)
 	{
 		ft_fprintf(2, "%s: command not found\n", cmd->filename);
 		return (127);
 	}
-	if (execve(path, cmd->args, envp) < 0)
+	if (execve(path, cmd->args, environ) < 0)
 	{
 		perror("execve");
 		free(path);

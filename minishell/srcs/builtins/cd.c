@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/08 12:52:12 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:44:10 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,28 @@ char	*get_env_value(t_minishell *envlist, char *key)
 	return (NULL);
 }
 
-int	cd_path(char *path, t_minishell *envlist)
+int	change_directory(char *path)
 {
-	char	*pwd;
-
-	pwd = get_env_value(envlist, "PWD");
-	update_env(envlist, "OLDPWD", pwd);
-	if (path == NULL)
-		return (1);
 	if (chdir(path) == -1)
 	{
 		ft_putstr_fd(" No such file or directory\n", 2);
 		return (1);
 	}
+	return (0);
+}
+
+int	cd_path(char *path, t_minishell *envlist)
+{
+	char	*pwd;
+
+	pwd = get_env_value(envlist, "PWD");
+	if (!pwd)
+		return (change_directory(path));
+	update_env(envlist, "OLDPWD", pwd);
+	if (path == NULL)
+		return (1);
+	if (change_directory(path))
+		return (1);
 	return (0);
 }
 
@@ -51,7 +60,8 @@ int	cd_home(t_minishell *envlist)
 	char	*pwd;
 
 	pwd = get_env_value(envlist, "PWD");
-	update_env(envlist, "OLDPWD", pwd);
+	if (pwd)
+		update_env(envlist, "OLDPWD", pwd);
 	home = get_env_value(envlist, "HOME");
 	if (home != NULL)
 	{

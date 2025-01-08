@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/27 18:15:33 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:30:14 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	create_pipe_if_needed(t_node *current, int *pipe_fd)
 	return (0);
 }
 
-static int	execute_command(t_node *current, int *input_fd, int *pipe_fd,
-	char **envp)
+static int	execute_command(t_minishell *minishell, t_node *current, int *input_fd,
+	int *pipe_fd)
 {
 	pid_t	pid;
 
@@ -34,7 +34,7 @@ static int	execute_command(t_node *current, int *input_fd, int *pipe_fd,
 		return (1);
 	}
 	if (pid == 0)
-		handle_child_process(current, *input_fd, pipe_fd, envp);
+		handle_child_process(minishell, current, *input_fd, pipe_fd);
 	if (*input_fd != STDIN_FILENO)
 		close(*input_fd);
 	if (current->next)
@@ -46,7 +46,7 @@ static int	execute_command(t_node *current, int *input_fd, int *pipe_fd,
 	return (0);
 }
 
-int	execute_pipeline(t_cmdlist *cmdlist, char **envp)
+int	execute_pipeline(t_minishell *minishell, t_cmdlist *cmdlist)
 {
 	t_node	*current;
 	int		pipe_fd[2];
@@ -58,7 +58,7 @@ int	execute_pipeline(t_cmdlist *cmdlist, char **envp)
 	{
 		if (create_pipe_if_needed(current, pipe_fd) != 0)
 			return (1);
-		if (execute_command(current, &input_fd, pipe_fd, envp) != 0)
+		if (execute_command(minishell, current, &input_fd, pipe_fd) != 0)
 			return (1);
 		current = current->next;
 	}
