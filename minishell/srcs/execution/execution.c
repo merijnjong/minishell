@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:50:38 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/08 19:09:16 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 19:21:42 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ char	**env_to_2d_array(t_minishell *envlist)
 			j = 0;
 			while (++j < i)
 				free(env_array[j]);
-			free(env_array);
-			return (NULL);
+			return (free(env_array), NULL);
 		}
 		i++;
 		envlist = envlist->next_env;
@@ -119,6 +118,7 @@ int	ft_execute(t_minishell *minishell, t_cmd *cmd)
 		free(path);
 		return (1);
 	}
+	free_array(environ);
 	free(path);
 	return (0);
 }

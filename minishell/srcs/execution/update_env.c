@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:47:01 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/08 18:52:04 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 19:55:08 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	update_shlvl(t_minishell *env)
 {
 	int			level;
 	char		*shlvl_str;
+	char		*lvl_str;
 	t_minishell	*temp;
 
 	temp = env;
@@ -102,7 +103,9 @@ int	update_shlvl(t_minishell *env)
 			free(shlvl_str);
 			if (level <= 0)
 				return (1);
-			update_env(env, "SHLVL", ft_itoa(level + 1));
+			lvl_str = ft_itoa(level + 1);
+			update_env(env, "SHLVL", lvl_str);
+			free(lvl_str);
 		}
 		temp = temp->next_env;
 	}

@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/08 19:10:41 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 19:47:47 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	create_pipe_if_needed(t_node *current, int *pipe_fd)
 	return (0);
 }
 
-static int	execute_command(t_minishell *minishell, t_node *current, int *input_fd,
-	int *pipe_fd)
+static int	execute_command(t_minishell *minishell, t_node *current,
+	int *input_fd, int *pipe_fd)
 {
 	pid_t	pid;
 

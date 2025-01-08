@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/08 19:10:53 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 19:47:23 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	wait_for_all_processes(void)
 	int		status;
 	pid_t	pid;
 
+	status = 0;
 	pid = waitpid(-1, &status, 0);
 	while (pid > 0)
 		pid = waitpid(-1, &status, 0);

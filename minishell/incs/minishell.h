@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/08 18:54:17 by mjong            ###   ########.fr       */
-=======
-/*   Updated: 2025/01/08 18:51:34 by dkros            ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2025/01/08 19:46:59 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +102,7 @@ int			write_to_heredoc_file(t_redirect *redirect, int fd);
 int			process(t_minishell *minishell);
 void		parent_process_cleanup(int *pipe_fd, int *input_fd);
 int			handle_child_process(t_minishell *minishell, t_node *current,
-			int input_fd, int *pipe_fd);
+				int input_fd, int *pipe_fd);
 int			wait_for_all_processes(void);
 
 // srcs/execution/signals.c
@@ -121,10 +117,6 @@ char		**ft_split_skip_quotes(char *s, char c);
 
 // srcs/parsing/envlist.c
 void		free_envlist(t_minishell *head);
-<<<<<<< HEAD
-=======
-void		init_minishell(t_minishell *minishell, char **envp);
->>>>>>> main
 
 // srcs/parsing/cmdlist.c
 t_cmdlist	put_in_cmdlist(char **command_array);
@@ -155,6 +147,7 @@ int			is_metachar(char c);
 t_redirect	*init_redirect(void);
 int			init_cmd_struct(t_cmd **cmd);
 void		init_cmdlist(t_cmdlist *list);
+void		init_minishell(t_minishell *minishell, char **envp);
 
 // srcs/parsing/parsing_utils.c
 void		free_array(char **array);
