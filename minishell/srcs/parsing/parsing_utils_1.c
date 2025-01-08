@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/02 18:38:15 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 20:20:27 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,25 +94,30 @@ char	*extract_var_name(char **src)
 
 char	*handle_var(char **src, char *dst, t_minishell *minishell)
 {
-	int		len;
 	char	*var_name;
 	char	*value;
 	int		is_question;
+	int		len;
 
 	var_name = extract_var_name(src);
 	if (!var_name)
 		return (NULL);
 	value = get_environ_value(var_name, minishell);
 	if (value == NULL || !*var_name)
-	{
-		free(var_name);
-		return (NULL);
-	}
-	is_question = (*var_name == '?');
-	ft_strcpy(dst, value);
-	len = ft_strlen(value);
+		return (free(var_name), dst);
+	is_question = (var_name[0] == '?');
 	if (is_question)
+	{
+		ft_strcpy(dst, value);
+		len = ft_strlen(value);
 		free(value);
+	}
+	else
+	{
+		ft_strcpy(dst, value);
+		len = ft_strlen(value);
+	}
 	free(var_name);
 	return (dst + len);
 }
+
