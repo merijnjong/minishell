@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/08 18:30:14 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/08 19:10:41 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static int	execute_command(t_minishell *minishell, t_node *current, int *input_f
 		return (1);
 	}
 	if (pid == 0)
+	{
+		reset_signals_to_default();
 		handle_child_process(minishell, current, *input_fd, pipe_fd);
+	}
 	if (*input_fd != STDIN_FILENO)
 		close(*input_fd);
 	if (current->next)
@@ -51,9 +54,11 @@ int	execute_pipeline(t_minishell *minishell, t_cmdlist *cmdlist)
 	t_node	*current;
 	int		pipe_fd[2];
 	int		input_fd;
+	int		status;
 
 	current = cmdlist->head;
 	input_fd = STDIN_FILENO;
+	g_in_child = 1;
 	while (current != NULL)
 	{
 		if (create_pipe_if_needed(current, pipe_fd) != 0)
@@ -64,5 +69,7 @@ int	execute_pipeline(t_minishell *minishell, t_cmdlist *cmdlist)
 	}
 	if (input_fd != STDIN_FILENO)
 		close(input_fd);
-	return (wait_for_all_processes());
+	status = wait_for_all_processes();
+	g_in_child = 0;
+	return (status);
 }

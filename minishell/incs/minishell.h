@@ -6,7 +6,11 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/08 18:54:17 by mjong            ###   ########.fr       */
+=======
+/*   Updated: 2025/01/08 18:51:34 by dkros            ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +78,8 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
+extern int	g_in_child;
+
 // srcs/builtins
 int			builtin_check(t_minishell *minishell, t_cmdlist *cmdlist);
 int			cd(t_minishell *envlist, char **args);
@@ -108,12 +114,17 @@ void		setup_signals(void);
 // void		reset_signals_to_default(void);
 void		sigint_handler(int signum);
 void		sigquit_handler(int signum);
+void		reset_signals_to_default(void);
 
 // srcs/parsing/arrays.c
 char		**ft_split_skip_quotes(char *s, char c);
 
 // srcs/parsing/envlist.c
 void		free_envlist(t_minishell *head);
+<<<<<<< HEAD
+=======
+void		init_minishell(t_minishell *minishell, char **envp);
+>>>>>>> main
 
 // srcs/parsing/cmdlist.c
 t_cmdlist	put_in_cmdlist(char **command_array);
@@ -144,7 +155,6 @@ int			is_metachar(char c);
 t_redirect	*init_redirect(void);
 int			init_cmd_struct(t_cmd **cmd);
 void		init_cmdlist(t_cmdlist *list);
-void		init_minishell(t_minishell *minishell, char **envp);
 
 // srcs/parsing/parsing_utils.c
 void		free_array(char **array);
@@ -189,5 +199,7 @@ int			is_whitespace_only(const char *str);
 int			update_env(t_minishell *env, char *var_to_change, char *value);
 char		*get_new_env_str(char *var_to_change, char *new_value);
 int			is_matching_var(char *varname, char *to_compare);
+int			update_shlvl(t_minishell *env);
+int			get_shlvl(char *str);
 
 #endif

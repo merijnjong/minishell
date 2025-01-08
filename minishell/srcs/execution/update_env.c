@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:47:01 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/02 19:06:47 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 18:52:04 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,44 @@ int	update_env(t_minishell *env, char *var_to_change, char *value)
 		temp = temp->next_env;
 	}
 	return (1);
+}
+
+int	get_shlvl(char *str)
+{
+	int	str_lvl;
+
+	str_lvl = 0;
+	if (!str)
+		return (0);
+	while (*str && *str != '=')
+		str++;
+	if (!(*str && *str == '='))
+		return (0);
+	str++;
+	if (*str)
+		str_lvl = ft_atoi(str);
+	return (str_lvl);
+}
+
+int	update_shlvl(t_minishell *env)
+{
+	int			level;
+	char		*shlvl_str;
+	t_minishell	*temp;
+
+	temp = env;
+	while (temp != NULL)
+	{
+		if (is_matching_var("SHLVL", temp->env))
+		{
+			shlvl_str = ft_strdup(temp->env);
+			level = get_shlvl(shlvl_str);
+			free(shlvl_str);
+			if (level <= 0)
+				return (1);
+			update_env(env, "SHLVL", ft_itoa(level + 1));
+		}
+		temp = temp->next_env;
+	}
+	return (0);
 }
