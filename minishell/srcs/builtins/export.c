@@ -6,11 +6,11 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 13:52:07 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 12:52:30 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../incs/minishell.h"
 
 void	add_env_node(t_minishell *last, char *var_name, char *var_value)
 {

@@ -6,11 +6,11 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/02 19:07:55 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 12:52:12 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../incs/minishell.h"
 
 char	*get_env_value(t_minishell *envlist, char *key)
 {

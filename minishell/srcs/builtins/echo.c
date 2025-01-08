@@ -6,11 +6,11 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:30:33 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/02 19:07:13 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 12:52:17 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../incs/minishell.h"
 
 static void	print_arguments(char **args, int start_index, int newline)
 {
