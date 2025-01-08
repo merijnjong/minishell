@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/27 18:15:33 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 17:16:42 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static int	execute_command(t_node *current, int *input_fd, int *pipe_fd,
 		return (1);
 	}
 	if (pid == 0)
+	{
+		reset_signals_to_default();
 		handle_child_process(current, *input_fd, pipe_fd, envp);
+	}
 	if (*input_fd != STDIN_FILENO)
 		close(*input_fd);
 	if (current->next)
@@ -51,9 +54,11 @@ int	execute_pipeline(t_cmdlist *cmdlist, char **envp)
 	t_node	*current;
 	int		pipe_fd[2];
 	int		input_fd;
+	int		status;
 
 	current = cmdlist->head;
 	input_fd = STDIN_FILENO;
+	g_in_child = 1;
 	while (current != NULL)
 	{
 		if (create_pipe_if_needed(current, pipe_fd) != 0)
@@ -64,5 +69,7 @@ int	execute_pipeline(t_cmdlist *cmdlist, char **envp)
 	}
 	if (input_fd != STDIN_FILENO)
 		close(input_fd);
-	return (wait_for_all_processes());
+	status = wait_for_all_processes();
+	g_in_child = 0;
+	return (status);
 }

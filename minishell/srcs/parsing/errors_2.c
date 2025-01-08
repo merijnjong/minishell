@@ -3,95 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   errors_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 12:46:37 by mjong             #+#    #+#             */
-/*   Updated: 2024/12/24 14:17:48 by mjong            ###   ########.fr       */
+/*   Created: 2025/01/08 15:25:19 by dkros             #+#    #+#             */
+/*   Updated: 2025/01/08 15:30:55 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static void	update_quote_states(char current_char, int *in_single_quote,
-	int *in_double_quote)
+static void	update_quote_states(char c, int *single_quote, int *double_qoute)
 {
-	if (current_char == '\'' && !(*in_double_quote))
-		*in_single_quote = !(*in_single_quote);
-	else if (current_char == '"' && !(*in_single_quote))
-		*in_double_quote = !(*in_double_quote);
+	if (c == '\'' && !(*double_qoute))
+		*single_quote = !(*single_quote);
+	else if (c == '"' && !(*single_quote))
+		*double_qoute = !(*double_qoute);
 }
 
-static int	check_metachar_syntax(char *str, char *last_char)
+static int	scan_until_space_or_error(char *str, char *last_metachar)
 {
-	int	in_single_quote;
-	int	in_double_quote;
 	int	i;
+	int	in_single_quote;
+	int	in_double_qoute;
 
-	in_single_quote = 0;
-	in_double_quote = 0;
 	i = 0;
-	while (str[i] != '\0' && !ft_isspace(str[i]))
+	in_single_quote = 0;
+	in_double_qoute = 0;
+	while (str[i] && !ft_isspace(str[i]))
 	{
-		update_quote_states(str[i], &in_single_quote, &in_double_quote);
-		if (!in_single_quote && !in_double_quote)
+		update_quote_states(str[i], &in_single_quote, &in_double_qoute);
+		if (!in_single_quote && !in_double_qoute)
 		{
-			if (is_metachar(str[i]) && is_metachar(*last_char)
+			if (is_metachar(str[i]) && is_metachar(*last_metachar)
 				&& !is_valid_double(str, i))
 			{
 				ft_fprintf(2, "syntax error near unexpected token '%c'\n",
-					*last_char);
-				return (*last_char);
+					*last_metachar);
+				return (-1);
 			}
-			*last_char = str[i];
+			*last_metachar = str[i];
 		}
 		i++;
 	}
 	return (i);
 }
 
-static int	check_for_quotes_or_trailing_metachar(char *str, char last_char)
+static int	check_trailing_metachar_and_quotes(char *str)
 {
-	int	in_single_quote;
-	int	in_double_quote;
-	int	i;
+	int		i;
+	int		in_single_quote;
+	int		in_double_quote;
+	char	last_char;
 
-	in_single_quote = 0;
-	in_double_quote = 0;
-	i = 0;
 	if (check_for_uneven_quotes(str) == 1)
 		return (1);
-	while (str[i] != '\0')
+	in_single_quote = 0;
+	in_double_quote = 0;
+	i = -1;
+	last_char = '\0';
+	while (str[++i])
 	{
-		if (str[i] == '\'' && !in_double_quote)
-			in_single_quote = !in_single_quote;
-		else if (str[i] == '"' && !in_single_quote)
-			in_double_quote = !in_double_quote;
+		update_quote_states(str[i], &in_single_quote, &in_double_quote);
 		last_char = str[i];
-		i++;
 	}
 	if (is_metachar(last_char) && !in_single_quote && !in_double_quote)
 	{
 		ft_fprintf(2, "syntax error near unexpected token '%c'\n", last_char);
-		return (last_char);
+		return (1);
 	}
 	return (0);
 }
 
 int	check_for_errors(char *str)
 {
-	char	last_char;
 	int		i;
+	int		scanned;
+	char	last_metachar;
 
-	i = 0;
-	if (str[i] == '\0')
+	if (!str || !str[0])
 		return (1);
-	last_char = get_first_metachar(str);
-	while (str[i] != '\0')
+	if (check_trailing_metachar_and_quotes(str) == 1)
+		return (1);
+	i = 0;
+	last_metachar = get_first_metachar(str);
+	while (str[i])
 	{
-		while (str[i] != '\0' && ft_isspace(str[i]))
+		while (str[i] && ft_isspace(str[i]))
 			i++;
-		if (str[i] != '\0')
-			i += check_metachar_syntax(&str[i], &last_char);
+		if (!str[i])
+			break ;
+		scanned = scan_until_space_or_error(&str[i], &last_metachar);
+		if (scanned < 0)
+			return (1);
+		i += scanned;
 	}
-	return (check_for_quotes_or_trailing_metachar(str, last_char));
+	return (0);
 }

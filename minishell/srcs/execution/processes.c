@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:38:52 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/02 18:37:59 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/08 17:11:12 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	handle_child_process(t_node *current, int input_fd, int *pipe_fd,
 	char **envp)
 {
+	reset_signals_to_default();
 	if (input_fd != STDIN_FILENO)
 	{
 		if (dup2(input_fd, STDIN_FILENO) == -1)
@@ -48,6 +49,7 @@ int	wait_for_all_processes(void)
 	pid = waitpid(-1, &status, 0);
 	while (pid > 0)
 		pid = waitpid(-1, &status, 0);
+	g_in_child = 0;
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (1);
