@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/09 13:27:02 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/09 15:40:24 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_cmdlist	ft_parsing(char *argv, t_minishell *minishell)
 	if (converted_string == NULL)
 		return (command_list);
 	converted_string = replace_vars(minishell, converted_string);
-	if (converted_string == NULL)
+	if (converted_string == NULL || !*converted_string)
 		return (command_list);
 	command_array = get_command_array(converted_string);
 	free(converted_string);

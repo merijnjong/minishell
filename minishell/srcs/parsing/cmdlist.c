@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:06:10 by dkros             #+#    #+#             */
-/*   Updated: 2024/12/27 16:41:22 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/09 15:18:54 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_cmdlist	put_in_cmdlist(char **command_array)
 	t_cmdlist	command_list;
 
 	init_cmdlist(&command_list);
-	if (command_array == NULL)
+	if (command_array == NULL || !*command_array)
 		return (command_list);
 	i = 0;
 	while (command_array[i] != NULL)

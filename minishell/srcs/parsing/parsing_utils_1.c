@@ -6,7 +6,7 @@
 /*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/09 13:26:35 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/09 15:28:44 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ char	*extract_var_name(char **src)
 	char	*var_name;
 	size_t	var_len;
 
+	if (!*src)
+		return (NULL);
 	(*src)++;
 	start = *src;
 	while (ft_isalnum(**src) || **src == '_' || **src == '?')
