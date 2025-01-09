@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:46 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/08 20:20:27 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/09 13:26:35 by mjong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,3 @@ char	*handle_var(char **src, char *dst, t_minishell *minishell)
 	free(var_name);
 	return (dst + len);
 }
-
