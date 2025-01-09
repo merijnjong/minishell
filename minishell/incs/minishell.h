@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:33:23 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/08 19:46:59 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/09 11:30:06 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ char		*get_var_name(char *cmd, int *i);
 char		*get_var_value(char *cmd, int i);
 int			print_sorted_envlist(t_minishell *minishell);
 void		print_envlist(t_minishell *minishell);
+
+// srcs/builtins/export.c
+void		ft_setenv(t_minishell *envlist, char *var_name, char *var_value);
 
 // srcs/execution
 int			ft_execute(t_minishell *minishell, t_cmd *cmd);

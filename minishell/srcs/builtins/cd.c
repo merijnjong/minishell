@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:28:25 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/08 18:44:10 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/09 11:40:45 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int	cd(t_minishell *envlist, char **args)
 	else
 		result = cd_path(args[1], envlist);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		update_env(envlist, "PWD", cwd);
+		ft_setenv(envlist, "PWD", cwd);
 	return (result);
 }

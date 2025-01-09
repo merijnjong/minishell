@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:47:01 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/08 19:55:08 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/09 11:34:35 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,9 @@ int	update_shlvl(t_minishell *env)
 			lvl_str = ft_itoa(level + 1);
 			update_env(env, "SHLVL", lvl_str);
 			free(lvl_str);
+			return (0);
 		}
 		temp = temp->next_env;
 	}
-	return (0);
+	return (1);
 }

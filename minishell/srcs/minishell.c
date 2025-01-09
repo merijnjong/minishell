@@ -6,7 +6,7 @@
 /*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:44:08 by mjong             #+#    #+#             */
-/*   Updated: 2025/01/08 19:09:04 by dkros            ###   ########.fr       */
+/*   Updated: 2025/01/09 11:59:38 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_input(char **argv, char **envp)
 
 	init_minishell(&minishell, envp);
 	if (update_shlvl(&minishell) == 1)
-		perror("Failed to update SHLVL.\n");
+		ft_setenv(&minishell, "SHLVL", "1");
 	while (1)
 	{
 		argv[0] = readline("minishell> ");
