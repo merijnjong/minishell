@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjong <mjong@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dkros <dkros@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 15:05:39 by dkros             #+#    #+#             */
-/*   Updated: 2025/01/09 15:40:24 by mjong            ###   ########.fr       */
+/*   Updated: 2025/01/10 08:24:39 by dkros            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*replace_vars(t_minishell *minishell, char *str)
 {
 	char	*result;
 
-	result = malloc((ft_strlen(str) * 4) + 1);
+	result = malloc((ft_strlen(str) * 256) + 1);
 	if (!result)
 	{
 		free(str);
@@ -71,7 +71,7 @@ t_cmdlist	ft_parsing(char *argv, t_minishell *minishell)
 	if (check_for_errors(argv) != 0)
 		return (command_list);
 	converted_string = convert_string(argv);
-	if (converted_string == NULL)
+	if (converted_string == NULL || !*converted_string)
 		return (command_list);
 	converted_string = replace_vars(minishell, converted_string);
 	if (converted_string == NULL || !*converted_string)
